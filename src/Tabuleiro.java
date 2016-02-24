@@ -1,8 +1,14 @@
-import java.util.Scanner;
+import java.util.Random;
 
 public class Tabuleiro {
 	private char tabuleiro[];
 	private Heroi h = new Heroi(1, 1);
+	private Dragao dragao = new Dragao(1,3);
+
+
+
+
+
 
 	public void fillTab() {
 		tabuleiro = new char[] { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', '\n', 'X', ' ', ' ', ' ', ' ', ' ',
@@ -15,7 +21,7 @@ public class Tabuleiro {
 
 	public void displayTab() {
 		posicionar(9, 5, 'S');
-		posicionar(1, 3, 'D');
+		posicionar(dragao.get_pos_x(),dragao.get_pos_y(),dragao.get_simbolo());
 		posicionar(h.getPositionX(), h.getPositionY(), h.getSimbolo());
 		System.out.print(tabuleiro);
 	}
@@ -79,6 +85,56 @@ public class Tabuleiro {
 		}
 	}
 
+	public void moverDragao()
+	{
+		Random rn = new Random();
+		int x = dragao.get_pos_x();
+		int y = dragao.get_pos_y();
+		boolean move = false;
+		do
+		{
+			int mov = rn.nextInt() %4;
+			switch(mov)
+			{
+			case 0://Norte
+				if (getTabSimbolo(x, y - 1) == 'X')
+					break;
+				else 
+				{
+					tabuleiro[x+11*y] = ' ';
+					dragao.set_pos(x, y-1);
+					move =  true;
+				}
+			case 1://Sul
+				if (getTabSimbolo(x, y + 1) == 'X')
+					break;
+				else 
+				{
+					tabuleiro[x+11*y] = ' ';
+					dragao.set_pos(x, y+1);
+					move =  true;
+				}
+			case 2://Este
+				if (getTabSimbolo(x - 1, y) == 'X')
+					break;
+				else 
+				{
+					tabuleiro[x+11*y] = ' ';
+					dragao.set_pos(x-1, y);
+					move =  true;
+				}
+			case 3://Oeste
+				if (getTabSimbolo(x + 1, y) == 'X')
+					break;
+				else 
+				{
+					tabuleiro[x+11*y] = ' ';
+					dragao.set_pos(x+1, y);
+					move =  true;
+				}
+			}
+		}while(!move);
+	}
 	public boolean saidaTabuleiro(){
 		//adicionar morte do dragão
 		if(h.getPositionX() == 9 && h.getPositionY() == 5)
