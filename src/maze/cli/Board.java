@@ -3,23 +3,19 @@ package maze.cli;
 import java.util.Random;
 
 public class Board {
-	private char board[];
+	private char board[][] = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
+			{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
+			{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
+			{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', 'X', ' ', 'S' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
+			{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', 'E', 'X', 'X', ' ', ' ', ' ', ' ', ' ', 'X' },
+			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 	private Heroe heroe = new Heroe(1, 1);
 	private Dragon dragon = new Dragon(1, 4);
-
-	public void fillBoard() {
-		board = new char[] { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', '\n', 'X', ' ', ' ', ' ', ' ', ' ',
-				' ', ' ', ' ', 'X', '\n', 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X', '\n', 'X', ' ', 'X', 'X',
-				' ', 'X', ' ', 'X', ' ', 'X', '\n', 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X', '\n', 'X', ' ',
-				' ', ' ', ' ', ' ', ' ', 'X', ' ', 'X', '\n', 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X', '\n',
-				'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X', '\n', 'X', 'E', 'X', 'X', ' ', ' ', ' ', ' ', ' ',
-				'X', '\n', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', '\n' };
-	}
 
 	public void displayBoard() {
 		placeOnBoard(9, 5, 'S');
 		if (dragon.isAlive() == true) {
-			//if the dragon is colliding with the sword
+			// if the dragon is colliding with the sword
 			if (dragon.getPositionX() == 1 && dragon.getPositionY() == 8)
 				placeOnBoard(dragon.getPositionX(), dragon.getPositionY(), 'F');
 			else
@@ -141,7 +137,7 @@ public class Board {
 		} while (!move);
 	}
 
-	public void heroeDragonCollision(){
+	public void heroeDragonCollision() {
 		int dist_x = Math.abs(heroe.getPositionX() - dragon.getPositionX());
 		int dist_y = Math.abs(heroe.getPositionY() - dragon.getPositionY());
 		int dist = (int) Math.sqrt(dist_y * dist_y + dist_x * dist_x);
