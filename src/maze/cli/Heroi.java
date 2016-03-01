@@ -1,4 +1,4 @@
-
+package maze.cli;
 public class Heroi {
 	
 private int x;

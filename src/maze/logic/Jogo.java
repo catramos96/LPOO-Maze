@@ -1,4 +1,6 @@
+package maze.logic;
 import java.util.Scanner;
+import maze.cli.Tabuleiro;
 
 public class Jogo {
 	public static void main(String[] args) {

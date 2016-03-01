@@ -1,5 +1,4 @@
-
-
+package maze.cli;
 public class Dragao {
 
 	private int x;
@@ -20,7 +19,6 @@ public class Dragao {
 	{
 		return x;
 	}
-	
 	public int get_pos_y()
 	{
 		return y;
