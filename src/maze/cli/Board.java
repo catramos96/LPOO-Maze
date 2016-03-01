@@ -23,15 +23,20 @@ public class Board {
 		}
 		if (heroe.isAlive() == true)
 			placeOnBoard(heroe.getPositionX(), heroe.getPositionY(), heroe.getSymbol());
-		System.out.print(board);
+
+		for (int i = 0; i < 10; i++) {
+			System.out.println(board[i]);
+		}
+
 	}
 
 	public char getBoardSymbol(int x, int y) {
-		return board[x + 11 * y];
+		return board[y][x];
 	}
 
-	public void placeOnBoard(int x, int y, char rep) {
-		board[x + 11 * y] = rep;
+	public void placeOnBoard(int x, int y, char symbol) {
+		//x representa as colunas da matriz e y as linhas
+		board[y][x] = symbol;
 	}
 
 	public void moveHeroe(char direction) {
@@ -97,8 +102,7 @@ public class Board {
 				if (getBoardSymbol(x, y - 1) == 'X' || getBoardSymbol(x, y - 1) == 'E')
 					break;
 				else {
-					System.out.println("NORTE");
-					board[x + 11 * y] = ' ';
+					placeOnBoard(x, y, ' ');
 					dragon.setPosition(x, y - 1);
 					move = true;
 				}
@@ -107,8 +111,7 @@ public class Board {
 				if (getBoardSymbol(x, y + 1) == 'X' || getBoardSymbol(x, y + 1) == 'E')
 					break;
 				else {
-					System.out.println("SUL");
-					board[x + 11 * y] = ' ';
+					placeOnBoard(x, y, ' ');
 					dragon.setPosition(x, y + 1);
 					move = true;
 				}
@@ -117,8 +120,7 @@ public class Board {
 				if (getBoardSymbol(x - 1, y) == 'X' || getBoardSymbol(x - 1, y) == 'E')
 					break;
 				else {
-					System.out.println("ESTE");
-					board[x + 11 * y] = ' ';
+					placeOnBoard(x, y, ' ');
 					dragon.setPosition(x - 1, y);
 					move = true;
 				}
@@ -127,8 +129,7 @@ public class Board {
 				if (getBoardSymbol(x + 1, y) == 'X' || getBoardSymbol(x + 1, y) == 'E')
 					break;
 				else {
-					System.out.println("OESTE");
-					board[x + 11 * y] = ' ';
+					placeOnBoard(x, y, ' ');
 					dragon.setPosition(x + 1, y);
 					move = true;
 				}
