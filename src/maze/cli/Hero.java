@@ -1,12 +1,12 @@
 package maze.cli;
-public class Heroe {
+public class Hero {
 	
 private int x;
 private int y;
 private char symbol;
 private boolean alive;
 
-public Heroe(int xi, int yi){
+public Hero(int xi, int yi){
 	x = xi;
 	y = yi;
 	symbol = 'H';

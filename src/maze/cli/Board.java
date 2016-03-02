@@ -9,16 +9,16 @@ public class Board {
 			{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', 'X', ' ', 'S' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
 			{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', 'E', 'X', 'X', ' ', ' ', ' ', ' ', ' ', 'X' },
 			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
-	private Heroe heroe = new Heroe(1, 1);
+	private Hero hero = new Hero(1, 1);
 	private Dragon dragon = new Dragon(1, 4);
 
 	public char[][] getBoard() {
 		placeOnBoard(9, 5, 'S');
 
 		if (dragon.isAlive() == true) {
-			if (heroe.isAlive() == true) {
-				placeOnBoard(heroe.getPositionX(), heroe.getPositionY(), heroe.getSymbol());
-				if (heroe.getSymbol() == 'H')
+			if (hero.isAlive() == true) {
+				placeOnBoard(hero.getPositionX(), hero.getPositionY(), hero.getSymbol());
+				if (hero.getSymbol() == 'H')
 					placeOnBoard(1, 8, 'E');
 			}
 
@@ -44,8 +44,8 @@ public class Board {
 	}
 
 	public void moveHeroe(char direction) {
-		int x = heroe.getPositionX();
-		int y = heroe.getPositionY();
+		int x = hero.getPositionX();
+		int y = hero.getPositionY();
 
 		switch (direction) {
 		case 'a': // esquerda
@@ -53,8 +53,8 @@ public class Board {
 			if (getBoardSymbol(x - 1, y) == 'X')
 				break;
 			else if (getBoardSymbol(x - 1, y) == 'E')
-				heroe.equipArmor();
-			heroe.setPosition(x - 1, y);
+				hero.equipArmor();
+			hero.setPosition(x - 1, y);
 			placeOnBoard(x, y, ' ');
 			break;
 		}
@@ -63,8 +63,8 @@ public class Board {
 			if (getBoardSymbol(x, y + 1) == 'X')
 				break;
 			else if (getBoardSymbol(x, y + 1) == 'E')
-				heroe.equipArmor();
-			heroe.setPosition(x, y + 1);
+				hero.equipArmor();
+			hero.setPosition(x, y + 1);
 			placeOnBoard(x, y, ' ');
 			break;
 		}
@@ -73,8 +73,8 @@ public class Board {
 			if (getBoardSymbol(x + 1, y) == 'X')
 				break;
 			else if (getBoardSymbol(x + 1, y) == 'E')
-				heroe.equipArmor();
-			heroe.setPosition(x + 1, y);
+				hero.equipArmor();
+			hero.setPosition(x + 1, y);
 			placeOnBoard(x, y, ' ');
 			break;
 		}
@@ -83,8 +83,8 @@ public class Board {
 			if (getBoardSymbol(x, y - 1) == 'X')
 				break;
 			else if (getBoardSymbol(x, y - 1) == 'E')
-				heroe.equipArmor();
-			heroe.setPosition(x, y - 1);
+				hero.equipArmor();
+			hero.setPosition(x, y - 1);
 			placeOnBoard(x, y, ' ');
 			break;
 		}
@@ -164,14 +164,14 @@ public class Board {
 	}
 
 	public void heroeDragonCollision() {
-		int dist_x = Math.abs(heroe.getPositionX() - dragon.getPositionX());
-		int dist_y = Math.abs(heroe.getPositionY() - dragon.getPositionY());
+		int dist_x = Math.abs(hero.getPositionX() - dragon.getPositionX());
+		int dist_y = Math.abs(hero.getPositionY() - dragon.getPositionY());
 		int dist = (int) Math.sqrt(dist_y * dist_y + dist_x * dist_x);
 		int emlinha = dist_x + dist_y;// ANULAR A dist em diagonal
 		if ((dist == 0 || dist == 1) && (emlinha == 1 || emlinha == 0))
-			if (heroe.getSymbol() == 'H' && (dragon.getSymbol() == 'D' || dragon.getSymbol() == 'd'))
-				heroe.setAlive(false);
-			else if (heroe.getSymbol() == 'A')
+			if (hero.getSymbol() == 'H' && (dragon.getSymbol() == 'D' || dragon.getSymbol() == 'd'))
+				hero.setAlive(false);
+			else if (hero.getSymbol() == 'A')
 				dragon.setAlive(false);
 	}
 
@@ -183,9 +183,9 @@ public class Board {
 
 	public boolean boardExit() {
 
-		if (heroe.getPositionX() == 9 && heroe.getPositionY() == 5 && dragon.isAlive() == false) {
+		if (hero.getPositionX() == 9 && hero.getPositionY() == 5 && dragon.isAlive() == false) {
 			return true;
-		} else if (heroe.isAlive() == false) {
+		} else if (hero.isAlive() == false) {
 			return true;
 		} else
 			return false;
