@@ -10,7 +10,7 @@ public class Board {
 			{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', 'E', 'X', 'X', ' ', ' ', ' ', ' ', ' ', 'X' },
 			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 	private Heroe heroe = new Heroe(1, 1);
-	private Dragon dragon = new Dragon(1, 8);
+	private Dragon dragon = new Dragon(1, 4);
 
 	public char[][] getBoard() {
 		placeOnBoard(9, 5, 'S');
