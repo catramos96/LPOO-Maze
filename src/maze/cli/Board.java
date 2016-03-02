@@ -14,25 +14,22 @@ public class Board {
 
 	public char[][] getBoard() {
 		placeOnBoard(9, 5, 'S');
-		
+
 		if (dragon.isAlive() == true) {
-			if (heroe.isAlive() == true)
-			{
+			if (heroe.isAlive() == true) {
 				placeOnBoard(heroe.getPositionX(), heroe.getPositionY(), heroe.getSymbol());
-				if(heroe.getSymbol() == 'H')
-				placeOnBoard(1,8,'E');
+				if (heroe.getSymbol() == 'H')
+					placeOnBoard(1, 8, 'E');
 			}
-			
+
 			// if the dragon is colliding with the sword
-			if (dragon.getPositionX() == 1 && dragon.getPositionY() == 8)
-			{
+			if (dragon.getPositionX() == 1 && dragon.getPositionY() == 8) {
 				dragon.setSymbol('F');
 				placeOnBoard(dragon.getPositionX(), dragon.getPositionY(), 'F');
-			}
-			else
+			} else
 				placeOnBoard(dragon.getPositionX(), dragon.getPositionY(), dragon.getSymbol());
 		}
-	
+
 		return board;
 
 	}
@@ -42,7 +39,7 @@ public class Board {
 	}
 
 	public void placeOnBoard(int x, int y, char symbol) {
-	//x representa as col	unas da matriz e y as linhas
+		// x representa as col unas da matriz e y as linhas
 		board[y][x] = symbol;
 	}
 
@@ -96,9 +93,9 @@ public class Board {
 		}
 	}
 
-	public void moveDragon(boolean sleep,boolean paralyzed) {
-		
-		if(paralyzed == true)
+	public void moveDragon(boolean sleep, boolean paralyzed) {
+
+		if (paralyzed == true)
 			return;
 		Random rn = new Random();
 		int x = dragon.getPositionX();
@@ -107,11 +104,11 @@ public class Board {
 		boolean move = false;
 		do {
 			int mov;
-			if(sleep == true)
-				mov = rn.nextInt() % 6 ;
+			if (sleep == true)
+				mov = rn.nextInt() % 6;
 			else
-				mov = rn.nextInt() % 4 ;
-				
+				mov = rn.nextInt() % 4;
+
 			switch (mov) {
 			case 0:// Norte
 				if (getBoardSymbol(x, y - 1) == 'X' || getBoardSymbol(x, y - 1) == 'E')
@@ -154,16 +151,15 @@ public class Board {
 				}
 				break;
 			case 4:
-				move = true;//Sleep
+				move = true;// Sleep
 				dragon.setSymbol('d');
 				break;
 			case 5:
-				move = true;//Sleep
+				move = true;// Sleep
 				dragon.setSymbol('d');
 				break;
 			}
-			
-			
+
 		} while (!move);
 	}
 
@@ -173,18 +169,18 @@ public class Board {
 		int dist = (int) Math.sqrt(dist_y * dist_y + dist_x * dist_x);
 		int emlinha = dist_x + dist_y;// ANULAR A dist em diagonal
 		if ((dist == 0 || dist == 1) && (emlinha == 1 || emlinha == 0))
-			if (heroe.getSymbol() == 'H' && dragon.getSymbol() == 'D')
+			if (heroe.getSymbol() == 'H' && (dragon.getSymbol() == 'D' || dragon.getSymbol() == 'd'))
 				heroe.setAlive(false);
 			else if (heroe.getSymbol() == 'A')
 				dragon.setAlive(false);
 	}
 
-	public void newTurn(char direction,boolean dragon_sleep, boolean dragon_paralysed)
-	{
+	public void newTurn(char direction, boolean dragon_sleep, boolean dragon_paralysed) {
 		moveHeroe(direction);
-		moveDragon(dragon_sleep,dragon_paralysed);
+		moveDragon(dragon_sleep, dragon_paralysed);
 		heroeDragonCollision();
 	}
+
 	public boolean boardExit() {
 
 		if (heroe.getPositionX() == 9 && heroe.getPositionY() == 5 && dragon.isAlive() == false) {
