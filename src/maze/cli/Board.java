@@ -14,14 +14,14 @@ public class Board {
 
 	public char[][] getBoard() {
 		placeOnBoard(9, 5, 'S');
+		
+		if (hero.isAlive() == true) {
+			placeOnBoard(hero.getPositionX(), hero.getPositionY(), hero.getSymbol());
+			if (hero.getSymbol() == 'H')
+				placeOnBoard(1, 8, 'E');
+		}
 
 		if (dragon.isAlive() == true) {
-			if (hero.isAlive() == true) {
-				placeOnBoard(hero.getPositionX(), hero.getPositionY(), hero.getSymbol());
-				if (hero.getSymbol() == 'H')
-					placeOnBoard(1, 8, 'E');
-			}
-
 			// if the dragon is colliding with the sword
 			if (dragon.getPositionX() == 1 && dragon.getPositionY() == 8) {
 				dragon.setSymbol('F');
