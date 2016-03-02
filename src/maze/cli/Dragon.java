@@ -4,16 +4,20 @@ public class Dragon {
 	private int x;
 	private int y;
 	private boolean alive = true;
-	char symbol = 'D';
+	private char symbol = 'D';
 
 	public void setPosition(int xx, int yy)
 	{
 		x=xx;
 		y=yy;
 	}
-	public void setAlive(boolean a)
+	public void setSymbol(char mark)
 	{
-		alive = a;
+		symbol = mark;
+	}
+	public void setAlive(boolean live)
+	{
+		alive = live;
 	}
 	public int getPositionX()
 	{
