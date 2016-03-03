@@ -30,12 +30,14 @@ public class Board {
 														// ENCONTRO A
 		else
 			hero.setPosition(pos);
+		cleanPosition(pos);
 		// dragon
 		pos = getPositionSymbol('D');
 		if (pos == null)
 			dragon.setPosition(getPositionSymbol('F'));// --------------- null ?
 		else
 			dragon.setPosition(pos);
+		cleanPosition(pos);
 		// sword
 		pos = getPositionSymbol('E');
 		if (pos == null)
@@ -43,8 +45,11 @@ public class Board {
 														// null?
 		else
 			sword.setPosition(pos);
+		cleanPosition(pos);
+
 		// exit
 		exit.setXY(getPositionSymbol('S').getX(), getPositionSymbol('S').getY());
+		cleanPosition(pos);
 	}
 
 	public Point getPositionSymbol(char symbol) {
@@ -68,16 +73,15 @@ public class Board {
 				dragon.setSymbol('D');
 			}
 		}
-		//just in case...
-		if(hero.getX() == sword.getX() && hero.getY() == sword.getY()){
+		// just in case...
+		if (hero.getX() == sword.getX() && hero.getY() == sword.getY()) {
 			sword.setUse(true);
 			hero.equipArmor();
 		}
 	}
 
 	public void cleanPosition(Point p) {
-		if (getBoardSymbol(p) != 'X')
-			board[p.getY()][p.getX()] = ' ';
+		placeOnBoard(p, ' ');
 	}
 
 	public char[][] getBoard() {
@@ -123,8 +127,8 @@ public class Board {
 				hero.equipArmor();
 				sword.setUse(true);
 			}
-			hero.setPosition(new_pos);
 			cleanPosition(ini_pos);
+			hero.setPosition(new_pos);
 			break;
 		}
 		case 's': // baixo
@@ -136,8 +140,8 @@ public class Board {
 				hero.equipArmor();
 				sword.setUse(true);
 			}
-			hero.setPosition(new_pos);
 			cleanPosition(ini_pos);
+			hero.setPosition(new_pos);
 			break;
 		}
 		case 'd': // direita
@@ -149,8 +153,8 @@ public class Board {
 				hero.equipArmor();
 				sword.setUse(true);
 			}
-			hero.setPosition(new_pos);
 			cleanPosition(ini_pos);
+			hero.setPosition(new_pos);
 			break;
 		}
 		case 'w': // cima
@@ -162,8 +166,8 @@ public class Board {
 				hero.equipArmor();
 				sword.setUse(true);
 			}
-			hero.setPosition(new_pos);
 			cleanPosition(ini_pos);
+			hero.setPosition(new_pos);
 			break;
 		}
 		default:
@@ -265,7 +269,7 @@ public class Board {
 
 	public boolean boardExit() {
 
-		if (hero.getPosition().getX() == 9 && hero.getPosition().getY() == 5 && dragon.isAlive() == false) {
+		if (hero.getPosition().getX() == exit.getX() && hero.getPosition().getY() == exit.getY() && dragon.isAlive() == false) {
 			return true;
 		} else if (hero.isAlive() == false) {
 			return true;
