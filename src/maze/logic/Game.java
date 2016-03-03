@@ -16,9 +16,9 @@ public class Game {
 
 	public static void displayBoard() {
 		board.updateBoard();
-		// if (heroAlive())
+		 if (heroAlive())
 		board.placeOnBoard(board.getHero().getPosition(), board.getHero().getSymbol());
-		if (board.getDragon().isAlive())
+		if (dragonAlive())
 			board.placeOnBoard(board.getDragon().getPosition(), board.getDragon().getSymbol());
 		if (!board.getSword().inUse())
 			board.placeOnBoard(board.getSword().getPosition(), board.getSword().getSymbol());
@@ -32,6 +32,10 @@ public class Game {
 		return (board.getHero().isAlive());
 	}
 
+	public static boolean dragonAlive(){
+		return board.getDragon().isAlive();
+	}
+	
 	public static Board getBoard() {
 		return board;
 	}
@@ -52,6 +56,13 @@ public class Game {
 		board.moveHero('s');
 	}
 
+	public static void endGame(){
+		if(heroAlive())
+			System.out.println("The HERO wins!");
+		else
+			System.out.println("The HERO died!");
+	}
+	
 	public static void main(String[] args) {
 
 		char[][] b1 = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
@@ -66,6 +77,13 @@ public class Game {
 				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 
 		board.setBoard(b1);
+		
+		displayBoard();
+		System.out.println(heroAlive());
+		board.moveHero('d');
+		displayBoard();
+		System.out.println(heroAlive());
+		System.out.println(board.getDragon().isAlive());
 
 		Scanner s = new Scanner(System.in);
 
@@ -98,6 +116,8 @@ public class Game {
 
 		} while (!board.boardExit());// Enquanto nao chegar a saida
 
+		endGame();
+		
 		s.close();
 
 	}

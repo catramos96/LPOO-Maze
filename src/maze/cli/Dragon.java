@@ -7,6 +7,7 @@ public class Dragon extends Point {
 
 	public Dragon() {
 		this.setXY(1,1);
+		alive = true;
 	}
 
 	public Dragon(Point p) {

@@ -7,6 +7,7 @@ public class Hero extends Point {
 
 	public Hero() {
 		this.setXY(1, 1);
+		alive = true;
 	}
 
 	public Hero(Point p) {
