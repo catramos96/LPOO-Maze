@@ -13,11 +13,6 @@ public class Point {
 		x = xi;
 		y = yi;
 	}
-	
-	public void setPointPos(Point p){
-		x = p.getX();
-		y = p.getY();
-	}
 
 	public int getX() {
 		return x;
@@ -26,12 +21,12 @@ public class Point {
 	public int getY() {
 		return y;
 	}
-	
-	public void setXY(int new_x, int new_y){
+
+	public void setXY(int new_x,int new_y){
 		x = new_x;
 		y = new_y;
 	}
-
+	
 	public void setX(int new_x) {
 		x = new_x;
 	}

@@ -16,64 +16,35 @@ public class Board {
 		board = b;
 	}
 
+	public Board(char[][] b) {
+		setBoard(b);
+	}
+
 	public void setBoard(char[][] b) {
 		board = b;
 		Point pos;
-		pos = getHeroPosition();
-		hero.setPosition(pos.getX(), pos.getY());
-		pos.setPointPos(getDragonPosition());
-		dragon.setPosition(pos.getX(), pos.getY());
-		pos = getSwordPosition();
-		sword.setPosition(pos.getX(), pos.getY());
-		pos = getExitPosition();
-		exit = pos;
-	}
-
-	public char[][] getBoard() {
-		placeOnBoard(9, 5, 'S');
-
-		if (hero.isAlive() == true) {
-			placeOnBoard(hero.getPosition().getX(), hero.getPosition().getY(), hero.getSymbol());
-			if (hero.getSymbol() == 'H')
-				placeOnBoard(1, 8, 'E');
-		}
-
-		if (dragon.isAlive() == true) {
-			// if the dragon is colliding with the sword
-			if (dragon.getPosition().getX() == 1 && dragon.getPosition().getY() == 8) {
-				dragon.setSymbol('F');
-				placeOnBoard(dragon.getPosition().getX(), dragon.getPosition().getY(), 'F');
-			} else
-				placeOnBoard(dragon.getPosition().getX(), dragon.getPosition().getY(), dragon.getSymbol());
-		}
-
-		return board;
-
-	}
-
-	public Point getHeroPosition() {
-		if (getPositionSymbol('H') == null)
-			return getPositionSymbol('A');
+		// hero
+		pos = getPositionSymbol('H');
+		if (pos == null)
+			hero.setPosition(getPositionSymbol('A')); // LANÇAR EXCEÇÃO CASO NÃO
+														// ENCONTRO A
 		else
-			return getPositionSymbol('H');
-	}
-
-	public Point getDragonPosition() {
-		if (getPositionSymbol('D') == null)
-			return getPositionSymbol('F');
+			hero.setPosition(pos);
+		// dragon
+		pos = getPositionSymbol('D');
+		if (pos == null)
+			dragon.setPosition(getPositionSymbol('F'));// --------------- null ?
 		else
-			return getPositionSymbol('D');
-	}
-
-	public Point getSwordPosition() {
-		if (getPositionSymbol('E') == null)
-			return getPositionSymbol('F');
+			dragon.setPosition(pos);
+		// sword
+		pos = getPositionSymbol('E');
+		if (pos == null)
+			sword.setPosition(getPositionSymbol('F'));// -------------------
+														// null?
 		else
-			return getPositionSymbol('E');
-	}
-
-	public Point getExitPosition() {
-		return getPositionSymbol('S');
+			sword.setPosition(pos);
+		// exit
+		exit.setXY(getPositionSymbol('S').getX(), getPositionSymbol('S').getY());
 	}
 
 	public Point getPositionSymbol(char symbol) {
@@ -89,62 +60,110 @@ public class Board {
 		return pos;
 	}
 
+	public void updateBoard() {
+		if (dragon.isAlive() == true) {
+			if (dragon.getX() == sword.getX() && dragon.getY() == sword.getY()) {
+				dragon.setSymbol('F');
+			} else {
+				dragon.setSymbol('D');
+			}
+		}
+		//just in case...
+		if(hero.getX() == sword.getX() && hero.getY() == sword.getY()){
+			sword.setUse(true);
+			hero.equipArmor();
+		}
+	}
+
+	public void cleanPosition(Point p) {
+		if (getBoardSymbol(p) != 'X')
+			board[p.getY()][p.getX()] = ' ';
+	}
+
+	public char[][] getBoard() {
+		return board;
+	}
+
 	public Hero getHero() {
 		return hero;
 	}
 
-	public char getBoardSymbol(int x, int y) {
-		return board[y][x];
+	public Dragon getDragon() {
+		return dragon;
 	}
 
-	public void placeOnBoard(int x, int y, char symbol) {
+	public Sword getSword() {
+		return sword;
+	}
+
+	public Point getExit() {
+		return exit;
+	}
+
+	public char getBoardSymbol(Point p) {
 		// x representa as col unas da matriz e y as linhas
-		board[y][x] = symbol;
+		return board[p.getY()][p.getX()];
+	}
+
+	public void placeOnBoard(Point position, char symbol) {
+		board[position.getY()][position.getX()] = symbol;
 	}
 
 	public void moveHero(char direction) {
-		int x = hero.getPosition().getX();
-		int y = hero.getPosition().getY();
+		Point ini_pos = hero.getPosition();
+		Point new_pos = new Point();
 
 		switch (direction) {
 		case 'a': // esquerda
 		{
-			if (getBoardSymbol(x - 1, y) == 'X')
+			new_pos.setXY(ini_pos.getX() - 1, ini_pos.getY());
+			if (getBoardSymbol(new_pos) == 'X')
 				break;
-			else if (getBoardSymbol(x - 1, y) == 'E')
+			else if (getBoardSymbol(new_pos) == 'E') {
 				hero.equipArmor();
-			hero.setPosition(x - 1, y);
-			placeOnBoard(x, y, ' ');
+				sword.setUse(true);
+			}
+			hero.setPosition(new_pos);
+			cleanPosition(ini_pos);
 			break;
 		}
 		case 's': // baixo
 		{
-			if (getBoardSymbol(x, y + 1) == 'X')
+			new_pos.setXY(ini_pos.getX(), ini_pos.getY() + 1);
+			if (getBoardSymbol(new_pos) == 'X')
 				break;
-			else if (getBoardSymbol(x, y + 1) == 'E')
+			else if (getBoardSymbol(new_pos) == 'E') {
 				hero.equipArmor();
-			hero.setPosition(x, y + 1);
-			placeOnBoard(x, y, ' ');
+				sword.setUse(true);
+			}
+			hero.setPosition(new_pos);
+			cleanPosition(ini_pos);
 			break;
 		}
 		case 'd': // direita
 		{
-			if (getBoardSymbol(x + 1, y) == 'X')
+			new_pos.setXY(ini_pos.getX() + 1, ini_pos.getY());
+			if (getBoardSymbol(new_pos) == 'X')
 				break;
-			else if (getBoardSymbol(x + 1, y) == 'E')
+			else if (getBoardSymbol(new_pos) == 'E') {
 				hero.equipArmor();
-			hero.setPosition(x + 1, y);
-			placeOnBoard(x, y, ' ');
+				sword.setUse(true);
+			}
+			hero.setPosition(new_pos);
+			cleanPosition(ini_pos);
 			break;
 		}
 		case 'w': // cima
 		{
-			if (getBoardSymbol(x, y - 1) == 'X')
+			new_pos.setXY(ini_pos.getX(), ini_pos.getY() - 1);
+			if (getBoardSymbol(new_pos) == 'X')
 				break;
-			else if (getBoardSymbol(x, y - 1) == 'E')
+			else if (getBoardSymbol(new_pos) == 'E') {
 				hero.equipArmor();
-			hero.setPosition(x, y - 1);
-			placeOnBoard(x, y, ' ');
+				sword.setUse(true);
+			}
+			hero.setPosition(new_pos);
+			cleanPosition(ini_pos);
 			break;
 		}
 		default:
@@ -157,8 +176,8 @@ public class Board {
 		if (paralyzed == true)
 			return;
 		Random rn = new Random();
-		int x = dragon.getPosition().getX();
-		int y = dragon.getPosition().getY();
+		Point ini_pos = dragon.getPosition();
+		Point new_pos = new Point();
 
 		boolean move = false;
 		do {
@@ -170,41 +189,45 @@ public class Board {
 
 			switch (mov) {
 			case 0:// Norte
-				if (getBoardSymbol(x, y - 1) == 'X' || getBoardSymbol(x, y - 1) == 'E')
+				new_pos.setXY(ini_pos.getX(), ini_pos.getY() - 1);
+				if (getBoardSymbol(new_pos) == 'X' || getBoardSymbol(new_pos) == 'E')
 					break;
 				else {
-					placeOnBoard(x, y, ' ');
-					dragon.setPosition(x, y - 1);
+					cleanPosition(ini_pos);
+					dragon.setPosition(new_pos);
 					dragon.setSymbol('D');
 					move = true;
 				}
 				break;
 			case 1:// Sul
-				if (getBoardSymbol(x, y + 1) == 'X' || getBoardSymbol(x, y + 1) == 'E')
+				new_pos.setXY(ini_pos.getX(), ini_pos.getY() + 1);
+				if (getBoardSymbol(new_pos) == 'X' || getBoardSymbol(new_pos) == 'E')
 					break;
 				else {
-					placeOnBoard(x, y, ' ');
-					dragon.setPosition(x, y + 1);
+					cleanPosition(ini_pos);
+					dragon.setPosition(new_pos);
 					dragon.setSymbol('D');
 					move = true;
 				}
 				break;
 			case 2:// Este
-				if (getBoardSymbol(x - 1, y) == 'X' || getBoardSymbol(x - 1, y) == 'E')
+				new_pos.setXY(ini_pos.getX() - 1, ini_pos.getY());
+				if (getBoardSymbol(new_pos) == 'X' || getBoardSymbol(new_pos) == 'E')
 					break;
 				else {
-					placeOnBoard(x, y, ' ');
-					dragon.setPosition(x - 1, y);
+					cleanPosition(ini_pos);
+					dragon.setPosition(new_pos);
 					dragon.setSymbol('D');
 					move = true;
 				}
 				break;
 			case 3:// Oeste
-				if (getBoardSymbol(x + 1, y) == 'X' || getBoardSymbol(x + 1, y) == 'E')
+				new_pos.setXY(ini_pos.getX() + 1, ini_pos.getY());
+				if (getBoardSymbol(new_pos) == 'X' || getBoardSymbol(new_pos) == 'E')
 					break;
 				else {
-					placeOnBoard(x, y, ' ');
-					dragon.setPosition(x + 1, y);
+					cleanPosition(ini_pos);
+					dragon.setPosition(new_pos);
 					dragon.setSymbol('D');
 					move = true;
 				}
@@ -222,7 +245,7 @@ public class Board {
 		} while (!move);
 	}
 
-	public void heroeDragonCollision() {
+	public void heroDragonCollision() {
 		int dist_x = Math.abs(hero.getPosition().getX() - dragon.getPosition().getX());
 		int dist_y = Math.abs(hero.getPosition().getY() - dragon.getPosition().getY());
 		int dist = (int) Math.sqrt(dist_y * dist_y + dist_x * dist_x);
@@ -237,7 +260,7 @@ public class Board {
 	public void newTurn(char direction, boolean dragon_sleep, boolean dragon_paralysed) {
 		moveHero(direction);
 		moveDragon(dragon_sleep, dragon_paralysed);
-		heroeDragonCollision();
+		heroDragonCollision();
 	}
 
 	public boolean boardExit() {

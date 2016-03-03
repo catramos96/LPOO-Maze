@@ -6,17 +6,17 @@ public class Hero extends Point {
 	private boolean alive;
 
 	public Hero() {
-		this.setXY(0, 0);
+		this.setXY(1, 1);
 	}
 
-	public Hero(int xi, int yi) {
-		this.setXY(xi, yi);
+	public Hero(Point p) {
+		this.setPosition(p);
 		symbol = 'H';
 		alive = true;
 	}
 
-	public void setPosition(int new_x, int new_y) {
-		this.setXY(new_x, new_y);
+	public void setPosition(Point p) {
+		this.setXY(p.getX(), p.getY());
 	}
 
 	public void setSymbol(char new_symbol) {
@@ -27,14 +27,12 @@ public class Hero extends Point {
 		alive = a;
 	}
 
-	public boolean isAlive()
-
-	{
+	public boolean isAlive(){
 		return alive;
 	}
 
 	public Point getPosition() {
-		return (Point)this;
+		return (Point) this;
 	}
 
 	public char getSymbol() {

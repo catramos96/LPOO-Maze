@@ -6,19 +6,23 @@ public class Dragon extends Point {
 	private char symbol = 'D';
 
 	public Dragon() {
-		this.setPosition(1, 1);
+		this.setXY(1,1);
 	}
 
-	public void setPosition(int xi, int yi) {
-		this.setXY(xi, yi);
+	public Dragon(Point p) {
+		this.setPosition(p);
+	}
+	
+	public void setPosition(Point p) {
+		this.setXY(p.getX(), p.getY());
 	}
 
-	public void setSymbol(char mark) {
-		symbol = mark;
+	public void setSymbol(char s) {
+		symbol = s;
 	}
 
-	public void setAlive(boolean live) {
-		alive = live;
+	public void setAlive(boolean l) {
+		alive = l;
 	}
 
 	public Point getPosition() {
@@ -33,8 +37,6 @@ public class Dragon extends Point {
 		return symbol;
 	}
 
-	public Dragon(int new_x, int new_y) {
-		this.setPosition(new_x, new_y);
-	}
+	
 
 }

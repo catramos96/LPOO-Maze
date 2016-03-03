@@ -6,7 +6,7 @@ private char symbol = 'E';
 private boolean state;
 
 public Sword(){
-	this.setXY(0, 0);
+	this.setXY(1, 1);
 	state = false;
 }
 
@@ -18,14 +18,19 @@ public Sword(int x, int y){
 public Point getPosition(){
 	return (Point)this;
 }
-public void setPosition(int new_x,int new_y){
-	this.setXY(new_x, new_y);
+
+public char getSymbol(){
+	return symbol;
+}
+
+public void setPosition(Point p){
+	this.setXY(p.getX(),p.getY());
 }
 public boolean inUse(){
 	return state;
 }
 
-public void setState(boolean b){
+public void setUse(boolean b){
 	state = b;
 }
 }
