@@ -1,8 +1,11 @@
-package maze.cli;
+package maze.logi;
 
 public class Dragon extends Point {
 
 	private boolean alive = true;
+	private boolean sleep_mode = false;
+	private boolean paralysed_mode = false;
+	
 	private char symbol = 'D';
 
 	public Dragon() {
@@ -38,6 +41,21 @@ public class Dragon extends Point {
 		return symbol;
 	}
 
-	
+	public void setSleepMode(boolean sleep)
+	{
+		sleep_mode = sleep;
+	}
+	public boolean getSleepMode()
+	{
+		return sleep_mode;
+	}
+	public void setParalysedMode(boolean paralysed)
+	{
+		paralysed_mode = paralysed;
+	}
+	public boolean getParalysedMode ()
+	{
+		return paralysed_mode;
+	}
 
 }

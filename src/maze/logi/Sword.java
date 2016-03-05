@@ -1,4 +1,4 @@
-package maze.cli;
+package maze.logi;
 
 public class Sword extends Point{
 	

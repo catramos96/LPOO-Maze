@@ -1,6 +1,6 @@
-package maze.cli;
+package maze.logi;
 
-import java.awt.List;
+
 import java.util.Random;
 
 public class MazeGenerator {
@@ -109,11 +109,5 @@ public class MazeGenerator {
 		
 		
 	}
-	private void carvePath()
-	{
-		List Path;
-		
-		
-		
-	}
+	
 }
