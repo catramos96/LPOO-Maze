@@ -81,17 +81,14 @@ public class Board {
 		if (pos == null)
 			hero.setPosition(getPositionSymbol('A')); // LAN�AR EXCE��O
 														// CASO N�O
-		// ENCONTRO A
 		else
 			hero.setPosition(pos);
-		cleanPosition(pos);
 		// dragon
 		pos = getPositionSymbol('D');
 		if (pos == null)
 			dragon.setPosition(getPositionSymbol('F'));// --------------- null ?
 		else
 			dragon.setPosition(pos);
-		cleanPosition(pos);
 		// sword
 		pos = getPositionSymbol('E');
 		if (pos == null)
@@ -99,11 +96,9 @@ public class Board {
 		// null?
 		else
 			sword.setPosition(pos);
-		cleanPosition(pos);
 
 		// exit
 		exit.setXY(getPositionSymbol('S').getX(), getPositionSymbol('S').getY());
-		cleanPosition(pos);
 	}
 
 	public void setDragonBehaviour(char dragon_MODE) {
@@ -127,6 +122,7 @@ public class Board {
 		}
 		cleanPosition(ini_pos);
 		hero.setPosition(new_pos);
+		heroDragonCollision();
 	}
 
 	public void moveHero(char direction) {
@@ -221,13 +217,20 @@ public class Board {
 	 * BOOLEAN *
 	 *****************/
 
-	public boolean boardExit() {
+	public boolean exitBoard() {
 
-		if (hero.getPosition().equals(exit) && dragon.isAlive() == false) {
+		if (heroWins()) {
 			return true;
 		} else if (hero.isAlive() == false) {
 			return true;
 		} else
+			return false;
+	}
+
+	public boolean heroWins() {
+		if (hero.getPosition().equals(exit) && dragon.isAlive() == false)
+			return true;
+		else
 			return false;
 	}
 

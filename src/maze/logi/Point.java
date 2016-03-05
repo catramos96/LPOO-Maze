@@ -52,8 +52,9 @@ public class Point {
 		y = new_y;
 	}
 
-	public boolean equals(Point p) {
-		if (p.getX() == x && p.getY() == y)
+	@Override
+	public boolean equals(Object p) {
+		if (((Point) p).getX() == x && ((Point) p).getY() == y)
 			return true;
 		else
 			return false;
