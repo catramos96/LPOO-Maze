@@ -1,36 +1,57 @@
 package maze.logi;
 
-public class Sword extends Point{
-	
-private char symbol = 'E';
-private boolean state;
+public class Sword extends Point {
 
-public Sword(){
-	this.setXY(1, 1);
-	state = false;
-}
+	/**************************************** ATTRIBUTES */
 
-public Sword(int x, int y){
-	this.setXY(x, y);
-	state = false;
-}
+	private char symbol = 'E';
+	private boolean state;
 
-public Point getPosition(){
-	return (Point)this;
-}
+	/**************************************** FUNCTIONS */
 
-public char getSymbol(){
-	return symbol;
-}
+	/*****************
+	 * CONSTRUCTOR *
+	 *****************/
 
-public void setPosition(Point p){
-	this.setXY(p.getX(),p.getY());
-}
-public boolean inUse(){
-	return state;
-}
+	public Sword() {
+		this.setXY(1, 1);
+		state = false;
+	}
 
-public void setUse(boolean b){
-	state = b;
-}
+	public Sword(int x, int y) {
+		this.setXY(x, y);
+		state = false;
+	}
+
+	/*****************
+	 * GETS *
+	 *****************/
+
+	public Point getPosition() {
+		return (Point) this;
+	}
+
+	public char getSymbol() {
+		return symbol;
+	}
+
+	/*****************
+	 * SETS *
+	 *****************/
+
+	public void setPosition(Point p) {
+		this.setXY(p.getX(), p.getY());
+	}
+
+	public void setUse(boolean b) {
+		state = b;
+	}
+
+	/*****************
+	 * BOOLEAN *
+	 *****************/
+
+	public boolean inUse() {
+		return state;
+	}
 }

@@ -1,14 +1,22 @@
 package maze.logi;
 
-
-
 import maze.client.Interface;
 
 public class Maze {
+	
+	/**************************************** ATTRIBUTES */
+	
 	private static Interface ConsoleClient = new Interface();
 	private static Board board = new Board();
 	
-
+	/**************************************** FUNCTIONS */
+	
+	public static void newTurn(char direction) {
+		board.moveHero(direction);
+		board.moveDragon();
+		board.heroDragonCollision();
+	}
+	
 	public static void main(String[] args) {
 		char[][] b1 = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
 				{ 'X', 'H', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
@@ -28,7 +36,7 @@ public class Maze {
 		
 		do {
 				char read = ConsoleClient.getNextDirection();
-				board.newTurn(read);
+				newTurn(read);
 				board.updateBoard();
 				ConsoleClient.displayBoard(board.getBoard());
 		} while (!board.boardExit());

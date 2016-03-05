@@ -10,7 +10,7 @@ public class TestStaticDragon {
 
 	char[][] m1 = { { 'X', 'X', 'X', 'X', 'X' }, { 'X', ' ', ' ', 'H', 'S' }, { 'X', ' ', 'X', ' ', 'X' },
 			{ 'X', 'E', ' ', 'D', 'X' }, { 'X', 'X', 'X', 'X', 'X' } };
-	
+	/*
 	@Test
 	public void testMoveHeroToFreeCell() {
 	Board maze = new Board(m1);
@@ -27,4 +27,5 @@ public class TestStaticDragon {
 	maze.moveHeroDown();
 	assertEquals(maze.getHero().isAlive(),false);
 	}
+	*/
 }
