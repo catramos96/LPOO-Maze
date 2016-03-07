@@ -13,8 +13,8 @@ public class Maze {
 
 	public static void newTurn(char direction) {
 		board.moveHero(direction);
-		board.moveDragon();
-		board.heroDragonCollision();
+		board.moveRandomDragon();
+		board.updateBoard();
 	}
 
 	public static void main(String[] args) {
@@ -41,7 +41,7 @@ public class Maze {
 		do {
 			char read = ConsoleClient.getNextDirection();
 			newTurn(read);
-			board.updateBoard();
+			
 			ConsoleClient.displayBoard(board.getBoard());
 		} while (!board.exitBoard());
 

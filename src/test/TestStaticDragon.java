@@ -15,6 +15,23 @@ public class TestStaticDragon {
 	// y - the lines
 	// Point(x,y);
 
+	public void testParalyzedMode() {
+		Board b = new Board(m1);
+
+		assertFalse(b.getDragon().getParalysedMode());
+		b.getDragon().setParalysedMode(true);
+		assertTrue(b.getDragon().getParalysedMode());
+	
+		int n = 0;
+		while(n != 20 || b.getDragon().getPosition() == new Point(3,3))
+		{
+			n++;
+			b.moveDragon(0); //up
+		}
+		assertFalse(b.getDragon().getPosition() == new Point(3,3));
+		assertFalse(b.getDragon().getSleepMode());
+	}
+
 	@Test
 	public void testMoveHeroToFreeCell() {
 		Board b = new Board(m1);
