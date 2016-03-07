@@ -4,13 +4,16 @@ import java.util.Scanner;
 
 
 public class Interface {
+	
+	/**************************************** ATTRIBUTES */
 
 	private Scanner s = new Scanner(System.in);
 
+	/**************************************** FUNCTIONS */
+	
 	public Interface() {};
 
 	public  void displayBoard(char[][] board) {
-
 		for (int i = 0; i < board.length; i++) {
 			System.out.println(board[i]);
 		}
@@ -25,6 +28,7 @@ public class Interface {
 	{
 		System.out.println("The hero win!");
 	}
+	
 	public void msgHeroLoses()
 	{
 		System.out.println("Ther hero loses!");
@@ -51,7 +55,4 @@ public class Interface {
 	
 	return read;
 	}
-
-
-
 }

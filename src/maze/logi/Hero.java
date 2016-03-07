@@ -1,9 +1,17 @@
 package maze.logi;
 
 public class Hero extends Point {
-
+	
+	/**************************************** ATTRIBUTES */
+	
 	private char symbol = 'H';
 	private boolean alive;
+
+	/**************************************** FUNCTIONS */
+	
+	/*****************
+	 * CONSTRUCTOR *
+	 *****************/
 
 	public Hero() {
 		this.setXY(1, 1);
@@ -16,6 +24,22 @@ public class Hero extends Point {
 		alive = true;
 	}
 
+	/*****************
+	 * GETS *
+	 *****************/
+	
+	public Point getPosition() {
+		return (Point) this;
+	}
+
+	public char getSymbol() {
+		return symbol;
+	}
+
+	/*****************
+	 * SETS *
+	 *****************/
+	
 	public void setPosition(Point p) {
 		this.setXY(p.getX(), p.getY());
 	}
@@ -28,17 +52,17 @@ public class Hero extends Point {
 		alive = a;
 	}
 
-	public boolean isAlive(){
+	/*****************
+	 * BOOLEAN *
+	 *****************/
+	
+	public boolean isAlive() {
 		return alive;
 	}
-
-	public Point getPosition() {
-		return (Point) this;
-	}
-
-	public char getSymbol() {
-		return symbol;
-	}
+	
+	/*****************
+	 * OTHERS *
+	 *****************/
 
 	public void equipArmor() {
 		setSymbol('A');
