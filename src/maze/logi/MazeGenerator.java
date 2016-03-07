@@ -1,82 +1,83 @@
 package maze.logi;
 
-
-
 import java.util.LinkedList;
+
 import java.util.Random;
 
 public class MazeGenerator {
-
 	private  static char board [][];
 	private  static char visited [][];
 	private  static Point start;
 	private  static Random rnd = new Random();
 
 	public static void main(String[] args) {
-		int size = 14;
+		int size = 10;
 		generateBoard(size);
 		carvePath();
 
 		System.out.println("GENERATED BOARD");
 		for(int i = 0; i < size ; i ++)
 		{
-			System.out.println(board[i]);
+			for(int t = 0; t < board[i].length; t ++)
+			System.out.print(board[i][t] +" ");
+			
+			System.out.print("\n");
 		}
 	}
 	private static void generateBoard(int Nsize)//NEEED REFACT
 	{
 		board = new char[Nsize][Nsize];
-		visited = new char [Nsize][Nsize];
+		visited = new char[Nsize][Nsize];
 		fillBoard(Nsize);
 	}
-	private static void fillBoard(int Nsize)
-	{
-		for(int i = 0; i < Nsize; i++)
-		{
-			for(int t = 0; t < Nsize; t++)
-			{
+
+	private static void fillBoard(int Nsize) {
+		for (int i = 0; i < Nsize; i++) {
+			for (int t = 0; t < Nsize; t++) {
+
 				board[i][t] = 'X';
-				//DONT CARVE WALL ON BOUNDS
-				if(i == 0 || i+1 == Nsize || t == 0 || t+1 == Nsize)
-					visited[i][t] = 'V'; //V = VISITED
+				// DONT CARVE WALL ON BOUNDS
+				if (i == 0 || i + 1 == Nsize || t == 0 || t + 1 == Nsize)
+					visited[i][t] = 'V'; // V = VISITED
 				else
-					visited[i][t] = 'N'; //N = NON VISITED
+					visited[i][t] = 'N'; // N = NON VISITED
 			}
 		}
 		generateExit(Nsize);
 	}
-	private static boolean validateExitPosition(int x, int y,int Nsize)
-	{
-		//CORNERS
-		if(x == 0 && y == 0) // top left corner
+
+
+	private static boolean validateExitPosition(int x, int y, int Nsize) {
+		// CORNERS
+		if (x == 0 && y == 0) // top left corner
+
 			return false;
-		else if(x==0 && y == Nsize -1) // top right corner
+		else if (x == 0 && y == Nsize - 1) // top right corner
 			return false;
-		else if(x==Nsize-1 && y== 0) // bottom left corner
+		else if (x == Nsize - 1 && y == 0) // bottom left corner
 			return false;
-		else if(x==Nsize-1 && y== Nsize-1) // botton right corner
+		else if (x == Nsize - 1 && y == Nsize - 1) // botton right corner
 			return false;
-		//Validate border positions
-		if(x==0 || x == Nsize-1) //first and final line
+		// Validate border positions
+		if (x == 0 || x == Nsize - 1) // first and final line
 		{
-			if(0<y && y < Nsize-1)
+			if (0 < y && y < Nsize - 1)
 				return true;
 			else
 				return false;
-		}
-		else if (y == 0 || y == Nsize -1)
+		} else if (y == 0 || y == Nsize - 1)
 			return true;
-
 		return false;
 	}
+
 	
-	private static void generateExit(int Nsize)
-	{
+
+	private static void generateExit(int Nsize) {
 		Random gen = new Random();
 
 		int exit_x;
 		int exit_y;
-		do{
+		do {
 			exit_x = gen.nextInt(Nsize);
 			exit_y = gen.nextInt(Nsize);
 		}while(!validateExitPosition(exit_x,exit_y,Nsize));
@@ -206,5 +207,6 @@ public class MazeGenerator {
 				path.removeLast();
 			}
 		}while(!path.isEmpty());
-	}	
+	}
+		
 }
