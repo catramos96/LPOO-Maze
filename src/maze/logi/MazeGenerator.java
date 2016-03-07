@@ -1,39 +1,35 @@
 package maze.logi;
 
 
+
+import java.util.LinkedList;
 import java.util.Random;
 
 public class MazeGenerator {
 
-	private  char board [][];
-	private  char visited [][];
-	private  int x_start;
-	private  int y_start;
+	private  static char board [][];
+	private  static char visited [][];
+	private  static Point start;
+	private  static Random rnd = new Random();
 
-	public  void main(String[] args) {
-		
-	generateBoard(8);
-	
-	System.out.println("GENERATED BOARD");
-	for(int i = 0; i < 8 ; i ++)
-	{
-		System.out.println(board[i]);
+	public static void main(String[] args) {
+		int size = 14;
+		generateBoard(size);
+		carvePath();
+
+		System.out.println("GENERATED BOARD");
+		for(int i = 0; i < size ; i ++)
+		{
+			System.out.println(board[i]);
+		}
 	}
-	
-	System.out.println("Visited BOARD");
-	for(int i = 0; i < 8 ; i ++)
-	{
-		System.out.println(visited[i]);
-	}
-	
-	}
-	private void generateBoard(int Nsize)//NEEED REFACT
+	private static void generateBoard(int Nsize)//NEEED REFACT
 	{
 		board = new char[Nsize][Nsize];
 		visited = new char [Nsize][Nsize];
 		fillBoard(Nsize);
 	}
-	private void fillBoard(int Nsize)
+	private static void fillBoard(int Nsize)
 	{
 		for(int i = 0; i < Nsize; i++)
 		{
@@ -49,7 +45,7 @@ public class MazeGenerator {
 		}
 		generateExit(Nsize);
 	}
-	private boolean validateExitPosition(int x, int y,int Nsize)
+	private static boolean validateExitPosition(int x, int y,int Nsize)
 	{
 		//CORNERS
 		if(x == 0 && y == 0) // top left corner
@@ -70,13 +66,11 @@ public class MazeGenerator {
 		}
 		else if (y == 0 || y == Nsize -1)
 			return true;
-		
+
 		return false;
-
-
-
 	}
-	private void generateExit(int Nsize)
+	
+	private static void generateExit(int Nsize)
 	{
 		Random gen = new Random();
 
@@ -86,28 +80,131 @@ public class MazeGenerator {
 			exit_x = gen.nextInt(Nsize);
 			exit_y = gen.nextInt(Nsize);
 		}while(!validateExitPosition(exit_x,exit_y,Nsize));
-		
-		
 		board[exit_x][exit_y] = 'S';
-		
-		
-		
-		
+		start_point (exit_x,exit_y,Nsize);
 	}
-	private void start_point (int x, int y,int Nsize)
+	private static void  start_point (int x, int y,int Nsize)
 	{
-		
-		y_start = y;
-		x_start = x;
-		
-		if(x == 0)
-			y_start ++;
-		else if(x== Nsize-1)
-			y_start --;
-		else if(y != 0 && x != Nsize-1)
+
+		int y_start = y;
+		int x_start = x;
+		System.out.println("x:" +x+"y:" +y);
+		if(x==0)
 			x_start ++;
-		
-		
+		else if(x == Nsize-1)
+			x_start --;
+		else if( 0< x && x < Nsize-1 )
+		{
+			if(y== 0)
+				y_start ++;
+			if(y== Nsize-1)
+				y_start --;
+		}
+		start = new Point(x_start,y_start);
+		System.out.println("x_start:" +x_start+"y:" +y_start);
+		board[x_start][y_start] = ' ';
+		visited[x_start][y_start] = 'V';
 	}
-	
+
+	private static LinkedList<Point> FreeNeighbourCell(Point last)
+	{
+		LinkedList<Point> Neighbour = new LinkedList<Point>();
+		int x = last.getX();
+		int y = last.getY();
+		if(visited[x-1][y] == 'N')
+			Neighbour.add(new Point(x-1,y));
+		if(visited[x+1][y] == 'N')
+			Neighbour.add(new Point(x+1,y));
+		if(visited[x][y-1] == 'N')
+			Neighbour.add(new Point(x,y-1));
+		if(visited[x][y+1] == 'N')
+			Neighbour.add(new Point(x,y+1));
+
+		return Neighbour;
+	}
+	private static boolean test2x2(Point test)
+	{
+		int x = test.getX();
+		int y = test.getY();
+		if(board[x][y+1] == ' ')
+		{
+			if(board[x-1][y] == ' ')
+				if(board[x-1][y+1] == ' ')
+					return false;
+			if(board[x+1][y] == ' ')
+				if(board[x+1][y+1] == ' ')
+					return false;
+		}
+		if(board[x][y-1] == ' ')
+		{
+			if(board[x-1][y]== ' ')
+				if(board[x-1][y-1] == ' ')
+					return false;
+			if(board[x+1][y]== ' ')
+				if(board[x+1][y-1] == ' ')
+					return false;
+		}
+
+		return true;
+	}
+
+	private static void carvePath()//can be optimized
+	{
+		LinkedList<Point> path = new LinkedList<Point>();
+		path.add(start);
+
+		do{
+			Point lastPoint =path.getLast();
+			LinkedList<Point> freecells = FreeNeighbourCell(lastPoint); 
+
+			if(freecells.size() > 0)
+			{
+				Point newest;
+				switch(rnd.nextInt(freecells.size()))
+				{
+				case 0:
+					newest = freecells.get(0);
+					if(test2x2(newest))
+					{
+						path.add(newest);
+						board[newest.getX()][newest.getY()] = ' ';
+					}
+					visited[newest.getX()][newest.getY()] ='V';
+					break;
+				case 1:
+					newest = freecells.get(1);
+					if(test2x2(newest))
+					{
+						path.add(newest);
+						board[newest.getX()][newest.getY()] = ' ';
+					}
+					visited[newest.getX()][newest.getY()] ='V';
+					break;
+				case 2:
+					newest = freecells.get(2);
+					if(test2x2(newest))
+					{
+						path.add(newest);
+						board[newest.getX()][newest.getY()] = ' ';
+					}
+					visited[newest.getX()][newest.getY()] ='V';
+					break;
+				case 3:
+					newest = freecells.get(3);
+					if(test2x2(newest))
+					{
+						path.add(newest);
+						board[newest.getX()][newest.getY()] = ' ';
+					}
+					visited[newest.getX()][newest.getY()] ='V';
+					break;
+
+				}
+			}
+			else
+			{
+				path.removeLast();
+			}
+		}while(!path.isEmpty());
+	}	
 }
