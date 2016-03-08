@@ -41,7 +41,6 @@ public class Maze {
 		do {
 			char read = ConsoleClient.getNextDirection();
 			newTurn(read);
-
 			ConsoleClient.displayBoard(board.getBoard());
 		} while (!board.exitBoard());
 

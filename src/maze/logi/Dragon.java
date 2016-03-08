@@ -5,6 +5,7 @@ public class Dragon extends Point {
 	/**************************************** ATTRIBUTES */
 	
 	private boolean alive = true;
+	private boolean awake = true;
 	private boolean sleep_mode = false;
 	private boolean paralysed_mode = false;
 	private char symbol = 'D';
@@ -18,6 +19,7 @@ public class Dragon extends Point {
 	public Dragon() {
 		this.setXY(1, 1);
 		alive = true;
+		awake = true;
 	}
 
 	public Dragon(Point p) {
@@ -62,14 +64,18 @@ public class Dragon extends Point {
 
 	public void setSleepMode(boolean sleep) {
 		sleep_mode = sleep;
-		if(sleep)
-			symbol = 'd';
-		else
-			symbol = 'D';
 	}
 
 	public void setParalysedMode(boolean paralysed) {
 		paralysed_mode = paralysed;
+	}
+	
+	public void setAwake(boolean b){
+		awake = b;
+		if(b)
+			symbol = 'D';
+		else
+			symbol = 'd';
 	}
 
 	/*****************
@@ -78,5 +84,9 @@ public class Dragon extends Point {
 
 	public boolean isAlive() {
 		return alive;
+	}
+	
+	public boolean isAwake() {
+		return awake;
 	}
 }

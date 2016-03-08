@@ -94,30 +94,21 @@ public class TestRandomDragon {
 		assertEquals('d',b.getDragon().getSymbol());
 	}
 	@Test
-	public void testDragonFailsToMoveWhileSleeping(){
-		Board b = new Board(m1);
-		b.getDragon().setSleepMode(true);
-		assertFalse(b.moveDragon(2));
-		b.moveDragon(4);
-	}
-	
-	@Test
 	public void testDragonMoveAfterAwakeFromSleep(){
 		Board b = new Board(m1);
 		b.setDragonBehaviour('S');
 		assertTrue(b.getDragon().getSleepMode());
+		b.getDragon().setAwake(false);
 		assertEquals('d',b.getDragon().getSymbol());
-		b.getDragon().setSleepMode(false);
-		assertFalse(b.getDragon().getSleepMode());
+		b.getDragon().setAwake(true);
 		assertEquals('D',b.getDragon().getSymbol());
 		assertTrue(b.moveDragon(1)); //up
-		
 	}
 	
 	@Test
 	public void testDragonSleepingHeroIsAlive(){
 		Board b = new Board(m1);
-		b.getDragon().setSleepMode(true);
+		b.getDragon().setAwake(false);
 		assertTrue(b.getDragon().getSymbol() == 'd');
 		b.moveHero('s');
 		b.updateBoard();

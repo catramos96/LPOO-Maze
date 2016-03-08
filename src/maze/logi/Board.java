@@ -186,9 +186,6 @@ public class Board {
 		 */
 		if (dragon.getParalysedMode())
 			return false;
-		
-		if(dragon.getSleepMode())
-			return false;
 
 		Point new_pos = new Point();
 		boolean move = false;
@@ -212,7 +209,7 @@ public class Board {
 			break;
 		case 4:
 			move = true;// Sleep
-			dragon.setSymbol('d');
+			dragon.setAwake(false);
 			break;
 		}
 		return move;
