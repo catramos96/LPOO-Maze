@@ -96,7 +96,20 @@ public class TestRandomDragon {
 	}
 	
 	@Test
-	public void testDragonSleepHeroIsAlive(){
+	public void testDragonMoveAfterAwakeFromSleep(){
+		Board b = new Board(m1);
+		b.setDragonBehaviour('S');
+		assertTrue(b.getDragon().getSleepMode());
+		assertEquals('d',b.getDragon().getSymbol());
+		b.getDragon().setSleepMode(false);
+		assertFalse(b.getDragon().getSleepMode());
+		assertEquals('D',b.getDragon().getSymbol());
+		assertTrue(b.moveDragon(1)); //up
+		
+	}
+	
+	@Test
+	public void testDragonSleepingHeroIsAlive(){
 		Board b = new Board(m1);
 		b.getDragon().setSleepMode(true);
 		assertTrue(b.getDragon().getSymbol() == 'd');
@@ -107,5 +120,19 @@ public class TestRandomDragon {
 		b.updateBoard();
 		assertTrue(b.getHero().isAlive());
 		assertEquals(new Point(3,2),b.getHero().getPosition());
+	}
+
+	@Test
+	public void testChangeDragonMode(){
+		Board b = new Board(m1);
+		assertFalse(b.getDragon().getSleepMode());
+		assertFalse(b.getDragon().getParalysedMode());
+		b.setDragonBehaviour('P');
+		assertTrue(b.getDragon().getParalysedMode());
+		assertFalse(b.getDragon().getSleepMode());
+		b.setDragonBehaviour('S');
+		assertTrue(b.getDragon().getSleepMode());
+		assertFalse(b.getDragon().getParalysedMode());
+	
 	}
 }

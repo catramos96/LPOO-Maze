@@ -8,8 +8,12 @@ import maze.logi.Point;
 
 public class TestStaticDragon {
 
-	char[][] m1 = { { 'X', 'X', 'X', 'X', 'X' }, { 'X', ' ', ' ', 'H', 'S' }, { 'X', ' ', 'X', ' ', 'X' },
-			{ 'X', 'E', ' ', 'D', 'X' }, { 'X', 'X', 'X', 'X', 'X' } };
+	char[][] m1 = { 
+			{ 'X', 'X', 'X', 'X', 'X' }, 
+			{ 'X', ' ', ' ', 'H', 'S' }, 
+			{ 'X', ' ', 'X', ' ', 'X' },
+			{ 'X', 'E', ' ', 'D', 'X' }, 
+			{ 'X', 'X', 'X', 'X', 'X' } };
 
 	// x - the columns
 	// y - the lines
@@ -21,14 +25,13 @@ public class TestStaticDragon {
 		assertFalse(b.getDragon().getParalysedMode());
 		b.getDragon().setParalysedMode(true);
 		assertTrue(b.getDragon().getParalysedMode());
-	
+
 		int n = 0;
-		while(n != 20 || b.getDragon().getPosition() == new Point(3,3))
-		{
+		while (n != 20 || b.getDragon().getPosition() == new Point(3, 3)) {
 			n++;
-			b.moveDragon(0); //up
+			b.moveDragon(0); // up
 		}
-		assertFalse(b.getDragon().getPosition() == new Point(3,3));
+		assertFalse(b.getDragon().getPosition() == new Point(3, 3));
 		assertFalse(b.getDragon().getSleepMode());
 	}
 
@@ -36,7 +39,7 @@ public class TestStaticDragon {
 	public void testMoveHeroToFreeCell() {
 		Board b = new Board(m1);
 		assertEquals(new Point(3, 1), b.getHero().getPosition());
-		assertEquals(' ',b.getBoardSymbol(new Point(2,1)));
+		assertEquals(' ', b.getBoardSymbol(new Point(2, 1)));
 		b.moveHero('a'); // move to left
 		assertEquals(new Point(2, 1), b.getHero().getPosition());
 	}
@@ -81,6 +84,7 @@ public class TestStaticDragon {
 		b.moveHero('s'); // down
 		assertEquals('A', b.getHero().getSymbol());
 		assertEquals(true, b.getDragon().isAlive());
+		assertTrue(b.getSword().inUse());
 		b.moveHero('d'); // right
 		assertEquals(false, b.getDragon().isAlive());
 		assertEquals(true, b.getHero().isAlive());
@@ -99,8 +103,9 @@ public class TestStaticDragon {
 		b.moveHero('w'); // up
 		b.moveHero('d'); // right
 		assertEquals(b.getExit(), b.getHero().getPosition());
-		assertEquals(true, b.exitBoard());
-		assertEquals(true, b.heroWins());
+		assertTrue(b.exitBoard());
+		assertFalse(b.getDragon().isAlive());
+		assertTrue(b.heroWins());
 	}
 
 	@Test
@@ -129,4 +134,6 @@ public class TestStaticDragon {
 		assertEquals(true, b.getDragon().isAlive());
 		assertEquals(false, b.exitBoard());
 	}
+
+	
 }

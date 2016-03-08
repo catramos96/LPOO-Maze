@@ -102,10 +102,14 @@ public class Board {
 	}
 
 	public void setDragonBehaviour(char dragon_MODE) {
-		if (dragon_MODE == 'P')
+		if (dragon_MODE == 'P'){
 			dragon.setParalysedMode(true);
-		else if (dragon_MODE == 'S')
+			dragon.setSleepMode(false);
+		}
+		else if (dragon_MODE == 'S'){
 			dragon.setSleepMode(true);
+			dragon.setParalysedMode(false);
+		}
 	}
 
 	/*****************
