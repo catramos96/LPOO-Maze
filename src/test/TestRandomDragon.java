@@ -8,7 +8,8 @@ import maze.logi.Point;
 
 public class TestRandomDragon {
 
-	char[][] m1 = { { 'X', 'X', 'X', 'X', 'X' }, { 'X', ' ', ' ', 'H', 'S' }, { 'X', ' ', 'X', ' ', 'X' },
+	char[][] m1 = { { 'X', 'X', 'X', 'X', 'X' }, 
+			{ 'X', ' ', ' ', 'H', 'S' }, { 'X', ' ', 'X', ' ', 'X' },
 			{ 'X', 'E', ' ', 'D', 'X' }, { 'X', 'X', 'X', 'X', 'X' } };
 
 	/*
@@ -22,6 +23,7 @@ public class TestRandomDragon {
 		assertTrue(b.getDragon().isAlive());
 		assertEquals('D', b.getDragon().getSymbol());
 		assertFalse(b.getDragon().getSleepMode());
+		assertFalse(b.getDragon().getParalysedMode());
 
 		boolean movement = false, sleep = false;
 		while (true) {
@@ -71,9 +73,39 @@ public class TestRandomDragon {
 		assertFalse(b.heroWins());
 	}
 
+	@Test
 	public void testDragonMovesAgainstWall() {
 		Board b = new Board(m1);
-		assertFalse(b.moveDragon(1));
+		assertFalse(b.moveDragon(0));
 	}
 
+	@Test
+	public void testCellFreeAfterMove() {
+		Board b = new Board(m1);
+		b.moveDragon(2);
+		assertEquals(' ', b.getBoardSymbol(new Point(3, 3)));
+		b.moveHero('a');
+		assertEquals(' ', b.getBoardSymbol(new Point(3, 1)));
+	}
+
+	@Test
+	public void testDragonFailsToMoveWhileSleeping(){
+		Board b = new Board(m1);
+		b.getDragon().setSleepMode(true);
+		assertFalse(b.moveDragon(2));
+	}
+	
+	@Test
+	public void testDragonSleepHeroIsAlive(){
+		Board b = new Board(m1);
+		b.getDragon().setSleepMode(true);
+		assertTrue(b.getDragon().getSymbol() == 'd');
+		b.moveHero('s');
+		b.updateBoard();
+		assertTrue(b.getHero().isAlive());
+		b.moveHero('s');//nao consegue se mover porque colide com o dragao adormecido
+		b.updateBoard();
+		assertTrue(b.getHero().isAlive());
+		assertEquals(new Point(3,2),b.getHero().getPosition());
+	}
 }

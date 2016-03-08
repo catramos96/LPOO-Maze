@@ -116,7 +116,7 @@ public class Board {
 		Point ini_pos = hero.getPosition();
 		if (!betweenBoardLimits(new_pos)) // just in case ...
 			return;
-		if (getBoardSymbol(new_pos) == 'X')
+		if (getBoardSymbol(new_pos) == 'X' || getBoardSymbol(new_pos) == 'd')
 			return;
 		else if (getBoardSymbol(new_pos) == 'E') {
 			hero.equipArmor();
@@ -161,14 +161,6 @@ public class Board {
 		}
 	}
 
-	//for tests
-	public boolean betweenBoardLimits(Point p) {
-		if (p.getX() >= board.length || p.getY() >= board.length)
-			return false;
-		else
-			return true;
-	}
-
 	private boolean dragonNextPosition(Point new_pos) {
 		Point ini_pos = dragon.getPosition();
 		if (!betweenBoardLimits(new_pos)) // just in case
@@ -189,6 +181,9 @@ public class Board {
 		 * d - 0 down d - 1 up d - 2 left d - 3 right
 		 */
 		if (dragon.getParalysedMode())
+			return false;
+		
+		if(dragon.getSleepMode())
 			return false;
 
 		Point new_pos = new Point();
@@ -247,6 +242,14 @@ public class Board {
 			return false;
 	}
 
+	//for tests
+	public boolean betweenBoardLimits(Point p) {
+		if (p.getX() >= board.length || p.getY() >= board.length)
+			return false;
+		else
+			return true;
+	}
+	
 	public boolean heroWins() {
 		if (hero.getPosition().equals(exit) && dragon.isAlive() == false)
 			return true;
@@ -285,7 +288,7 @@ public class Board {
 		int dist = (int) Math.sqrt(dist_y * dist_y + dist_x * dist_x);
 		int emlinha = dist_x + dist_y;// ANULAR A dist em diagonal
 		if ((dist == 0 || dist == 1) && (emlinha == 1 || emlinha == 0))
-			if (hero.getSymbol() == 'H' && (dragon.getSymbol() == 'D' || dragon.getSymbol() == 'd'))
+			if (hero.getSymbol() == 'H' && (dragon.getSymbol() == 'D'))
 				hero.setAlive(false);
 			else if (hero.getSymbol() == 'A')
 				dragon.setAlive(false);

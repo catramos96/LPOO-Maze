@@ -36,6 +36,7 @@ public class TestStaticDragon {
 	public void testMoveHeroToFreeCell() {
 		Board b = new Board(m1);
 		assertEquals(new Point(3, 1), b.getHero().getPosition());
+		assertEquals(' ',b.getBoardSymbol(new Point(2,1)));
 		b.moveHero('a'); // move to left
 		assertEquals(new Point(2, 1), b.getHero().getPosition());
 	}

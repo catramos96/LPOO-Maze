@@ -62,6 +62,10 @@ public class Dragon extends Point {
 
 	public void setSleepMode(boolean sleep) {
 		sleep_mode = sleep;
+		if(sleep)
+			symbol = 'd';
+		else
+			symbol = 'D';
 	}
 
 	public void setParalysedMode(boolean paralysed) {
