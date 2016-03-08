@@ -16,7 +16,7 @@ public class Maze {
 		board.moveRandomDragon();
 		board.updateBoard();
 	}
-
+	
 	public static void main(String[] args) {
 		/*
 		 * char[][] b1 = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
@@ -41,7 +41,7 @@ public class Maze {
 		do {
 			char read = ConsoleClient.getNextDirection();
 			newTurn(read);
-			
+
 			ConsoleClient.displayBoard(board.getBoard());
 		} while (!board.exitBoard());
 

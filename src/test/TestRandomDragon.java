@@ -26,14 +26,12 @@ public class TestRandomDragon {
 		assertFalse(b.getDragon().getParalysedMode());
 
 		boolean movement = false, sleep = false;
-		while (true) {
+		while (movement == false && sleep == false) {
 			b.moveRandomDragon();
 			if (b.getDragon().getPosition() != new Point(3, 3)) {
 				movement = true;
-				break;
 			} else if (b.getDragon().getSleepMode()) {
 				sleep = true;
-				break;
 			} else
 				fail("ERRO!\n");
 		}
@@ -134,5 +132,23 @@ public class TestRandomDragon {
 		assertTrue(b.getDragon().getSleepMode());
 		assertFalse(b.getDragon().getParalysedMode());
 	
+	}
+
+	@Test(timeout=1000)
+	public void testRandomDragonAndHeroMovement(){
+		Board b = new Board(m1);
+		
+		assertFalse(b.getDragon().getSleepMode());
+		assertFalse(b.getDragon().getParalysedMode());
+		assertEquals(new Point(3,3),b.getDragon().getPosition());
+		
+		b.moveHero('a');  //hero mover with dragon
+		b.moveRandomDragon();
+		assertEquals(new Point(2,1),b.getHero().getPosition());
+		if(b.getDragon().getSleepMode())
+			assertEquals('d',b.getDragon().getSymbol());
+		else {
+			assertFalse(b.getDragon().getPosition() == new Point(3,3));
+		}
 	}
 }

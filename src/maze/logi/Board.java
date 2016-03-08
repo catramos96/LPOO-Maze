@@ -231,7 +231,7 @@ public class Board {
 			move = moveDragon(mov);
 		} while (!move);
 	}
-
+	
 	/*****************
 	 * BOOLEAN *
 	 *****************/
