@@ -85,12 +85,20 @@ public class TestRandomDragon {
 		b.moveHero('a');
 		assertEquals(' ', b.getBoardSymbol(new Point(3, 1)));
 	}
-
+	@Test
+	public void testDragonGotoSleep()
+	{
+		Board b = new Board(m1);
+		b.getDragon().setSleepMode(true);
+		b.moveDragon(4);
+		assertEquals('d',b.getDragon().getSymbol());
+	}
 	@Test
 	public void testDragonFailsToMoveWhileSleeping(){
 		Board b = new Board(m1);
 		b.getDragon().setSleepMode(true);
 		assertFalse(b.moveDragon(2));
+		b.moveDragon(4);
 	}
 	
 	@Test
