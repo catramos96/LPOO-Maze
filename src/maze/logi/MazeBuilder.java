@@ -14,32 +14,17 @@ public class MazeBuilder {
 	private static Point  dragon;
 
 
-	public  void main(String[] args) {
-		int size = 20;
-		//do{
-		generateBoard(size);
-		carvePath();
-		placeHero(size);
-		placeDragon(size,1);
-		placeSword(size);
-	//	}while(test3x3());
-
-		for(int i = 0; i < size; i++)
-			System.out.println(board[i]);
-	}
+	
 	
 	public  char[][] buildMaze(int size)
-	{do{
+	{
+		do{
 		generateBoard(size);
 		carvePath();
 		placeHero(size);
 		placeDragon(size,3);
 		placeSword(size);
 	}while(test3x3());
-		for(int i = 0; i < size ; i ++)
-		{
-			System.out.println(board[i]);
-		}
 		return board;
 	}
 	private  void generateBoard(int Nsize)//NEEED REFACT

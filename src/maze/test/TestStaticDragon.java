@@ -63,6 +63,8 @@ public class TestStaticDragon {
 		b.moveHero('w');// up
 		// same position before moveHero was called
 		assertEquals(new Point(3, 1), b.getHero().getPosition());
+		
+		
 	}
 
 	@Test
@@ -87,7 +89,7 @@ public class TestStaticDragon {
 		assertEquals(true, b.getDragons().get(0).isAlive());
 		assertTrue(b.getSword().inUse());
 		b.moveHero('d'); // right
-		assertEquals(false, b.getDragons().get(0).isAlive());
+		assertEquals(true, b.getDragons().isEmpty());
 		assertEquals(true, b.getHero().isAlive());
 	}
 
@@ -105,7 +107,7 @@ public class TestStaticDragon {
 		b.moveHero('d'); // right
 		assertEquals(b.getExit(), b.getHero().getPosition());
 		assertTrue(b.exitBoard());
-		assertFalse(b.getDragons().get(0).isAlive());
+		assertTrue(b.getDragons().isEmpty());
 		assertTrue(b.heroWins());
 	}
 

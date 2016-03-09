@@ -9,9 +9,9 @@ import maze.logi.Point;
 public class TestRandomDragon {
 
 	char[][] m1 = { { 'X', 'X', 'X', 'X', 'X' }, 
-			        { 'X', ' ', ' ', 'H', 'S' }, 
-			{ 'X', ' ', 'X', ' ', 'X' },
-			{ 'X', 'E', ' ', 'D', 'X' },
+				    { 'X', ' ', ' ', 'H', 'S' }, 
+		            { 'X', ' ', 'X', ' ', 'X' },
+			  { 'X', 'E', ' ', 'D', 'X' },
 			{ 'X', 'X', 'X', 'X', 'X' } };
 
 	/*
@@ -123,6 +123,7 @@ public class TestRandomDragon {
 
 	@Test
 	public void testChangeDragonMode(){
+		System.out.println("FIm teste");
 		Board b = new Board(m1);
 		assertFalse(b.getDragons().get(0).getSleepMode());
 		assertFalse(b.getDragons().get(0).getParalysedMode());
@@ -144,15 +145,15 @@ public class TestRandomDragon {
 		assertEquals(new Point(3,3),b.getDragons().get(0).getPosition());
 
 		b.moveHero('a');  //hero mover with dragon
-	//	b.moveRandomDragons();
-
-		System.out.println(b.getHero().getX() + " -- " + b.getHero().getY());
+	 	b.moveRandomDragons();
 		assertEquals(new Point(2,1),b.getHero().getPosition());
-
+		
 		if(b.getDragons().get(0).getSleepMode())
 			assertEquals('d',b.getDragons().get(0).getSymbol());
 		else {
 			assertFalse(b.getDragons().get(0).getPosition() == new Point(3,3));
 		}
+		
+		
 	}
 }

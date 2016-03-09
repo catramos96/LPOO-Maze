@@ -65,7 +65,7 @@ public class Board {
 				if (board[i][j] == symbol) {
 					if(ing == ignores)
 					{
-						pos.setXY(i, j);
+						pos.setXY(j, i);
 						return pos;
 					}
 					else
@@ -86,6 +86,7 @@ public class Board {
 		Point pos;
 		// hero
 		pos = getPositionSymbol('H',0);
+
 		if (pos.getX() == 0 && pos.getY() == 0)
 
 		{
@@ -334,9 +335,10 @@ public class Board {
 			Dragon dragon = dragons.get(i);
 			int dist_x = Math.abs(hero.getPosition().getX() - dragon.getPosition().getX());
 			int dist_y = Math.abs(hero.getPosition().getY() - dragon.getPosition().getY());
-			int dist = (int) Math.sqrt(dist_y * dist_y + dist_x * dist_x);
+			//int dist = (int) Math.sqrt(dist_y * dist_y + dist_x * dist_x);
 			int emlinha = dist_x + dist_y;// ANULAR A dist em diagonal
-			if ((dist == 0 || dist == 1) && (emlinha == 1 || emlinha == 0)) {
+			if (emlinha == 1 || emlinha == 0)
+			{
 				if (hero.getSymbol() == 'H' && (dragon.getSymbol() == 'D'))
 					hero.setAlive(false);
 				if (hero.getSymbol() == 'A')

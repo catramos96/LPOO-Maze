@@ -131,7 +131,6 @@ public class TestMazeBuilder {
 		
 		for (int i = 0; i < numMazes; i++) {
 			int size = maxMazeSize == minMazeSize? minMazeSize : minMazeSize + 2 * rand.nextInt((maxMazeSize - minMazeSize)/2);
-			System.out.println(size);
 			char[][]m = builder.buildMaze(size);
 			assertTrue("Invalid maze boundaries in maze:\n" + m, checkBoundaries(m));			
 			assertTrue("Invalid walls in maze:\n" + m, ! hasSquare(m, badWalls));
@@ -144,7 +143,7 @@ public class TestMazeBuilder {
 			assertNotNull("Missing dragon in maze:\n" + m, findPos(m, 'D'));
 			assertNotNull("Missing sward in maze:\n" + m, findPos(m, 'E'));
 			assertFalse("Adjacent hero and dragon in maze:\n" + str(m), findPos(m, 'H').adjacentTo(findPos(m, 'D')));
-			System.out.println(i);
+			
 		}	
 	}
 	
