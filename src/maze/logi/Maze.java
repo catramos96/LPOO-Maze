@@ -17,25 +17,15 @@ public class Maze {
 		board.updateBoard();
 	}
 	
-	public static void main(String[] args) {
-		/*
-		 * char[][] b1 = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
-		 * { 'X', 'H', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'X', ' ',
-		 * 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', 'D', 'X', 'X', ' ',
-		 * 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X',
-		 * ' ', 'X' }, { 'X', ' ', ' ', ' ', ' ', ' ', ' ', 'X', ' ', 'S' }, {
-		 * 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X',
-		 * 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', 'E', 'X', 'X', ' ', ' ',
-		 * ' ', ' ', ' ', 'X' }, { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X',
-		 * 'X' } };
-		 */
-
-		char[][] b1 = { { 'X', 'X', 'X', 'X', 'X' }, { 'X', ' ', ' ', 'H', 'S' }, { 'X', ' ', 'X', ' ', 'X' },
-				{ 'X', 'E', ' ', 'D', 'X' }, { 'X', 'X', 'X', 'X', 'X' } };
-
-		board.setBoard(b1);
+	public static void initializeMaze(){
+		MazeBuilder mz = new MazeBuilder();
+		Board b = new Board(mz.buildMaze(ConsoleClient.mazeSizeBuilder()));
+		board = b;
 		board.setDragonBehaviour(ConsoleClient.DragonSelector());
 		board.updateBoard();
+	}
+	
+	public static void gamePlay(){
 		ConsoleClient.displayBoard(board.getBoard());
 
 		do {
@@ -43,7 +33,19 @@ public class Maze {
 			newTurn(read);
 			ConsoleClient.displayBoard(board.getBoard());
 		} while (!board.exitBoard());
+	}
+	
+	public static void endGame(){
+		if(board.heroWins())
+			ConsoleClient.msgHeroWins();
+		else
+			ConsoleClient.msgHeroLoses();
+	}
 
+	public static void main(String[] args) {
+		initializeMaze();
+		gamePlay();
+		endGame();	
 	}
 
 }

@@ -27,6 +27,7 @@ public class MazeBuilder {
 		for(int i = 0; i < size; i++)
 			System.out.println(board[i]);
 	}
+	
 	public  char[][] buildMaze(int size)
 	{do{
 		generateBoard(size);
@@ -34,7 +35,6 @@ public class MazeBuilder {
 		placeHero(size);
 		placeDragon(size,3);
 		placeSword(size);
-		System.out.println("DDD");
 	}while(test3x3());
 		for(int i = 0; i < size ; i ++)
 		{
@@ -103,7 +103,6 @@ public class MazeBuilder {
 
 		int y_start = y;
 		int x_start = x;
-		//	System.out.println("x:" +x+"y:" +y);
 		if(x==0)
 			x_start ++;
 		else if(x == Nsize-1)
@@ -116,7 +115,6 @@ public class MazeBuilder {
 				y_start --;
 		}
 		start = new Point(x_start,y_start);
-		//	System.out.println("x_start:" +x_start+"y:" +y_start);
 		board[x_start][y_start] = ' ';
 		visited[x_start][y_start] = 'V';
 	}
@@ -255,7 +253,6 @@ public class MazeBuilder {
 				path.removeLast();
 			}
 		}while(!path.isEmpty());
-		System.out.println("Maze");
 	}	
 
 	private  void placeHero(int Nsize)
@@ -273,7 +270,6 @@ public class MazeBuilder {
 			}
 
 		}while(!valid);
-		System.out.println("Hero");
 	}
 	private  void placeDragon(int Nsize,int distancetoHero)
 	{
@@ -296,11 +292,9 @@ public class MazeBuilder {
 					dragon = new Point(x,y);
 					valid = true;
 				}
-				System.out.println(" Dragon Ciclo");
 			}
 
 		}while(!valid);
-		System.out.println(" Dragon");
 	}
 
 	private  void placeSword(int Nsize)
@@ -318,6 +312,5 @@ public class MazeBuilder {
 			}
 			
 		}while(!valid);
-		System.out.println(" Sword");
 	}
 }
