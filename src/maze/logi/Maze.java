@@ -17,7 +17,7 @@ public class Maze {
 		board.updateBoard();
 	}
 
-	public static void initializeMaze() {
+	public void initializeMaze() {
 		MazeBuilder mz = new MazeBuilder();
 		Board b = new Board(mz.buildMaze(ConsoleClient.mazeSizeBuilder()));
 		board = b;
@@ -42,11 +42,11 @@ public class Maze {
 			ConsoleClient.msgHeroLoses();
 	}
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		do {
 			initializeMaze();
 			gamePlay();
 			endGame();
 		} while (!ConsoleClient.exitGame());
-	}
+	}*/
 }

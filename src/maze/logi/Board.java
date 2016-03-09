@@ -350,5 +350,5 @@ public class Board {
 			}
 		}
 
-	}
+	}	
 }
