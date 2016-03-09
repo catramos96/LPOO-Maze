@@ -13,7 +13,7 @@ public class Maze {
 
 	public static void newTurn(char direction) {
 		board.moveHero(direction);
-		board.moveRandomDragon();
+		board.moveRandomDragons();
 		board.updateBoard();
 	}
 
@@ -21,7 +21,7 @@ public class Maze {
 		MazeBuilder mz = new MazeBuilder();
 		Board b = new Board(mz.buildMaze(ConsoleClient.mazeSizeBuilder()));
 		board = b;
-		board.setDragonBehaviour(ConsoleClient.DragonSelector());
+		board.setDragonsBehaviour(ConsoleClient.DragonSelector());
 		board.updateBoard();
 	}
 

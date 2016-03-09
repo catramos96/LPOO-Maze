@@ -24,17 +24,16 @@ public class TestStaticDragon {
 	public void testParalyzedMode() {
 		Board b = new Board(m1);
 
-		assertFalse(b.getDragon().getParalysedMode());
-		b.getDragon().setParalysedMode(true);
-		assertTrue(b.getDragon().getParalysedMode());
+		assertFalse(b.getDragons().get(0).getParalysedMode());
+		assertTrue(b.getDragons().get(0).getParalysedMode());
 
 		int n = 0;
-		while (n != 20 || b.getDragon().getPosition() == new Point(3, 3)) {
+		while (n != 20 || b.getDragons().get(0).getPosition() == new Point(3, 3)) {
 			n++;
-			b.moveDragon(0); // up
+			b.moveDragon(0,b.getDragons().get(0)); // up
 		}
-		assertFalse(b.getDragon().getPosition() == new Point(3, 3));
-		assertFalse(b.getDragon().getSleepMode());
+		assertFalse(b.getDragons().get(0).getPosition() == new Point(3, 3));
+		assertFalse(b.getDragons().get(0).getSleepMode());
 	}
 
 	@Test
@@ -85,10 +84,10 @@ public class TestStaticDragon {
 		assertNotEquals('A', b.getHero().getSymbol());
 		b.moveHero('s'); // down
 		assertEquals('A', b.getHero().getSymbol());
-		assertEquals(true, b.getDragon().isAlive());
+		assertEquals(true, b.getDragons().get(0).isAlive());
 		assertTrue(b.getSword().inUse());
 		b.moveHero('d'); // right
-		assertEquals(false, b.getDragon().isAlive());
+		assertEquals(false, b.getDragons().get(0).isAlive());
 		assertEquals(true, b.getHero().isAlive());
 	}
 
@@ -106,7 +105,7 @@ public class TestStaticDragon {
 		b.moveHero('d'); // right
 		assertEquals(b.getExit(), b.getHero().getPosition());
 		assertTrue(b.exitBoard());
-		assertFalse(b.getDragon().isAlive());
+		assertFalse(b.getDragons().get(0).isAlive());
 		assertTrue(b.heroWins());
 	}
 
@@ -133,7 +132,7 @@ public class TestStaticDragon {
 		b.moveHero('d'); // right - exit
 		assertEquals(b.getExit(), b.getHero().getPosition());
 		assertEquals(true, b.getSword().inUse());
-		assertEquals(true, b.getDragon().isAlive());
+		assertEquals(true, b.getDragons().get(0).isAlive());
 		assertEquals(false, b.exitBoard());
 	}
  
