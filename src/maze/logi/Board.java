@@ -80,7 +80,7 @@ public class Board {
 		pos = getPositionSymbol('H');
 		if (pos == null)
 			hero.setPosition(getPositionSymbol('A')); // LAN�AR EXCE��O
-														// CASO N�O
+		// CASO N�O
 		else
 			hero.setPosition(pos);
 		// dragon
@@ -102,11 +102,10 @@ public class Board {
 	}
 
 	public void setDragonBehaviour(char dragon_MODE) {
-		if (dragon_MODE == 'P'){
+		if (dragon_MODE == 'P') {
 			dragon.setParalysedMode(true);
 			dragon.setSleepMode(false);
-		}
-		else if (dragon_MODE == 'S'){
+		} else if (dragon_MODE == 'S') {
 			dragon.setSleepMode(true);
 			dragon.setParalysedMode(false);
 		}
@@ -228,7 +227,7 @@ public class Board {
 			move = moveDragon(mov);
 		} while (!move);
 	}
-	
+
 	/*****************
 	 * BOOLEAN *
 	 *****************/
@@ -243,14 +242,14 @@ public class Board {
 			return false;
 	}
 
-	//for tests
+	// for tests
 	public boolean betweenBoardLimits(Point p) {
 		if (p.getX() >= board.length || p.getY() >= board.length)
 			return false;
 		else
 			return true;
 	}
-	
+
 	public boolean heroWins() {
 		if (hero.getPosition().equals(exit) && dragon.isAlive() == false)
 			return true;
@@ -264,15 +263,23 @@ public class Board {
 
 	public void updateBoard() {
 		heroDragonCollision();
+		
+		// update exit
+		placeOnBoard(exit, 'S');
+		
 		// update sword
 		if (!sword.inUse())
 			placeOnBoard(sword.getPosition(), sword.getSymbol());
 		// update dragon
-		if (dragon.isAlive() == true)
+		if (dragon.isAlive())
 			placeOnBoard(dragon.getPosition(), dragon.getSymbol());
+		else 
+			cleanPosition(dragon.getPosition());
 		// update hero
 		if (hero.isAlive())
 			placeOnBoard(hero.getPosition(), hero.getSymbol());
+		else
+			cleanPosition(hero.getPosition());
 	}
 
 	public void cleanPosition(Point p) {
@@ -288,11 +295,12 @@ public class Board {
 		int dist_y = Math.abs(hero.getPosition().getY() - dragon.getPosition().getY());
 		int dist = (int) Math.sqrt(dist_y * dist_y + dist_x * dist_x);
 		int emlinha = dist_x + dist_y;// ANULAR A dist em diagonal
-		if ((dist == 0 || dist == 1) && (emlinha == 1 || emlinha == 0))
+		if ((dist == 0 || dist == 1) && (emlinha == 1 || emlinha == 0)) {
 			if (hero.getSymbol() == 'H' && (dragon.getSymbol() == 'D'))
 				hero.setAlive(false);
-			else if (hero.getSymbol() == 'A')
+			if (hero.getSymbol() == 'A')
 				dragon.setAlive(false);
-	}
+		}
 
+	}
 }

@@ -31,7 +31,7 @@ public class Interface {
 	
 	public void msgHeroLoses()
 	{
-		System.out.println("Ther hero loses!");
+		System.out.println("The hero loses!");
 	}
 
 	public char DragonSelector()
@@ -43,6 +43,19 @@ public class Interface {
 				dragon_MODE = s.next().charAt(0);
 		} while (dragon_MODE != 'P' && dragon_MODE != 'R' && dragon_MODE != 'S');
 		return dragon_MODE;
+	}
+	
+	public boolean exitGame(){
+		char exit = 0;
+		do{
+			System.out.println("Do you want to exit the game ? (Y - Yes , N - No)");
+			if(s.hasNextLine())
+				exit = s.next().charAt(0);
+			if(exit == 'Y')
+				return true;
+			if(exit == 'N')
+				return false;
+		}while(true);
 	}
 	
 	public int mazeSizeBuilder() {

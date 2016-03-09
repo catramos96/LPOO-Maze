@@ -16,16 +16,16 @@ public class Maze {
 		board.moveRandomDragon();
 		board.updateBoard();
 	}
-	
-	public static void initializeMaze(){
+
+	public static void initializeMaze() {
 		MazeBuilder mz = new MazeBuilder();
 		Board b = new Board(mz.buildMaze(ConsoleClient.mazeSizeBuilder()));
 		board = b;
 		board.setDragonBehaviour(ConsoleClient.DragonSelector());
 		board.updateBoard();
 	}
-	
-	public static void gamePlay(){
+
+	public static void gamePlay() {
 		ConsoleClient.displayBoard(board.getBoard());
 
 		do {
@@ -34,18 +34,19 @@ public class Maze {
 			ConsoleClient.displayBoard(board.getBoard());
 		} while (!board.exitBoard());
 	}
-	
-	public static void endGame(){
-		if(board.heroWins())
+
+	public static void endGame() {
+		if (board.heroWins())
 			ConsoleClient.msgHeroWins();
 		else
 			ConsoleClient.msgHeroLoses();
 	}
 
 	public static void main(String[] args) {
-		initializeMaze();
-		gamePlay();
-		endGame();	
+		do {
+			initializeMaze();
+			gamePlay();
+			endGame();
+		} while (!ConsoleClient.exitGame());
 	}
-
 }
