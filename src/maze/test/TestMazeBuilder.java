@@ -107,8 +107,8 @@ public class TestMazeBuilder {
 	
 	@Test
 	public void testRandomMazeGenerator() throws IllegalArgumentException {
-		int numMazes = 55; // number of mazes to generate and test
-		int maxMazeSize = 101; // can change to any odd number >= 5
+		int numMazes = 1000; // number of mazes to generate and test
+		int maxMazeSize = 100; // can change to any odd number >= 5
 		int minMazeSize = 5;
 		
 		maze.logi.MazeBuilder builder = new maze.logi.MazeBuilder();
@@ -131,6 +131,7 @@ public class TestMazeBuilder {
 		
 		for (int i = 0; i < numMazes; i++) {
 			int size = maxMazeSize == minMazeSize? minMazeSize : minMazeSize + 2 * rand.nextInt((maxMazeSize - minMazeSize)/2);
+			System.out.println(size);
 			char[][]m = builder.buildMaze(size);
 			assertTrue("Invalid maze boundaries in maze:\n" + m, checkBoundaries(m));			
 			assertTrue("Invalid walls in maze:\n" + m, ! hasSquare(m, badWalls));
