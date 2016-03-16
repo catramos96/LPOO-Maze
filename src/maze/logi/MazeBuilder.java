@@ -11,27 +11,43 @@ public class MazeBuilder {
 	private  static Point start;
 	private  static Random rnd = new Random();
 	private  static Point heroi;
-	private static Point  dragon;
-
-
-	
 	
 	public  char[][] buildMaze(int size)
 	{
-		do{
+		
 		generateBoard(size);
 		carvePath();
 		placeHero(size);
-		placeDragon(size,3);
+		placeDragon(size,1);
 		placeSword(size);
-	}while(test3x3());
+	
 		return board;
 	}
+	
+	public  char[][] buildMaze(int size,int numDragons) throws IllegalArgumentException
+	{
+		if(numDragons > (size-2)/2)
+			throw new IllegalArgumentException();
+		generateBoard(size);
+		carvePath();
+		placeHero(size);
+		for(int i = 0; i < numDragons; i++)
+		placeDragon(size,1);
+		placeSword(size);	
+		return board;
+	}
+	
+	
+	
+	
+	
 	private  void generateBoard(int Nsize)//NEEED REFACT
 	{
+		do{
 		board = new char[Nsize][Nsize];
 		visited = new char[Nsize][Nsize];
 		fillBoard(Nsize);
+		}while(test3x3());
 	}
 
 
@@ -271,10 +287,10 @@ public class MazeBuilder {
 				int deltax = Math.abs(x-h_x);
 				int deltay = Math.abs(y-h_y);
 				int dist = deltax +deltay;
-				if(dist > 1 )
+				if(dist > distancetoHero )
 				{	
 					board[x][y] = 'D';
-					dragon = new Point(x,y);
+					new Point(x,y);
 					valid = true;
 				}
 			}
