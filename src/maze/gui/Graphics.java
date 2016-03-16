@@ -15,12 +15,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import maze.logi.*;
+import javax.swing.UIManager;
 
 public class Graphics {
 
 	private JFrame frmJogoDoLabirinto;
 	private JTextField mazeSize;
 	private JTextField numberOfDragons;
+	private Board board = new Board();
 
 	/**
 	 * Launch the application.
@@ -89,33 +91,16 @@ public class Graphics {
 		dragonType.setBounds(185, 108, 194, 22);
 		frmJogoDoLabirinto.getContentPane().add(dragonType);
 
-		JButton buttonNewMaze = new JButton("Gerar novo Labirinto");
-		buttonNewMaze.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				MazeBuilder mz = new MazeBuilder();
-				Board b = new Board(mz.buildMaze((int) (Double.parseDouble(mazeSize.getText()))));
-				switch (dragonType.getItemCount()) {
-				case 0: { // estático
-					b.setDragonBehaviour('P');
-					break;
-				}
-				case 1: { // Aleatório
-					b.setDragonBehaviour('R');
-					break;
-				}
-				case 2: { // Aleatorio e sonolento
-					b.setDragonBehaviour('S');
-					break;
-				}
-				default:
-					break;
-				}
-				b.updateBoard();
-				mazeArea.setText(Double.toString(b.getBoard()));
-			}
-		});
-		buttonNewMaze.setBounds(395, 36, 149, 25);
-		frmJogoDoLabirinto.getContentPane().add(buttonNewMaze);
+		JTextArea mazeArea = new JTextArea();
+		mazeArea.setFont(new Font("Courier New", Font.PLAIN, 13));
+		mazeArea.setEditable(false);
+		mazeArea.setToolTipText("");
+		mazeArea.setBounds(40, 162, 285, 285);
+		frmJogoDoLabirinto.getContentPane().add(mazeArea);
+
+		JLabel InfoLabel = new JLabel("Pode gerar um novo Labirinto !");
+		InfoLabel.setBounds(40, 458, 207, 16);
+		frmJogoDoLabirinto.getContentPane().add(InfoLabel);
 
 		JButton buttonExit = new JButton("Terminar Programa");
 		buttonExit.addActionListener(new ActionListener() {
@@ -125,11 +110,6 @@ public class Graphics {
 		});
 		buttonExit.setBounds(395, 75, 149, 25);
 		frmJogoDoLabirinto.getContentPane().add(buttonExit);
-
-		JTextArea mazeArea = new JTextArea();
-		mazeArea.setEditable(false);
-		mazeArea.setBounds(40, 162, 285, 285);
-		frmJogoDoLabirinto.getContentPane().add(mazeArea);
 
 		JButton buttonUp = new JButton("Cima");
 		buttonUp.setEnabled(false);
@@ -159,8 +139,64 @@ public class Graphics {
 		buttonRight.setBounds(470, 193, 97, 25);
 		frmJogoDoLabirinto.getContentPane().add(buttonRight);
 
-		JLabel lblPodeGerarUm = new JLabel("Pode gerar um novo Labirinto !");
-		lblPodeGerarUm.setBounds(40, 458, 207, 16);
-		frmJogoDoLabirinto.getContentPane().add(lblPodeGerarUm);
+		JLabel label = new JLabel("[         ,         ]");
+		label.setBounds(247, 40, 94, 16);
+		frmJogoDoLabirinto.getContentPane().add(label);
+
+		JLabel n_dragons_min = new JLabel("m");
+		n_dragons_min.setBounds(257, 75, 27, 16);
+		frmJogoDoLabirinto.getContentPane().add(n_dragons_min);
+
+		JLabel n_dragons_max = new JLabel(" M ");
+		n_dragons_max.setBounds(298, 75, 61, 16);
+		frmJogoDoLabirinto.getContentPane().add(n_dragons_max);
+
+		JButton buttonNewMaze = new JButton("Gerar novo Labirinto");
+		buttonNewMaze.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MazeBuilder mz = new MazeBuilder();
+
+				int mz_size = Integer.parseInt(mazeSize.getText());
+				int mz_n_dragons = Integer.parseInt(numberOfDragons.getText());
+				
+				n_dragons_min.setText("1");
+				n_dragons_max.setText((((mz_size - 2) / 2))+ "");
+
+				Board b = new Board(mz.buildMaze(mz_size, mz_n_dragons));
+				board = b;
+
+				switch (dragonType.getItemCount()) {
+				case 0: { // estático
+					board.setDragonsBehaviour('P');
+					break;
+				}
+				case 1: { // Aleatório
+					board.setDragonsBehaviour('R');
+					break;
+				}
+				case 2: { // Aleatorio e sonolento
+					board.setDragonsBehaviour('S');
+					break;
+				}
+				default:
+					break;
+				}
+				board.updateBoard();
+
+				// Imprime o tabuleiro
+				mazeArea.setText(board.toString());
+
+				// Enable dos botões de jogo
+				buttonUp.setEnabled(true);
+				buttonDown.setEnabled(true);
+				buttonLeft.setEnabled(true);
+				buttonRight.setEnabled(true);
+
+				InfoLabel.setText("Pode Jogar !");
+			}
+		});
+		buttonNewMaze.setBounds(395, 36, 149, 25);
+		frmJogoDoLabirinto.getContentPane().add(buttonNewMaze);
+
 	}
 }
