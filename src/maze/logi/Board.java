@@ -189,12 +189,17 @@ public class Board {
 		Point ini_pos = dragon.getPosition();
 		if (!betweenBoardLimits(new_pos)) // just in case
 			return false;
-		if (getBoardSymbol(new_pos) == 'X' || getBoardSymbol(new_pos) == 'S')
+
+		// if it collides with a wall, exit, other dragon in sleep or awake mode
+		// returns false;
+		if (getBoardSymbol(new_pos) == 'X' || getBoardSymbol(new_pos) == 'S' || getBoardSymbol(new_pos) == 'D'
+				|| getBoardSymbol(new_pos) == 'd')
 			return false;
+
 		else if (getBoardSymbol(new_pos) == 'E')
 			dragon.setSymbol('F');
 		else
-			dragon.setSymbol('D');
+			dragon.setSymbol('D'); // just in case ...
 		cleanPosition(ini_pos);
 		dragon.setPosition(new_pos);
 		return true;
@@ -281,6 +286,14 @@ public class Board {
 			return false;
 	}
 
+	public boolean dragonsAllDead() {
+		for (int i = 0; i < dragons.size(); i++) {
+			if (dragons.get(i).isAlive())
+				return false;
+		}
+		return true;
+	}
+
 	/*****************
 	 * OTHERS *
 	 *****************/
@@ -341,9 +354,9 @@ public class Board {
 	public String toString() {
 		String s = new String();
 		for (int j = 0; j < board.length; j++) {
-			
-			for (int i = 0; i < board.length; i++) 
-				s += board[j][i] +  "";
+
+			for (int i = 0; i < board.length; i++)
+				s += board[j][i] + "";
 			s += "\n";
 		}
 		return s;
