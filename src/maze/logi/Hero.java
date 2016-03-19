@@ -26,7 +26,7 @@ public class Hero extends Point {
  * @param position
  */
 	public Hero(Point position) {
-		this.setPosition(p);
+		this.setPosition(position);
 		symbol = 'H';
 		alive = true;
 	}
