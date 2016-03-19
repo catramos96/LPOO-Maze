@@ -78,4 +78,15 @@ public class Interface {
 	
 	return read;
 	}
+	
+	public int getNumberOfDragons(){
+		int n = 0;
+		do{
+		System.out.println("Number of dragons: ");
+		if(s.hasNextLine())
+			n = s.nextInt();
+		} while(n == 0);
+		
+		return n;			
+	}
 }

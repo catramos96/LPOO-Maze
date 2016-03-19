@@ -17,9 +17,14 @@ public class Maze {
 		board.updateBoard();
 	}
 
-	public void initializeMaze() {
+	public static void initializeMaze() {
 		MazeBuilder mz = new MazeBuilder();
-		Board b = new Board(mz.buildMaze(ConsoleClient.mazeSizeBuilder()));
+		int maze_size = ConsoleClient.mazeSizeBuilder();
+		int n_dragons;
+		do {
+			n_dragons = ConsoleClient.getNumberOfDragons();
+		} while (n_dragons > (maze_size - 2) / 2);
+		Board b = new Board(mz.buildMaze(maze_size, n_dragons));
 		board = b;
 		board.setDragonsBehaviour(ConsoleClient.DragonSelector());
 		board.updateBoard();
@@ -42,11 +47,11 @@ public class Maze {
 			ConsoleClient.msgHeroLoses();
 	}
 
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		do {
 			initializeMaze();
 			gamePlay();
 			endGame();
 		} while (!ConsoleClient.exitGame());
-	}*/
+	}
 }
