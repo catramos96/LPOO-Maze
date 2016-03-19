@@ -15,11 +15,13 @@ public class MazeBuilder {
 	public  char[][] buildMaze(int size)
 	{
 		
+		do{
 		generateBoard(size);
 		carvePath();
 		placeHero(size);
 		placeDragon(size,1);
 		placeSword(size);
+		}while(test3x3());
 	
 		return board;
 	}
@@ -28,13 +30,16 @@ public class MazeBuilder {
 	{
 		if(numDragons > (size-2)/2)
 			throw new IllegalArgumentException();
+		do{
 		generateBoard(size);
 		carvePath();
 		placeHero(size);
 		for(int i = 0; i < numDragons; i++)
 		placeDragon(size,1);
-		placeSword(size);	
+		placeSword(size);
+		}while(test3x3());
 		return board;
+		
 	}
 	
 	
@@ -43,11 +48,11 @@ public class MazeBuilder {
 	
 	private  void generateBoard(int Nsize)//NEEED REFACT
 	{
-		do{
+		
 		board = new char[Nsize][Nsize];
 		visited = new char[Nsize][Nsize];
 		fillBoard(Nsize);
-		}while(test3x3());
+		
 	}
 
 

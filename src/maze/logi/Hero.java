@@ -12,13 +12,20 @@ public class Hero extends Point {
 	/*****************
 	 * CONSTRUCTOR *
 	 *****************/
-
+/**
+ * Default constructor 
+ * Initialize coordinate x and y at value 1 
+ */
 	public Hero() {
 		this.setXY(1, 1);
 		alive = true;
 	}
-
-	public Hero(Point p) {
+/**
+ * Constructor of class Hero receives a object of type Point and initialize
+ * Hero with that Point
+ * @param position
+ */
+	public Hero(Point position) {
 		this.setPosition(p);
 		symbol = 'H';
 		alive = true;
@@ -27,11 +34,18 @@ public class Hero extends Point {
 	/*****************
 	 * GETS *
 	 *****************/
-	
+	/**
+	 * Return object of class Point that contains  Hero position 
+	 * @return Point
+	 */
 	public Point getPosition() {
 		return (Point) this;
 	}
 
+	/**
+	 * Return the symbol that represents Hero 
+	 * @return char symbol
+	 */
 	public char getSymbol() {
 		return symbol;
 	}
@@ -40,8 +54,12 @@ public class Hero extends Point {
 	 * SETS *
 	 *****************/
 	
-	public void setPosition(Point p) {
-		this.setXY(p.getX(), p.getY());
+	/**
+	 * 
+	 * @param position
+	 */
+	public void setPosition(Point position) {
+		this.setXY(position.getX(), position.getY());
 	}
 
 	public void setSymbol(char new_symbol) {
