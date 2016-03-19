@@ -17,6 +17,11 @@ import java.util.Vector;
 import java.awt.event.ItemEvent;
 import maze.logi.*;
 import javax.swing.UIManager;
+import javax.swing.SwingConstants;
+import javax.swing.DropMode;
+import java.awt.Color;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 
 public class Graphics {
 
@@ -68,6 +73,19 @@ public class Graphics {
 		mazeArea.setBounds(40, 162, 285, 285);
 		frmJogoDoLabirinto.getContentPane().add(mazeArea);
 
+		JTextArea Status = new JTextArea();
+		Status.setEditable(false);
+		Status.setTabSize(10);
+		Status.setRows(10);
+		Status.setBackground(UIManager.getColor("Button.background"));
+		Status.setFont(Status.getFont().deriveFont(11f));
+		Status.setBounds(361, 262, 200, 185);
+		frmJogoDoLabirinto.getContentPane().add(Status);
+
+		JScrollPane scroll = new JScrollPane(Status);
+		scroll.setBounds(361, 262, 200, 185);
+		frmJogoDoLabirinto.getContentPane().add(scroll);
+
 		/***************** BUTTONS EXIT **********************/
 
 		JButton buttonExit = new JButton("Terminar Programa");
@@ -90,8 +108,6 @@ public class Graphics {
 		dragonType.setFont(new Font("Courier New", Font.PLAIN, 13));
 		dragonType.setBounds(185, 108, 194, 22);
 		frmJogoDoLabirinto.getContentPane().add(dragonType);
-
-		/***************** LABELS **********************/
 
 		JLabel lblNewLabel = new JLabel("Dimens\u00E3o do Labirinto");
 		lblNewLabel.setBounds(40, 40, 133, 16);
@@ -133,6 +149,18 @@ public class Graphics {
 		n_dragons_max.setBounds(298, 75, 61, 16);
 		frmJogoDoLabirinto.getContentPane().add(n_dragons_max);
 
+		JLabel label_1 = new JLabel("[         ,         ]");
+		label_1.setBounds(251, 40, 94, 16);
+		frmJogoDoLabirinto.getContentPane().add(label_1);
+
+		JLabel size_max = new JLabel("16");
+		size_max.setBounds(298, 40, 27, 16);
+		frmJogoDoLabirinto.getContentPane().add(size_max);
+
+		JLabel size_min = new JLabel("5");
+		size_min.setBounds(257, 40, 27, 16);
+		frmJogoDoLabirinto.getContentPane().add(size_min);
+
 		/***************** BUTTONS MOVE PLAYER **********************/
 
 		JButton buttonUp = new JButton("Cima");
@@ -162,6 +190,7 @@ public class Graphics {
 		buttonUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				newTurn('w', mazeArea, InfoLabel); // hero goes up
+				Status.setText(Status.getText() + "\n Hero Up\n");
 				isGameOver(InfoLabel, movButtons);
 			}
 		});
@@ -170,6 +199,7 @@ public class Graphics {
 		buttonDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				newTurn('s', mazeArea, InfoLabel); // hero goes down
+				Status.setText(Status.getText() + "\n Hero Down\n");
 				isGameOver(InfoLabel, movButtons);
 			}
 		});
@@ -178,6 +208,7 @@ public class Graphics {
 		buttonLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				newTurn('a', mazeArea, InfoLabel); // hero goes left
+				Status.setText(Status.getText() + "\n Hero Left\n");
 				isGameOver(InfoLabel, movButtons);
 			}
 		});
@@ -186,6 +217,7 @@ public class Graphics {
 		buttonRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				newTurn('d', mazeArea, InfoLabel); // hero goes right
+				Status.setText(Status.getText() + "\n Hero Right\n");
 				isGameOver(InfoLabel, movButtons);
 			}
 		});
@@ -235,23 +267,13 @@ public class Graphics {
 				// Enable dos botões de jogo
 				setButtons(true, movButtons);
 
+				Status.setText("");
+
 				InfoLabel.setText("Pode Jogar !");
 			}
 		});
 		buttonNewMaze.setBounds(395, 36, 149, 25);
 		frmJogoDoLabirinto.getContentPane().add(buttonNewMaze);
-
-		JLabel label_1 = new JLabel("[         ,         ]");
-		label_1.setBounds(251, 40, 94, 16);
-		frmJogoDoLabirinto.getContentPane().add(label_1);
-
-		JLabel label_2 = new JLabel("16");
-		label_2.setBounds(298, 40, 27, 16);
-		frmJogoDoLabirinto.getContentPane().add(label_2);
-
-		JLabel label_3 = new JLabel("5");
-		label_3.setBounds(257, 40, 27, 16);
-		frmJogoDoLabirinto.getContentPane().add(label_3);
 	}
 
 	public void newTurn(char direction, JTextArea area, JLabel l) {
@@ -284,5 +306,4 @@ public class Graphics {
 			b[i].setEnabled(bool);
 		}
 	}
-
 }
