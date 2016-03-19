@@ -84,7 +84,7 @@ public class GamePaly {
 
 		public void paintComponent(java.awt.Graphics g) {
 			super.paintComponent(g);
-			g.drawImage(hero.get(2), 0, 0, 75, 75, 0, 0, 100, 100, null);
+			g.drawImage(hero.get(1), 0, 0, 100, 100, 0, 0, hero.get(10).getWidth(), hero.get(10).getHeight(), null);
 			/*
 			 * drawImage(imagem,resizeXi,resizeYi,resizeXf,resizeYf,xi,yi,xf,yf,
 			 * obs);
