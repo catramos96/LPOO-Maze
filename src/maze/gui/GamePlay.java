@@ -45,7 +45,7 @@ public  class GamePlay extends  JPanel implements KeyListener  {
 	public static void main(String[] args) {
 		JFrame f = new JFrame("Graphics Demo");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
-		f.setPreferredSize(new Dimension(500, 500));
+		f.setPreferredSize(new Dimension(372, 400));
 		JPanel panel = new GamePlay();
 		f.getContentPane().add(panel);
         f.pack(); 
