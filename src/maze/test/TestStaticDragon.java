@@ -4,9 +4,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import maze.logi.Board;
-import maze.logi.Dragon;
 import maze.logi.Point;
-import maze.logi.Sword;
 
 public class TestStaticDragon {
 

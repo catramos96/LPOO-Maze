@@ -5,7 +5,6 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.Spring;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
@@ -13,14 +12,10 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemListener;
-import java.util.Vector;
+
 import java.awt.event.ItemEvent;
 import maze.logi.*;
 import javax.swing.UIManager;
-import javax.swing.SwingConstants;
-import javax.swing.DropMode;
-import java.awt.Color;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
 public class Graphics {
@@ -28,8 +23,13 @@ public class Graphics {
 	private JFrame frmJogoDoLabirinto;
 	private JTextField mazeSize;
 	private JTextField numberOfDragons;
+	
 	private Board board = new Board();
-
+	
+	private JButton[] movButtons;
+	private JTextArea mazeArea;
+	private JLabel InfoLabel;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -37,6 +37,7 @@ public class Graphics {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
 					Graphics window = new Graphics();
 					window.frmJogoDoLabirinto.setVisible(true);
 				} catch (Exception e) {
@@ -49,7 +50,7 @@ public class Graphics {
 	/**
 	 * Create the application.
 	 */
-	public Graphics() {
+	public Graphics() {		
 		initialize();
 	}
 
@@ -63,10 +64,9 @@ public class Graphics {
 		frmJogoDoLabirinto.setBounds(100, 100, 611, 532);
 		frmJogoDoLabirinto.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmJogoDoLabirinto.getContentPane().setLayout(null);
-
 		/***************** AREA DISPLAY MAZE **********************/
 
-		JTextArea mazeArea = new JTextArea();
+		mazeArea = new JTextArea();
 		mazeArea.setFont(new Font("Courier New", Font.PLAIN, 13));
 		mazeArea.setEditable(false);
 		mazeArea.setToolTipText("");
@@ -133,7 +133,7 @@ public class Graphics {
 		lblTipoDeDrages.setBounds(40, 111, 94, 16);
 		frmJogoDoLabirinto.getContentPane().add(lblTipoDeDrages);
 
-		JLabel InfoLabel = new JLabel("Pode gerar um novo Labirinto !");
+		InfoLabel = new JLabel("Pode gerar um novo Labirinto !");
 		InfoLabel.setBounds(40, 458, 207, 16);
 		frmJogoDoLabirinto.getContentPane().add(InfoLabel);
 
@@ -183,7 +183,7 @@ public class Graphics {
 		buttonRight.setBounds(470, 193, 97, 25);
 		frmJogoDoLabirinto.getContentPane().add(buttonRight);
 
-		JButton[] movButtons = { buttonUp, buttonDown, buttonRight, buttonLeft };
+		movButtons = new JButton[] { buttonUp, buttonDown, buttonRight, buttonLeft };
 
 		// LISTENERS
 		// up
@@ -306,4 +306,7 @@ public class Graphics {
 			b[i].setEnabled(bool);
 		}
 	}
+	
+
+
 }
