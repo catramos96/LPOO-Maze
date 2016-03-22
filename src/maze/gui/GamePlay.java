@@ -121,31 +121,19 @@ public  class GamePlay extends  JPanel implements KeyListener  {
 		switch(e.getKeyCode())
 		{
 		case KeyEvent.VK_LEFT: 
-			board.moveHero('a');
-			board.moveRandomDragons();
-			board.updateBoard();
-			repaint();	
+			gameTurn('a');
 			break;
 
 		case KeyEvent.VK_RIGHT: 
-			board.moveHero('d');
-			board.moveRandomDragons();
-			board.updateBoard();
-			repaint();	
+			gameTurn('d');
 			break;
 
 		case KeyEvent.VK_UP: 
-			board.moveHero('w');
-			board.moveRandomDragons();
-			board.updateBoard();
-			repaint();	
+			gameTurn('w');
 			break;
 
 		case KeyEvent.VK_DOWN: 
-			board.moveHero('s');
-			board.moveRandomDragons();
-			board.updateBoard();
-			repaint();	
+			gameTurn('s');
 			break;
 		}
 	}
@@ -160,5 +148,15 @@ public  class GamePlay extends  JPanel implements KeyListener  {
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public void gameTurn(char d){
+		if(!board.exitBoard())
+		{
+			board.moveHero(d);
+			board.moveRandomDragons();
+			board.updateBoard();
+			repaint();
+		}
 	}
 }
