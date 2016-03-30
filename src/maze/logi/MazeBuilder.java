@@ -19,7 +19,7 @@ public class MazeBuilder {
 			generateBoard(size);
 			carvePath();
 			placeHero(size);
-			placeDragon(size, 1);
+			placeDragon(size, 2);
 			placeSword(size);
 		} while (test3x3());
 
@@ -36,7 +36,7 @@ public class MazeBuilder {
 			carvePath();
 			placeHero(size);
 			for (int i = 0; i < numDragons; i++)
-				placeDragon(size, 1);
+				placeDragon(size, 2);
 			placeSword(size);
 		} while (test3x3());
 		return board;

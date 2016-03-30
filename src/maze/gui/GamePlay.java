@@ -14,7 +14,7 @@ import javax.swing.*;
 import maze.logi.Board;
 import maze.logi.MazeBuilder;
 
-public  class GamePlay extends  JPanel implements KeyListener  {
+public  class GamePlay extends  JPanel{
 
 	private ArrayList<BufferedImage> hero;
 	private ArrayList<BufferedImage> dragon;
@@ -26,7 +26,6 @@ public  class GamePlay extends  JPanel implements KeyListener  {
 	private Board board = new Board((new MazeBuilder()).buildMaze(10,3));
 
 	public GamePlay() {
-		this.addKeyListener(this);
 		try {
 			dragon = Spritesheet("resources\\bahamut.png");
 			hero = Spritesheet("resources\\golbez.png");
@@ -38,28 +37,37 @@ public  class GamePlay extends  JPanel implements KeyListener  {
 		}
 		myTimer = new Timer(10, (arg) -> {imageAnimationStep();} );
 		myTimer.start();
-	    requestFocusInWindow();// to receive keyboard events    
-       
+	    requestFocusInWindow();// to receive keyboard events           
 	}
-
-	public static void main(String[] args) {
-		JFrame f = new JFrame("Graphics Demo");
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
-		f.setPreferredSize(new Dimension(372, 400));
-		JPanel panel = new GamePlay();
-		f.getContentPane().add(panel);
-        f.pack(); 
-        f.setVisible(true);
-        f.requestFocus();
-        panel.requestFocusInWindow();// to receive keyboard events    
-     
+	
+	public GamePlay(Board b){
+		//this.addKeyListener(this);
+		
+		board = b;
+		
+		try {
+			dragon = Spritesheet("resources\\bahamut.png");
+			hero = Spritesheet("resources\\golbez.png");
+			wall = ImageIO.read(new File("resources\\wall2.png"));
+			ground = ImageIO.read(new File("resources\\ground.png"));
+			sword = ImageIO.read(new File("resources\\Sword.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		myTimer = new Timer(10, (arg) -> {imageAnimationStep();} );
+		myTimer.start();
+	    requestFocusInWindow();// to receive keyboard events  
+	}
+	
+	public void setBoard(Board b){
+		board = b;
+		repaint();
 	}
 
 	private void imageAnimationStep() {
 		// TODO Auto-generated method stub
 
 	}
-
 
 	public void paintComponent(java.awt.Graphics g) {
 		super.paintComponent(g);
@@ -99,15 +107,15 @@ public  class GamePlay extends  JPanel implements KeyListener  {
 		{
 			for(int j = 0; j < temp[i].length; j++)
 			{
-				g.drawImage(ground, x, y, x+40-1, y+40-1, 0, 0, ground.getWidth(), ground.getHeight(), null);
+				g.drawImage(ground, x, y, x+40, y+40, 0, 0, ground.getWidth(), ground.getHeight(), null);
 				if(temp[i][j] == 'X')
-					g.drawImage(wall, x, y, x+40-1, y+40-1,0, 0, wall.getWidth(), wall.getHeight(), null);
+					g.drawImage(wall, x, y, x+40, y+40,0, 0, wall.getWidth(), wall.getHeight(), null);
 				else if(temp[i][j] == 'D' || temp[i][j] == 'd' || temp[i][j] == 'F')
-					g.drawImage(dragon.get(0),x, y, x+40-1, y+40-1,0, 0, dragon.get(1).getWidth(), dragon.get(1).getHeight(), null);
+					g.drawImage(dragon.get(0),x, y, x+40, y+40,0, 0, dragon.get(1).getWidth(), dragon.get(1).getHeight(), null);
 				else if(temp[i][j] == 'H' || temp[i][j] == 'A')
-					g.drawImage(hero.get(0),x+10, y, x+30-1, y+30-1,0, 0, hero.get(1).getWidth(), hero.get(1).getHeight(), null);
+					g.drawImage(hero.get(0),x+10, y, x+30, y+30,0, 0, hero.get(1).getWidth(), hero.get(1).getHeight(), null);
 				else if(temp[i][j] == 'E')
-					g.drawImage(sword, x, y, x+40-1, y+40-1,0, 0, sword.getWidth(), sword.getHeight(), null);
+					g.drawImage(sword, x, y, x+40, y+40,0, 0, sword.getWidth(), sword.getHeight(), null);
 				x += 35;
 			}
 			x = 0;
@@ -116,7 +124,7 @@ public  class GamePlay extends  JPanel implements KeyListener  {
 
 	}
 
-	@Override
+	/*@Override
 	public void keyPressed(KeyEvent e) {
 		switch(e.getKeyCode())
 		{
@@ -158,5 +166,5 @@ public  class GamePlay extends  JPanel implements KeyListener  {
 			board.updateBoard();
 			repaint();
 		}
-	}
+	}*/
 }

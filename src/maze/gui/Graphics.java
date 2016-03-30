@@ -1,35 +1,43 @@
 package maze.gui;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.Timer;
 import javax.swing.JComboBox;
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemListener;
-
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.awt.event.ItemEvent;
 import maze.logi.*;
 import javax.swing.UIManager;
 import javax.swing.JScrollPane;
 
-public class Graphics {
+public class Graphics implements KeyListener{
 
 	private JFrame frmJogoDoLabirinto;
 	private JTextField mazeSize;
 	private JTextField numberOfDragons;
-	
 	private Board board = new Board();
-	
 	private JButton[] movButtons;
 	private JTextArea mazeArea;
+	private JPanel mazeAreaG;
 	private JLabel InfoLabel;
-	
+
 	/**
 	 * Launch the application.
 	 */
@@ -37,7 +45,7 @@ public class Graphics {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					
+
 					Graphics window = new Graphics();
 					window.frmJogoDoLabirinto.setVisible(true);
 				} catch (Exception e) {
@@ -50,7 +58,7 @@ public class Graphics {
 	/**
 	 * Create the application.
 	 */
-	public Graphics() {		
+	public Graphics() {	
 		initialize();
 	}
 
@@ -60,31 +68,19 @@ public class Graphics {
 
 	private void initialize() {
 		frmJogoDoLabirinto = new JFrame();
+		frmJogoDoLabirinto.addKeyListener(null);
 		frmJogoDoLabirinto.setTitle("Jogo do Labirinto");
-		frmJogoDoLabirinto.setBounds(100, 100, 611, 532);
+		frmJogoDoLabirinto.setBounds(100, 100, 825, 560);
 		frmJogoDoLabirinto.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmJogoDoLabirinto.getContentPane().setLayout(null);
 		/***************** AREA DISPLAY MAZE **********************/
 
-		mazeArea = new JTextArea();
+	/*	mazeArea = new JTextArea();
 		mazeArea.setFont(new Font("Courier New", Font.PLAIN, 13));
 		mazeArea.setEditable(false);
 		mazeArea.setToolTipText("");
 		mazeArea.setBounds(40, 162, 285, 285);
-		frmJogoDoLabirinto.getContentPane().add(mazeArea);
-
-		JTextArea Status = new JTextArea();
-		Status.setEditable(false);
-		Status.setTabSize(10);
-		Status.setRows(10);
-		Status.setBackground(UIManager.getColor("Button.background"));
-		Status.setFont(Status.getFont().deriveFont(11f));
-		Status.setBounds(361, 262, 200, 185);
-		frmJogoDoLabirinto.getContentPane().add(Status);
-
-		JScrollPane scroll = new JScrollPane(Status);
-		scroll.setBounds(361, 262, 200, 185);
-		frmJogoDoLabirinto.getContentPane().add(scroll);
+		frmJogoDoLabirinto.getContentPane().add(mazeArea);*/
 
 		/***************** BUTTONS EXIT **********************/
 
@@ -134,7 +130,7 @@ public class Graphics {
 		frmJogoDoLabirinto.getContentPane().add(lblTipoDeDrages);
 
 		InfoLabel = new JLabel("Pode gerar um novo Labirinto !");
-		InfoLabel.setBounds(40, 458, 207, 16);
+		InfoLabel.setBounds(40, 148, 207, 16);
 		frmJogoDoLabirinto.getContentPane().add(InfoLabel);
 
 		JLabel label = new JLabel("[         ,         ]");
@@ -149,38 +145,28 @@ public class Graphics {
 		n_dragons_max.setBounds(298, 75, 61, 16);
 		frmJogoDoLabirinto.getContentPane().add(n_dragons_max);
 
-		JLabel label_1 = new JLabel("[         ,         ]");
-		label_1.setBounds(251, 40, 94, 16);
-		frmJogoDoLabirinto.getContentPane().add(label_1);
-
-		JLabel size_max = new JLabel("16");
-		size_max.setBounds(298, 40, 27, 16);
-		frmJogoDoLabirinto.getContentPane().add(size_max);
-
-		JLabel size_min = new JLabel("5");
-		size_min.setBounds(257, 40, 27, 16);
-		frmJogoDoLabirinto.getContentPane().add(size_min);
-
+	
+		
 		/***************** BUTTONS MOVE PLAYER **********************/
 
 		JButton buttonUp = new JButton("Cima");
 		buttonUp.setEnabled(false);
-		buttonUp.setBounds(414, 161, 97, 25);
+		buttonUp.setBounds(625, 36, 97, 25);
 		frmJogoDoLabirinto.getContentPane().add(buttonUp);
 
 		JButton buttonDown = new JButton("Baixo");
 		buttonDown.setEnabled(false);
-		buttonDown.setBounds(414, 224, 97, 25);
+		buttonDown.setBounds(625, 106, 97, 25);
 		frmJogoDoLabirinto.getContentPane().add(buttonDown);
 
 		JButton buttonLeft = new JButton("Esquerda");
 		buttonLeft.setEnabled(false);
-		buttonLeft.setBounds(361, 193, 97, 25);
+		buttonLeft.setBounds(575, 71, 97, 25);
 		frmJogoDoLabirinto.getContentPane().add(buttonLeft);
 
 		JButton buttonRight = new JButton("Direita");
 		buttonRight.setEnabled(false);
-		buttonRight.setBounds(470, 193, 97, 25);
+		buttonRight.setBounds(681, 71, 97, 25);
 		frmJogoDoLabirinto.getContentPane().add(buttonRight);
 
 		movButtons = new JButton[] { buttonUp, buttonDown, buttonRight, buttonLeft };
@@ -190,7 +176,6 @@ public class Graphics {
 		buttonUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				newTurn('w', mazeArea, InfoLabel); // hero goes up
-				Status.setText(Status.getText() + "\n Hero Up\n");
 				isGameOver(InfoLabel, movButtons);
 			}
 		});
@@ -199,7 +184,6 @@ public class Graphics {
 		buttonDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				newTurn('s', mazeArea, InfoLabel); // hero goes down
-				Status.setText(Status.getText() + "\n Hero Down\n");
 				isGameOver(InfoLabel, movButtons);
 			}
 		});
@@ -208,7 +192,6 @@ public class Graphics {
 		buttonLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				newTurn('a', mazeArea, InfoLabel); // hero goes left
-				Status.setText(Status.getText() + "\n Hero Left\n");
 				isGameOver(InfoLabel, movButtons);
 			}
 		});
@@ -217,11 +200,16 @@ public class Graphics {
 		buttonRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				newTurn('d', mazeArea, InfoLabel); // hero goes right
-				Status.setText(Status.getText() + "\n Hero Right\n");
 				isGameOver(InfoLabel, movButtons);
 			}
 		});
-
+		
+		
+		mazeAreaG = new GamePlay(board);
+		mazeAreaG.setBounds(40, 400, 300, 300);
+		frmJogoDoLabirinto.getContentPane().add(mazeAreaG);
+		
+		
 		/***************** BOTÃO NEW MAZE **********************/
 
 		/*
@@ -236,6 +224,7 @@ public class Graphics {
 
 				int mz_size = Integer.parseInt(mazeSize.getText());
 				int mz_n_dragons = Integer.parseInt(numberOfDragons.getText());
+				char dragon_t = ' ';
 
 				n_dragons_min.setText("1");
 				n_dragons_max.setText((((mz_size - 2) / 2)) + "");
@@ -259,27 +248,52 @@ public class Graphics {
 				default:
 					break;
 				}
+
+				//--------------------------------------------- JOGO COM IMAGENS
+		
+					/*frame_play.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
+					frame_play.setPreferredSize(new Dimension(40*mz_size, 40*mz_size));
+					JPanel panel = new GamePlay(board);
+					frame_play.getContentPane().add(panel);
+					frame_play.pack(); 
+					frame_play.setVisible(true);
+					//frame_play.requestFocus();
+					panel.requestFocusInWindow();// to receive keyboard events*/
+					
+					
+				/*game_play = new GamePlay(board);
+				frmJogoDoLabirinto.getContentPane().add(game_play);
+				
+				game_play.requestFocusInWindow();*/
+				
+					
+				//----------------------------------------------
+				
 				board.updateBoard();
-
+				mazeAreaG.setBounds(40, 200, 40*mz_size, 40*mz_size);
+				frmJogoDoLabirinto.setBounds(100, 100, 825, 200+40*mz_size);
+				((GamePlay) mazeAreaG).setBoard(board);
+				
 				// Imprime o tabuleiro
-				mazeArea.setText(board.toString());
-
+				//mazeArea.setText(board.toString());
+				
 				// Enable dos botões de jogo
 				setButtons(true, movButtons);
-
-				Status.setText("");
 
 				InfoLabel.setText("Pode Jogar !");
 			}
 		});
 		buttonNewMaze.setBounds(395, 36, 149, 25);
 		frmJogoDoLabirinto.getContentPane().add(buttonNewMaze);
+		
+		
 	}
 
 	public void newTurn(char direction, JTextArea area, JLabel l) {
 		board.moveHero(direction);
 		board.moveRandomDragons();
 		board.updateBoard();
+		
 		if (!board.getSword().inUse())
 			l.setText("Apanha a espada");
 		else if (!board.dragonsAllDead())
@@ -306,7 +320,39 @@ public class Graphics {
 			b[i].setEnabled(bool);
 		}
 	}
-	
 
+@Override
+public void keyPressed(KeyEvent e) {
+	switch(e.getKeyCode())
+	{
+	/*case KeyEvent.VK_LEFT: 
+		game_play.gameTurn('a');
+		break;
 
+	case KeyEvent.VK_RIGHT: 
+		gameTurn('d');
+		break;
+
+	case KeyEvent.VK_UP: 
+		gameTurn('w');
+		break;
+
+	case KeyEvent.VK_DOWN: 
+		gameTurn('s');
+		break;*/
+	}
 }
+
+@Override
+public void keyReleased(KeyEvent arg0) {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public void keyTyped(KeyEvent arg0) {
+	// TODO Auto-generated method stub
+	
+}
+}
+
