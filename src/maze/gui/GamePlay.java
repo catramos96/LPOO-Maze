@@ -37,12 +37,10 @@ public  class GamePlay extends  JPanel{
 		}
 		myTimer = new Timer(10, (arg) -> {imageAnimationStep();} );
 		myTimer.start();
-	    requestFocusInWindow();// to receive keyboard events           
+	//  requestFocusInWindow();// to receive keyboard events           
 	}
 	
 	public GamePlay(Board b){
-		//this.addKeyListener(this);
-		
 		board = b;
 		
 		try {
@@ -56,7 +54,7 @@ public  class GamePlay extends  JPanel{
 		}
 		myTimer = new Timer(10, (arg) -> {imageAnimationStep();} );
 		myTimer.start();
-	    requestFocusInWindow();// to receive keyboard events  
+	 //   requestFocusInWindow();// to receive keyboard events  
 	}
 	
 	public void setBoard(Board b){
@@ -72,12 +70,6 @@ public  class GamePlay extends  JPanel{
 	public void paintComponent(java.awt.Graphics g) {
 		super.paintComponent(g);
 		drawBoard (board,  g);
-
-		/*
-		 * drawImage(imagem,resizeXi,resizeYi,resizeXf,resizeYf,xi,yi,xf,yf,
-		 * obs);
-		 */
-
 	}
 
 	public  ArrayList<BufferedImage> Spritesheet(String image) throws IOException {
@@ -124,47 +116,4 @@ public  class GamePlay extends  JPanel{
 
 	}
 
-	/*@Override
-	public void keyPressed(KeyEvent e) {
-		switch(e.getKeyCode())
-		{
-		case KeyEvent.VK_LEFT: 
-			gameTurn('a');
-			break;
-
-		case KeyEvent.VK_RIGHT: 
-			gameTurn('d');
-			break;
-
-		case KeyEvent.VK_UP: 
-			gameTurn('w');
-			break;
-
-		case KeyEvent.VK_DOWN: 
-			gameTurn('s');
-			break;
-		}
-	}
-
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-	
-	public void gameTurn(char d){
-		if(!board.exitBoard())
-		{
-			board.moveHero(d);
-			board.moveRandomDragons();
-			board.updateBoard();
-			repaint();
-		}
-	}*/
 }

@@ -1,33 +1,30 @@
 package maze.gui;
 
-import java.awt.Dimension;
+import java.awt.Desktop.Action;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
+import javax.swing.AbstractAction;
+import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.Timer;
-import javax.swing.JComboBox;
-import javax.imageio.ImageIO;
-import javax.swing.JButton;
+import javax.swing.JRootPane;
 import javax.swing.JTextArea;
-import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.awt.event.ItemEvent;
-import maze.logi.*;
-import javax.swing.UIManager;
-import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 
-public class Graphics implements KeyListener{
+import maze.logi.Board;
+import maze.logi.MazeBuilder;
+
+public class Graphics{
 
 	private JFrame frmJogoDoLabirinto;
 	private JTextField mazeSize;
@@ -68,14 +65,15 @@ public class Graphics implements KeyListener{
 
 	private void initialize() {
 		frmJogoDoLabirinto = new JFrame();
-		frmJogoDoLabirinto.addKeyListener(null);
+		
+		
 		frmJogoDoLabirinto.setTitle("Jogo do Labirinto");
 		frmJogoDoLabirinto.setBounds(100, 100, 825, 560);
 		frmJogoDoLabirinto.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmJogoDoLabirinto.getContentPane().setLayout(null);
 		/***************** AREA DISPLAY MAZE **********************/
 
-	/*	mazeArea = new JTextArea();
+		/*	mazeArea = new JTextArea();
 		mazeArea.setFont(new Font("Courier New", Font.PLAIN, 13));
 		mazeArea.setEditable(false);
 		mazeArea.setToolTipText("");
@@ -145,8 +143,8 @@ public class Graphics implements KeyListener{
 		n_dragons_max.setBounds(298, 75, 61, 16);
 		frmJogoDoLabirinto.getContentPane().add(n_dragons_max);
 
-	
-		
+
+
 		/***************** BUTTONS MOVE PLAYER **********************/
 
 		JButton buttonUp = new JButton("Cima");
@@ -175,7 +173,7 @@ public class Graphics implements KeyListener{
 		// up
 		buttonUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				newTurn('w', mazeArea, InfoLabel); // hero goes up
+				 gameTurn('w');
 				isGameOver(InfoLabel, movButtons);
 			}
 		});
@@ -183,7 +181,7 @@ public class Graphics implements KeyListener{
 		// down
 		buttonDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				newTurn('s', mazeArea, InfoLabel); // hero goes down
+				 gameTurn('s');
 				isGameOver(InfoLabel, movButtons);
 			}
 		});
@@ -191,7 +189,7 @@ public class Graphics implements KeyListener{
 		// left
 		buttonLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				newTurn('a', mazeArea, InfoLabel); // hero goes left
+				 gameTurn('a');
 				isGameOver(InfoLabel, movButtons);
 			}
 		});
@@ -199,17 +197,17 @@ public class Graphics implements KeyListener{
 		// right
 		buttonRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				newTurn('d', mazeArea, InfoLabel); // hero goes right
+				 gameTurn('d');
 				isGameOver(InfoLabel, movButtons);
 			}
 		});
-		
+
 		
 		mazeAreaG = new GamePlay(board);
 		mazeAreaG.setBounds(40, 400, 300, 300);
 		frmJogoDoLabirinto.getContentPane().add(mazeAreaG);
-		
-		
+
+
 		/***************** BOTÃO NEW MAZE **********************/
 
 		/*
@@ -250,8 +248,8 @@ public class Graphics implements KeyListener{
 				}
 
 				//--------------------------------------------- JOGO COM IMAGENS
-		
-					/*frame_play.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
+
+				/*frame_play.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
 					frame_play.setPreferredSize(new Dimension(40*mz_size, 40*mz_size));
 					JPanel panel = new GamePlay(board);
 					frame_play.getContentPane().add(panel);
@@ -259,24 +257,24 @@ public class Graphics implements KeyListener{
 					frame_play.setVisible(true);
 					//frame_play.requestFocus();
 					panel.requestFocusInWindow();// to receive keyboard events*/
-					
-					
+
+
 				/*game_play = new GamePlay(board);
 				frmJogoDoLabirinto.getContentPane().add(game_play);
-				
+
 				game_play.requestFocusInWindow();*/
-				
-					
+
+
 				//----------------------------------------------
-				
+
 				board.updateBoard();
 				mazeAreaG.setBounds(40, 200, 40*mz_size, 40*mz_size);
 				frmJogoDoLabirinto.setBounds(100, 100, 825, 200+40*mz_size);
 				((GamePlay) mazeAreaG).setBoard(board);
-				
+
 				// Imprime o tabuleiro
 				//mazeArea.setText(board.toString());
-				
+
 				// Enable dos botões de jogo
 				setButtons(true, movButtons);
 
@@ -286,14 +284,63 @@ public class Graphics implements KeyListener{
 		buttonNewMaze.setBounds(395, 36, 149, 25);
 		frmJogoDoLabirinto.getContentPane().add(buttonNewMaze);
 		
+		/***
+		 *  KEYBOARD TREATMENT
+		 */
+		JRootPane  Pane_maze = mazeAreaG.getRootPane();
 		
-	}
+		javax.swing.Action upKeyAction = new javax.swing.AbstractAction("upKeyAction") {
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				 gameTurn('w');
+			} 
+		};
+
+		javax.swing.Action downKeyAction = new AbstractAction("downKeyAction") {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				 gameTurn('s');
+			}
+		};
+		
+		javax.swing.Action rightKeyAction = new AbstractAction("rightKeyAction") {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				 gameTurn('d');
+			} 
+		};
+
+		javax.swing.Action leftKeyAction = new AbstractAction("leftKeyAction") {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				 gameTurn('a');
+			}
+		};
+
+		KeyStroke upKeyStroke = KeyStroke.getKeyStroke("UP");
+		KeyStroke downKeyStroke = KeyStroke.getKeyStroke("DOWN");
+		KeyStroke rightKeyStroke = KeyStroke.getKeyStroke("RIGHT");
+		KeyStroke leftKeyStroke = KeyStroke.getKeyStroke("LEFT");
+		Pane_maze.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(upKeyStroke, "upKeyAction");
+		Pane_maze.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(downKeyStroke, "downKeyAction");
+		Pane_maze.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(rightKeyStroke, "rightKeyAction");
+		Pane_maze.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(leftKeyStroke, "leftKeyAction");
+		Pane_maze.getActionMap().put("upKeyAction", upKeyAction);
+		Pane_maze.getActionMap().put("downKeyAction", downKeyAction);
+		Pane_maze.getActionMap().put("rightKeyAction", rightKeyAction);
+		Pane_maze.getActionMap().put("leftKeyAction", leftKeyAction);
+
+
+	}
 	public void newTurn(char direction, JTextArea area, JLabel l) {
 		board.moveHero(direction);
 		board.moveRandomDragons();
 		board.updateBoard();
-		
+
 		if (!board.getSword().inUse())
 			l.setText("Apanha a espada");
 		else if (!board.dragonsAllDead())
@@ -320,39 +367,17 @@ public class Graphics implements KeyListener{
 			b[i].setEnabled(bool);
 		}
 	}
+	public void gameTurn(char d){
+		System.out.println("GG");
+		if(!board.exitBoard())
+		{
+			board.moveHero(d);
+			board.moveRandomDragons();
+			board.updateBoard();
+			mazeAreaG.repaint();
+		}
 
-@Override
-public void keyPressed(KeyEvent e) {
-	switch(e.getKeyCode())
-	{
-	/*case KeyEvent.VK_LEFT: 
-		game_play.gameTurn('a');
-		break;
-
-	case KeyEvent.VK_RIGHT: 
-		gameTurn('d');
-		break;
-
-	case KeyEvent.VK_UP: 
-		gameTurn('w');
-		break;
-
-	case KeyEvent.VK_DOWN: 
-		gameTurn('s');
-		break;*/
 	}
-}
-
-@Override
-public void keyReleased(KeyEvent arg0) {
-	// TODO Auto-generated method stub
+	
 	
 }
-
-@Override
-public void keyTyped(KeyEvent arg0) {
-	// TODO Auto-generated method stub
-	
-}
-}
-
