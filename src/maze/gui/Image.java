@@ -14,7 +14,7 @@ public class Image extends JPanel {
 	private ArrayList<Integer> images_y = new ArrayList<Integer>();
 	private ArrayList<Integer> images_sx = new ArrayList<Integer>();
 	private ArrayList<Integer> images_sy = new ArrayList<Integer>();
-	private BufferedImage background;
+	private BufferedImage background; //image in mosaics
 	private int width;
 	private int height;
 
@@ -63,19 +63,19 @@ public class Image extends JPanel {
 		} 
 	}
 	
-	public void addImageOfSpriteSheet(String image_path,int number,int pos_x,int pos_y,int scale_x,int scale_y){
+	public void addImageOfSpriteSheet(String image_path,int n_sprites_x, int number,int pos_x,int pos_y,int scale_x,int scale_y){
 		try {
 		BufferedImage temp = ImageIO.read(new File(image_path));
 		
-		int width = temp.getWidth() / 4;
-		int height = temp.getHeight() / 4;
+		int width = temp.getWidth() / n_sprites_x;
+		int height = temp.getHeight() / n_sprites_x;
 		
 		int x;
-		if(number < 4)
+		if(number < n_sprites_x)
 			x = number*width;
 		else
-			x = number%4*width;
-		int y = number / 4*height;
+			x = number%n_sprites_x*width;
+		int y = number / n_sprites_x*height;
 		
 		images.add(temp.getSubimage(x, y, width, height));
 		images_x.add(pos_x);
@@ -91,7 +91,7 @@ public class Image extends JPanel {
 	public void paintComponent(java.awt.Graphics g) {
 		super.paintComponent(g);
 		if(background != null)
-		drawBackground(g);
+			drawBackground(g);
 		drawImages(g);
 	}
 	

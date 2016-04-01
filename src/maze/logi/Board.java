@@ -181,6 +181,7 @@ public class Board {
 			return;
 		}
 		heroNextPosition(new_pos);
+		placeOnBoard(hero.getPosition(), hero.getSymbol());
 	}
 
 	private boolean dragonNextPosition(Point new_pos, Dragon dragon) {
@@ -236,6 +237,8 @@ public class Board {
 			dragon.setAwake(false);
 			break;
 		}
+		if(move)
+			placeOnBoard(dragon.getPosition(), dragon.getSymbol());
 		return move;
 	}
 
@@ -302,23 +305,9 @@ public class Board {
 		heroDragonsCollision();
 		// update exit
 		placeOnBoard(exit, 'S');
-
 		// update sword
 		if (!sword.inUse())
 			placeOnBoard(sword.getPosition(), sword.getSymbol());
-		// update hero
-			if (hero.isAlive())
-				placeOnBoard(hero.getPosition(), hero.getSymbol());
-			else
-				cleanPosition(hero.getPosition());
-		// update dragon
-		for (int i = 0; i < dragons.size(); i++) {
-			Dragon dragon = dragons.get(i);
-			if (dragon.isAlive())
-				placeOnBoard(dragon.getPosition(), dragon.getSymbol());
-			else
-				cleanPosition(dragon.getPosition());
-		}
 	}
 
 	public void cleanPosition(Point p) {
@@ -334,7 +323,7 @@ public class Board {
 			Dragon dragon = dragons.get(i);
 			int dist_x = Math.abs(hero.getPosition().getX() - dragon.getPosition().getX());
 			int dist_y = Math.abs(hero.getPosition().getY() - dragon.getPosition().getY());
-			if (dist_x == 1 && dist_y == 1 || dist_x == 0 && dist_y == 1 || dist_x == 1 && dist_y == 0) {
+			if (dist_x == 0 && dist_y == 1 || dist_x == 1 && dist_y == 0) {
 				if (hero.getSymbol() == 'H' && (dragon.getSymbol() == 'D')){
 					hero.setAlive(false);
 					cleanPosition(hero.getPosition());

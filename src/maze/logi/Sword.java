@@ -36,7 +36,7 @@ public class Sword extends Point {
 
 	/**
 	 * Return a Point which contains sword position
-	 * @return Point Contais x and y coordinates.
+	 * @return Point Contains x and y coordinates.
 	 */
 	public Point getPosition() {
 		return (Point) this;

@@ -80,25 +80,8 @@ public class Graphics{
 		mazeArea.setBounds(40, 162, 285, 285);
 		frmJogoDoLabirinto.getContentPane().add(mazeArea);*/
 
-		/***************** BUTTONS EXIT **********************/
-
-		JButton buttonExit = new JButton("Terminar Programa");
-		buttonExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				System.exit(0);
-			}
-		});
-		buttonExit.setBounds(395, 75, 149, 25);
-		frmJogoDoLabirinto.getContentPane().add(buttonExit);
-
-		/***************** COMBO BOX **********************/
-
 		String[] dragonState = { "Estatico", "Aleatorio", "Aleatorio e Sonolento" };
 		JComboBox dragonType = new JComboBox(dragonState);
-		dragonType.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent arg0) {
-			}
-		});
 		dragonType.setFont(new Font("Courier New", Font.PLAIN, 13));
 		dragonType.setBounds(185, 108, 194, 22);
 		frmJogoDoLabirinto.getContentPane().add(dragonType);
@@ -143,10 +126,14 @@ public class Graphics{
 		n_dragons_max.setBounds(298, 75, 61, 16);
 		frmJogoDoLabirinto.getContentPane().add(n_dragons_max);
 
-
-
-		/***************** BUTTONS MOVE PLAYER **********************/
-
+		JButton buttonNewMaze = new JButton("Gerar novo Labirinto");
+		buttonNewMaze.setBounds(395, 36, 149, 25);
+		frmJogoDoLabirinto.getContentPane().add(buttonNewMaze);
+		
+		JButton buttonExit = new JButton("Terminar Programa");	
+		buttonExit.setBounds(395, 75, 149, 25);
+		frmJogoDoLabirinto.getContentPane().add(buttonExit);
+		
 		JButton buttonUp = new JButton("Cima");
 		buttonUp.setEnabled(false);
 		buttonUp.setBounds(625, 36, 97, 25);
@@ -168,8 +155,22 @@ public class Graphics{
 		frmJogoDoLabirinto.getContentPane().add(buttonRight);
 
 		movButtons = new JButton[] { buttonUp, buttonDown, buttonRight, buttonLeft };
+		
+		//area onde faz o display do jogo modo gráfico
+		mazeAreaG = new GamePlay(board);
+		mazeAreaG.setBounds(40, 400, 300, 300);
+		frmJogoDoLabirinto.getContentPane().add(mazeAreaG);
 
-		// LISTENERS
+		/*
+		 * LISTENERS
+		 */
+		
+		//combo box - type of dragons
+		dragonType.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+			}
+		});
+		
 		// up
 		buttonUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -197,21 +198,15 @@ public class Graphics{
 				 gameTurn('d');
 			}
 		});
-
 		
-		mazeAreaG = new GamePlay(board);
-		mazeAreaG.setBounds(40, 400, 300, 300);
-		frmJogoDoLabirinto.getContentPane().add(mazeAreaG);
-
-
-		/***************** BOTÃO NEW MAZE **********************/
-
-		/*
-		 * Gera novos labirintos. O numero de dragoes só pode variar entre [1 ,
-		 * (s-2)/2], em que s representa o tamanho do tabuleiro.
-		 */
-
-		JButton buttonNewMaze = new JButton("Gerar novo Labirinto");
+		// exit
+		buttonExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
+		
+		//new maze
 		buttonNewMaze.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MazeBuilder mz = new MazeBuilder();
@@ -243,29 +238,9 @@ public class Graphics{
 					break;
 				}
 
-				//--------------------------------------------- JOGO COM IMAGENS
-
-				/*frame_play.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
-					frame_play.setPreferredSize(new Dimension(40*mz_size, 40*mz_size));
-					JPanel panel = new GamePlay(board);
-					frame_play.getContentPane().add(panel);
-					frame_play.pack(); 
-					frame_play.setVisible(true);
-					//frame_play.requestFocus();
-					panel.requestFocusInWindow();// to receive keyboard events*/
-
-
-				/*game_play = new GamePlay(board);
-				frmJogoDoLabirinto.getContentPane().add(game_play);
-
-				game_play.requestFocusInWindow();*/
-
-
-				//----------------------------------------------
-
 				board.updateBoard();
 				mazeAreaG.setBounds(40, 200, 40*mz_size, 40*mz_size);
-				frmJogoDoLabirinto.setBounds(100, 100, 825, 200+40*mz_size);
+				frmJogoDoLabirinto.setBounds(100, 100, 825, 250+40*mz_size);
 				((GamePlay) mazeAreaG).setBoard(board);
 
 				// Imprime o tabuleiro
@@ -277,12 +252,6 @@ public class Graphics{
 				InfoLabel.setText("Pode Jogar !");
 			}
 		});
-		buttonNewMaze.setBounds(395, 36, 149, 25);
-		frmJogoDoLabirinto.getContentPane().add(buttonNewMaze);
-		
-		/*JPanel background = new MosaicsImage("resources\\wall_plain.png");
-		background.setBounds(0, 0, 807, 513);
-		frmJogoDoLabirinto.getContentPane().add(background);*/
 		
 		/***
 		 *  KEYBOARD TREATMENT
@@ -340,6 +309,11 @@ public class Graphics{
 
 
 	}
+	
+	/*
+	 * OTHER FUNCTIONS
+	 */
+	
 	public void newTurn(char direction, JTextArea area, JLabel l) {
 		board.moveHero(direction);
 		board.moveRandomDragons();
@@ -371,7 +345,6 @@ public class Graphics{
 		}
 	}
 	public void gameTurn(char d){
-		System.out.println("GG");
 		if(!board.exitBoard())
 		{
 			board.moveHero(d);

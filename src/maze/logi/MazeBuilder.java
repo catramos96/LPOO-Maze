@@ -13,7 +13,7 @@ public class MazeBuilder {
 	private static Point heroi;
 
 	public char[][] buildMaze(int size) throws IllegalArgumentException {
-		if (size <= 5)
+		if (size < 5)
 			throw new IllegalArgumentException();
 		do {
 			generateBoard(size);

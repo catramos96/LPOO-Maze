@@ -9,10 +9,12 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class GameMenu {
 
-	private JFrame frame;
+	private JFrame frmGameMenu;
 
 	/**
 	 * Launch the application.
@@ -22,7 +24,7 @@ public class GameMenu {
 			public void run() {
 				try {
 					GameMenu window = new GameMenu();
-					window.frame.setVisible(true);
+					window.frmGameMenu.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -41,38 +43,74 @@ public class GameMenu {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setResizable(false);
-		frame.setBounds(100, 100, 500, 450);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmGameMenu = new JFrame();
+		frmGameMenu.setTitle("Menu de Jogo");
+		frmGameMenu.setResizable(false);
+		frmGameMenu.setBounds(100, 100, 500, 450);
+		frmGameMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmGameMenu.getContentPane().setLayout(null);
 		
 		JLabel game_name = new JLabel("Jogo do Labirinto");
-		game_name.setForeground(new Color(0, 0, 0));
+		game_name.setForeground(new Color(153, 0, 0));
 		game_name.setFont(new Font("Stencil", Font.BOLD, 34));
-		game_name.setBounds(62, 62, 379, 40);
-		frame.getContentPane().add(game_name);
+		game_name.setBounds(62, 52, 379, 40);
+		frmGameMenu.getContentPane().add(game_name);
 		
-		JButton btnJogarComGrficos = new JButton("Jogar com gr\u00E1ficos");
-		btnJogarComGrficos.setBounds(153, 191, 172, 25);
-		frame.getContentPane().add(btnJogarComGrficos);
+		JButton buttonPlayText = new JButton("Jogar em \u00E1rea de texto");
+		buttonPlayText.setForeground(Color.WHITE);
+		buttonPlayText.setBackground(Color.DARK_GRAY);
+		buttonPlayText.setBounds(153, 150, 172, 25);
+		frmGameMenu.getContentPane().add(buttonPlayText);
 		
-		JButton btnComoJogar = new JButton("Como jogar");
-		btnComoJogar.setBounds(153, 247, 172, 25);
-		frame.getContentPane().add(btnComoJogar);
+		JButton buttonPlayGraphs = new JButton("Jogar com gr\u00E1ficos");
+		buttonPlayGraphs.setBackground(Color.DARK_GRAY);
+		buttonPlayGraphs.setForeground(Color.WHITE);
+		buttonPlayGraphs.setBounds(153, 210, 172, 25);
+		frmGameMenu.getContentPane().add(buttonPlayGraphs);
 		
-		JButton btnSair = new JButton("Sair");
-		btnSair.setBounds(153, 304, 172, 25);
-		frame.getContentPane().add(btnSair);
+		JButton buttonHowToPlay = new JButton("Como jogar");
+		buttonHowToPlay.setForeground(Color.WHITE);
+		buttonHowToPlay.setBackground(Color.DARK_GRAY);
+		buttonHowToPlay.setBounds(153, 270, 172, 25);
+		frmGameMenu.getContentPane().add(buttonHowToPlay);
 		
-		JButton play_game_buttons = new JButton("Jogar em \u00E1rea de texto");
-		play_game_buttons.setBounds(153, 137, 172, 25);
-		frame.getContentPane().add(play_game_buttons);
+		JButton buttonExit = new JButton("Sair");
+		buttonExit.setForeground(Color.WHITE);
+		buttonExit.setBackground(Color.DARK_GRAY);
+		buttonExit.setBounds(153, 330, 172, 25);
+		frmGameMenu.getContentPane().add(buttonExit);
 		
-		JPanel image_background = new Image("resources\\wall_plain.png");
-		//((Image) image_background).addImage("resources\\sword.png",10,10,10,50);
-		((Image) image_background).addImageOfSpriteSheet("resources\\bahamut.png",5,360,290,110,130);
+		JPanel image_background = new Image("resources\\brick_wall.png");
+		((Image) image_background).addImageOfSpriteSheet("resources\\golbez.png",4,0,220,90,40,65);
+		((Image) image_background).addImageOfSpriteSheet("resources\\bahamut.png",4,5,360,290,110,130);
 		image_background.setBounds(0, 0, 494, 415);
-		frame.getContentPane().add(image_background);
+		frmGameMenu.getContentPane().add(image_background);
+		
+		/*
+		 * BUTTONS LISTENERS
+		 */
+		
+		buttonPlayText.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		
+		buttonPlayGraphs.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		
+		
+		buttonHowToPlay.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		
+		
+		buttonExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 	}
 }
