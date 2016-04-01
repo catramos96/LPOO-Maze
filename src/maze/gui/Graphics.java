@@ -284,6 +284,10 @@ public class Graphics{
 		buttonNewMaze.setBounds(395, 36, 149, 25);
 		frmJogoDoLabirinto.getContentPane().add(buttonNewMaze);
 		
+		/*JPanel background = new MosaicsImage("resources\\wall_plain.png");
+		background.setBounds(0, 0, 807, 513);
+		frmJogoDoLabirinto.getContentPane().add(background);*/
+		
 		/***
 		 *  KEYBOARD TREATMENT
 		 */
