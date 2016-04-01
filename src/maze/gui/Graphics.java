@@ -174,7 +174,6 @@ public class Graphics{
 		buttonUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				 gameTurn('w');
-				isGameOver(InfoLabel, movButtons);
 			}
 		});
 
@@ -182,7 +181,6 @@ public class Graphics{
 		buttonDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				 gameTurn('s');
-				isGameOver(InfoLabel, movButtons);
 			}
 		});
 
@@ -190,7 +188,6 @@ public class Graphics{
 		buttonLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				 gameTurn('a');
-				isGameOver(InfoLabel, movButtons);
 			}
 		});
 
@@ -198,7 +195,6 @@ public class Graphics{
 		buttonRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				 gameTurn('d');
-				isGameOver(InfoLabel, movButtons);
 			}
 		});
 
@@ -298,6 +294,7 @@ public class Graphics{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				 gameTurn('w');
+				 updateInfo(InfoLabel);
 			} 
 		};
 
@@ -306,6 +303,7 @@ public class Graphics{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				 gameTurn('s');
+				 updateInfo(InfoLabel);
 			}
 		};
 		
@@ -314,6 +312,7 @@ public class Graphics{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				 gameTurn('d');
+				 updateInfo(InfoLabel);
 			} 
 		};
 
@@ -322,6 +321,7 @@ public class Graphics{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				 gameTurn('a');
+				 updateInfo(InfoLabel);
 			}
 		};
 
@@ -344,21 +344,20 @@ public class Graphics{
 		board.moveHero(direction);
 		board.moveRandomDragons();
 		board.updateBoard();
-
+		updateInfo(l);
+		area.setText(board.toString());
+		if(board.exitBoard())
+			setButtons(false, movButtons);
+	}
+	
+	public void updateInfo(JLabel l){
 		if (!board.getSword().inUse())
 			l.setText("Apanha a espada");
 		else if (!board.dragonsAllDead())
 			l.setText("Mata os dragões todos");
 		else if (board.dragonsAllDead())
-			l.setText("Vai para a saida");
-		area.setText(board.toString());
-	}
-
-	public void isGameOver(JLabel l, JButton[] b) {
+			l.setText("Vai para a saida");	
 		if (board.exitBoard()) {
-			// desativar botões de movimento
-			setButtons(false, b);
-			// notificar utilizador
 			if (board.heroWins())
 				l.setText("Ganhas-te !");
 			else
