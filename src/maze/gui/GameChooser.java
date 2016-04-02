@@ -36,6 +36,7 @@ public class GameChooser extends JFrame {
 	private JTextField txtTipoDeDrages;
 	private JTextField txtTipoDeJogo;
 	private JTextField dragon_min_max;
+	private JTextField ERROR_MSG;
 
 	/**
 	 * Create the application.
@@ -88,13 +89,13 @@ public class GameChooser extends JFrame {
 		JButton btnCriarUmLabirinto = new JButton("Criar um Labirinto");
 		btnCriarUmLabirinto.setBackground(Color.DARK_GRAY);
 		btnCriarUmLabirinto.setForeground(Color.WHITE);
-		btnCriarUmLabirinto.setBounds(143, 250, 149, 25);
+		btnCriarUmLabirinto.setBounds(143, 245, 149, 25);
 		getContentPane().add(btnCriarUmLabirinto);
 
 		JButton buttonBack = new JButton("Voltar ao Menu");	
 		buttonBack.setBackground(Color.DARK_GRAY);
 		buttonBack.setForeground(Color.WHITE);
-		buttonBack.setBounds(143, 300, 149, 25);
+		buttonBack.setBounds(143, 285, 149, 25);
 		getContentPane().add(buttonBack);
 
 		String[] gameType = { "Texto", "Gráfico"};
@@ -103,6 +104,15 @@ public class GameChooser extends JFrame {
 		game_type.setFont(new Font("Courier New", Font.PLAIN, 13));
 		game_type.setBounds(185, 145, 194, 22);
 		getContentPane().add(game_type);
+
+		ERROR_MSG = new JTextField();
+		ERROR_MSG.setEditable(false);
+		ERROR_MSG.setForeground(Color.RED);
+		ERROR_MSG.setBackground(Color.DARK_GRAY);
+		ERROR_MSG.setBounds(12, 320, 286, 22);
+		getContentPane().add(ERROR_MSG);
+		ERROR_MSG.setColumns(10);
+		ERROR_MSG.setVisible(false);
 
 		txtDimensoDoLabirinto = new JTextField();
 		txtDimensoDoLabirinto.setEditable(false);
@@ -183,7 +193,19 @@ public class GameChooser extends JFrame {
 				int mz_size = Integer.parseInt(mazeSize.getText());
 				int mz_n_dragons = Integer.parseInt(numberOfDragons.getText());
 				char dragon_t = ' ';
-				dragon_min_max.setText("[    1   ,    "+((mz_size - 2) / 2)+"   ]");
+				if(mz_size >= 6)
+					dragon_min_max.setText("[    1   ,    "+((mz_size - 2) / 2)+"   ]");
+
+				if(mz_n_dragons > ((mz_size-2)/2)){
+					ERROR_MSG.setVisible(true);
+					ERROR_MSG.setText("Número de dragões invalido!");
+				}
+				
+				if(mz_size < 6 || mz_size >30){
+					mz_size = 0;
+					ERROR_MSG.setVisible(true);
+					ERROR_MSG.setText("Tamanho do tabuleiro invalido! [5 , 30]");
+				}
 
 				Board b = new Board(mz.buildMaze(mz_size, mz_n_dragons));
 				board = b;
