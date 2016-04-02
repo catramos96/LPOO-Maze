@@ -18,7 +18,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JSpinner;
 import javax.swing.JButton;
 
-public class TESTE {
+public class GameMazeCreator extends JFrame {
 
 	private JFrame frame;
 	private Board tab;
@@ -28,26 +28,12 @@ public class TESTE {
 	private Board image;
 	private JComboBox comboBox;
 	private JLabel lblValidInfo;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TESTE window = new TESTE();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the application.
 	 */
-	public TESTE() {
+	public GameMazeCreator() {
 		initialize();
 	}
 
@@ -59,11 +45,13 @@ public class TESTE {
 		frame.setBounds(100, 100, 850, 800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setVisible(true);
 		
 		JPanel Options = new JPanel();
 		Options.setBounds(22, 27, 800, 145);
 		frame.getContentPane().add(Options);
 		Options.setLayout(null);
+		
 		
 		comboBox = new JComboBox();
 		comboBox.setBounds(172, 12, 80, 24);

@@ -9,9 +9,16 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
 import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
+import java.awt.Toolkit;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class GameMenu {
@@ -49,39 +56,42 @@ public class GameMenu {
 		frame = new JFrame();
 		frame.setTitle("Menu de Jogo");
 		frame.setResizable(false);
-		frame.setBounds(100, 100, 500, 450);
+		
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		frame.setSize(screenSize);
+		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-
-		JLabel game_name = new JLabel("Jogo do Labirinto");
-		game_name.setForeground(new Color(153, 0, 0));
-		game_name.setFont(new Font("Stencil", Font.BOLD, 34));
-		game_name.setBounds(62, 52, 379, 40);
-		frame.getContentPane().add(game_name);
-
+		
+	
 		JButton buttonPlay = new JButton("Jogar");
 		buttonPlay.setForeground(Color.WHITE);
-		buttonPlay.setBackground(Color.DARK_GRAY);
-		buttonPlay.setBounds(153, 170, 172, 25);
+		buttonPlay.setOpaque(false);
+		buttonPlay.setContentAreaFilled(false);
+		buttonPlay.setBorderPainted(false);
+		buttonPlay.setBounds(250, 350,90,40);
 		frame.getContentPane().add(buttonPlay);
 
 		JButton buttonHowToPlay = new JButton("Como jogar");
 		buttonHowToPlay.setForeground(Color.WHITE);
-		buttonHowToPlay.setBackground(Color.DARK_GRAY);
-		buttonHowToPlay.setBounds(153, 240, 172, 25);
+		buttonHowToPlay.setOpaque(false);
+		buttonHowToPlay.setContentAreaFilled(false);
+		buttonHowToPlay.setBorderPainted(false);
+		buttonHowToPlay.setBounds(250, 400, 120,40);
 		frame.getContentPane().add(buttonHowToPlay);
 
 		JButton buttonExit = new JButton("Sair");
 		buttonExit.setForeground(Color.WHITE);
-		buttonExit.setBackground(Color.DARK_GRAY);
-		buttonExit.setBounds(153, 310, 172, 25);
+		buttonExit.setOpaque(false);
+		buttonExit.setContentAreaFilled(false);
+		buttonExit.setBorderPainted(false);
+		buttonExit.setBounds(250, 450, 90,40);
 		frame.getContentPane().add(buttonExit);
 
-		JPanel image_background = new Image("resources\\background.png");
-		((Image) image_background).addImageOfSpriteSheet("resources\\golbez.png",4,0,220,105,40,65);
-		((Image) image_background).addImageOfSpriteSheet("resources\\bahamut.png",4,5,360,290,110,130);
+		Image image_background = new Image("resources//background.png");
+		
 		image_background.setBounds(0, 0, ((Image) image_background).getBackGWidth(), ((Image) image_background).getBackGHeight());
-		frame.setBounds(0, 0, image_background.getWidth(), image_background.getHeight());
+		image_background.addImage("resources//Title.png",100, 100, 500,200);
 		frame.getContentPane().add(image_background);
 
 		/*

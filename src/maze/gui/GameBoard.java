@@ -30,11 +30,11 @@ public  class GameBoard extends  JPanel{
 
 	public GameBoard() {
 		try {
-			dragon = Spritesheet("resources\\bahamut.png",4,4);
-			hero = Spritesheet("resources\\golbez.png",4,4);
-			wall = ImageIO.read(new File("resources\\wall.png"));
-			ground = ImageIO.read(new File("resources\\ground.png"));
-			sword = ImageIO.read(new File("resources\\Sword.png"));
+			dragon = Spritesheet("resources//bahamut.png",4,4);
+			hero = Spritesheet("resources//golbez.png",4,4);
+			wall = ImageIO.read(new File("resources//wall.png"));
+			ground = ImageIO.read(new File("resources//ground.png"));
+			sword = ImageIO.read(new File("resources//Sword.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -47,11 +47,11 @@ public  class GameBoard extends  JPanel{
 		board = b;
 
 		try {
-			dragon = Spritesheet("resources\\bahamut.png",4,4);
-			hero = Spritesheet("resources\\golbez.png",4,4);
-			wall = ImageIO.read(new File("resources\\wall.png"));
-			ground = ImageIO.read(new File("resources\\ground.png"));
-			sword = ImageIO.read(new File("resources\\Sword.png"));
+			dragon = Spritesheet("resources//bahamut.png",4,4);
+			hero = Spritesheet("resources//golbez.png",4,4);
+			wall = ImageIO.read(new File("resources//wall.png"));
+			ground = ImageIO.read(new File("resources//ground.png"));
+			sword = ImageIO.read(new File("resources//Sword.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
