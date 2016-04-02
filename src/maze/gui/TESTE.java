@@ -15,14 +15,12 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JSpinner;
 import javax.swing.JButton;
 
-public class TESTE {
-
+public class TESTE {}
+/*
 	private JFrame frame;
 	private Board tab;
 	private GamePlay maze;
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -36,16 +34,10 @@ public class TESTE {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public TESTE() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 850, 800);
@@ -90,10 +82,7 @@ public class TESTE {
 		 maze.setBounds(22, 165, 800, 592);
 		 frame.getContentPane().add(maze);
 		
-		
-		/***
-		 * 
-		 */
+	
 		
 		btnGerarTabuleiro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -114,3 +103,4 @@ public class TESTE {
 
 	
 }
+*/
