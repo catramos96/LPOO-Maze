@@ -56,32 +56,26 @@ public class GameMenu {
 		game_name.setBounds(62, 52, 379, 40);
 		frmGameMenu.getContentPane().add(game_name);
 		
-		JButton buttonPlayText = new JButton("Jogar em \u00E1rea de texto");
-		buttonPlayText.setForeground(Color.WHITE);
-		buttonPlayText.setBackground(Color.DARK_GRAY);
-		buttonPlayText.setBounds(153, 150, 172, 25);
-		frmGameMenu.getContentPane().add(buttonPlayText);
-		
-		JButton buttonPlayGraphs = new JButton("Jogar com gr\u00E1ficos");
-		buttonPlayGraphs.setBackground(Color.DARK_GRAY);
-		buttonPlayGraphs.setForeground(Color.WHITE);
-		buttonPlayGraphs.setBounds(153, 210, 172, 25);
-		frmGameMenu.getContentPane().add(buttonPlayGraphs);
+		JButton buttonPlay = new JButton("Jogar");
+		buttonPlay.setForeground(Color.WHITE);
+		buttonPlay.setBackground(Color.DARK_GRAY);
+		buttonPlay.setBounds(153, 170, 172, 25);
+		frmGameMenu.getContentPane().add(buttonPlay);
 		
 		JButton buttonHowToPlay = new JButton("Como jogar");
 		buttonHowToPlay.setForeground(Color.WHITE);
 		buttonHowToPlay.setBackground(Color.DARK_GRAY);
-		buttonHowToPlay.setBounds(153, 270, 172, 25);
+		buttonHowToPlay.setBounds(153, 240, 172, 25);
 		frmGameMenu.getContentPane().add(buttonHowToPlay);
 		
 		JButton buttonExit = new JButton("Sair");
 		buttonExit.setForeground(Color.WHITE);
 		buttonExit.setBackground(Color.DARK_GRAY);
-		buttonExit.setBounds(153, 330, 172, 25);
+		buttonExit.setBounds(153, 310, 172, 25);
 		frmGameMenu.getContentPane().add(buttonExit);
 		
-		JPanel image_background = new Image("resources\\brick_wall.png");
-		((Image) image_background).addImageOfSpriteSheet("resources\\golbez.png",4,0,220,90,40,65);
+		JPanel image_background = new Image("resources\\wall_plain.png");
+		((Image) image_background).addImageOfSpriteSheet("resources\\golbez.png",4,0,220,105,40,65);
 		((Image) image_background).addImageOfSpriteSheet("resources\\bahamut.png",4,5,360,290,110,130);
 		image_background.setBounds(0, 0, 494, 415);
 		frmGameMenu.getContentPane().add(image_background);
@@ -90,13 +84,9 @@ public class GameMenu {
 		 * BUTTONS LISTENERS
 		 */
 		
-		buttonPlayText.addActionListener(new ActionListener() {
+		buttonPlay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		
-		buttonPlayGraphs.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+				GameChooser g = new GameChooser();
 			}
 		});
 		

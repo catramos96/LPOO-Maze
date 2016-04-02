@@ -23,16 +23,14 @@ public  class GamePlay extends  JPanel{
 	private BufferedImage sword;
 	private Timer myTimer;
 	
-	
-	
 	// TEMPORARIO
 	private Board board = new Board((new MazeBuilder()).buildMaze(10,3));
 
-	/*public GamePlay() {
+	public GamePlay() {
 		try {
 			dragon = Spritesheet("resources\\bahamut.png");
 			hero = Spritesheet("resources\\golbez.png");
-			wall = ImageIO.read(new File("resources\\brick_wall.png"));
+			wall = ImageIO.read(new File("resources\\wall2.png"));
 			ground = ImageIO.read(new File("resources\\brick_wall.png"));
 			sword = ImageIO.read(new File("resources\\Sword.png"));
 		} catch (IOException e) {
@@ -41,7 +39,7 @@ public  class GamePlay extends  JPanel{
 		myTimer = new Timer(10, (arg) -> {imageAnimationStep();} );
 		myTimer.start();
 	//  requestFocusInWindow();// to receive keyboard events           
-	}*/
+	}
 	
 	public GamePlay(Board b){
 		board = b;

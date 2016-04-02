@@ -69,8 +69,9 @@ public class Graphics{
 		
 		frmJogoDoLabirinto.setTitle("Jogo do Labirinto");
 		frmJogoDoLabirinto.setBounds(100, 100, 825, 560);
-		frmJogoDoLabirinto.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmJogoDoLabirinto.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmJogoDoLabirinto.getContentPane().setLayout(null);
+		frmJogoDoLabirinto.setVisible(true);
 		/***************** AREA DISPLAY MAZE **********************/
 
 		/*	mazeArea = new JTextArea();
