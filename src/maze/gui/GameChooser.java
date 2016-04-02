@@ -164,7 +164,7 @@ public class GameChooser extends JFrame {
 		dragon_min_max.setBounds(302, 73, 99, 22);
 		getContentPane().add(dragon_min_max);
 
-		JPanel image_background = new Image("resources\\wall_plain.png");
+		JPanel image_background = new Image("resources\\backg.png");
 		image_background.setBounds(0, 0, 444, 361);
 		getContentPane().add(image_background);
 

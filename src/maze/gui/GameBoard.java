@@ -32,9 +32,8 @@ public  class GameBoard extends  JPanel{
 		try {
 			dragon = Spritesheet("resources\\bahamut.png",4,4);
 			hero = Spritesheet("resources\\golbez.png",4,4);
-			walls = Spritesheet("resources\\walls_sprite.png",6,1);
-			wall = ImageIO.read(new File("resources\\wall2.png"));
-			ground = ImageIO.read(new File("resources\\ground2.png"));
+			wall = ImageIO.read(new File("resources\\wall.png"));
+			ground = ImageIO.read(new File("resources\\ground.png"));
 			sword = ImageIO.read(new File("resources\\Sword.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -50,9 +49,8 @@ public  class GameBoard extends  JPanel{
 		try {
 			dragon = Spritesheet("resources\\bahamut.png",4,4);
 			hero = Spritesheet("resources\\golbez.png",4,4);
-			walls = Spritesheet("resources\\walls_sprite.png",6,1);
-			wall = ImageIO.read(new File("resources\\wall2.png"));
-			ground = ImageIO.read(new File("resources\\ground2.png"));
+			wall = ImageIO.read(new File("resources\\wall.png"));
+			ground = ImageIO.read(new File("resources\\ground.png"));
 			sword = ImageIO.read(new File("resources\\Sword.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -108,7 +106,7 @@ public  class GameBoard extends  JPanel{
 				g.drawImage(ground, x, y, x+40, y+40, 0, 0, ground.getWidth(), ground.getHeight(), null);
 				
 				if(temp[i][j] == 'X')
-						g.drawImage(walls.get(0), x, y, x+40, y+40,0, 0, walls.get(0).getWidth(), walls.get(0).getHeight(), null);
+						g.drawImage(wall, x, y, x+40, y+40,0, 0, wall.getWidth(), wall.getHeight(), null);
 
 				else if(temp[i][j] == 'D' || temp[i][j] == 'd' || temp[i][j] == 'F')
 					g.drawImage(dragon.get(0),x, y, x+40, y+40,0, 0, dragon.get(1).getWidth(), dragon.get(1).getHeight(), null);
