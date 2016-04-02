@@ -87,7 +87,7 @@ public class GameGraphics extends JFrame {
 		mazeArea.setBounds(50, 150, 40*board.getBoard().length, 40*board.getBoard().length);
 		( (GameBoard) mazeArea).setBoard(board);
 		if(mazeArea.getWidth()+100 <= getWidth())
-			setBounds(500, 300,600, 250 + 40*board.getBoard().length);
+			setBounds(500, 300,550, 250 + 40*board.getBoard().length);
 		else
 			setBounds(500, 300, 100 + 40*board.getBoard().length, 250 + 40*board.getBoard().length);
 		getContentPane().add(mazeArea);
@@ -200,7 +200,7 @@ public class GameGraphics extends JFrame {
 		mazeArea.setBounds(50, 150, 40*board.getBoard().length, 40*board.getBoard().length);
 		( (GameBoard) mazeArea).setBoard(board);
 		if(mazeArea.getWidth()+100 <= getWidth())
-			setBounds(500, 300,600, 250 + 40*board.getBoard().length);
+			setBounds(500, 300,550, 250 + 40*board.getBoard().length);
 		else
 			setBounds(500, 300, 100 + 40*board.getBoard().length, 250 + 40*board.getBoard().length);
 		image_background.setBounds(0, 0, getWidth(), getHeight());
