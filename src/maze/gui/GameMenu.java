@@ -77,10 +77,11 @@ public class GameMenu {
 		buttonExit.setBounds(153, 310, 172, 25);
 		frame.getContentPane().add(buttonExit);
 
-		JPanel image_background = new Image("resources\\backg.png");
+		JPanel image_background = new Image("resources\\background.png");
 		((Image) image_background).addImageOfSpriteSheet("resources\\golbez.png",4,0,220,105,40,65);
 		((Image) image_background).addImageOfSpriteSheet("resources\\bahamut.png",4,5,360,290,110,130);
-		image_background.setBounds(0, 0, 494, 415);
+		image_background.setBounds(0, 0, ((Image) image_background).getBackGWidth(), ((Image) image_background).getBackGHeight());
+		frame.setBounds(0, 0, image_background.getWidth(), image_background.getHeight());
 		frame.getContentPane().add(image_background);
 
 		/*
