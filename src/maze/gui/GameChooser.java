@@ -30,6 +30,12 @@ public class GameChooser extends JFrame {
 	private JTextField mazeSize;
 	private JTextField numberOfDragons;
 	private Board board = new Board();
+	private JFrame game = new JFrame();
+	private JTextField txtDimensoDoLabirinto;
+	private JTextField txtNmeroDeDrages;
+	private JTextField txtTipoDeDrages;
+	private JTextField txtTipoDeJogo;
+	private JTextField dragon_min_max;
 
 	/**
 	 * Create the application.
@@ -46,22 +52,18 @@ public class GameChooser extends JFrame {
 		setResizable(false);
 
 		setTitle("Jogo do Labirinto");
-		setBounds(100, 100, 450, 396);
+		setBounds(600, 100, 450, 396);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 		setVisible(true);
 
 		String[] dragonState = { "Estatico", "Aleatorio", "Aleatorio e Sonolento" };
+
 		JComboBox dragonType = new JComboBox(dragonState);
 		dragonType.setBackground(Color.LIGHT_GRAY);
 		dragonType.setFont(new Font("Courier New", Font.PLAIN, 13));
 		dragonType.setBounds(185, 108, 194, 22);
 		getContentPane().add(dragonType);
-		JLabel lblNewLabel = new JLabel("Dimens\u00E3o do Labirinto");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setBounds(40, 40, 182, 16);
-		getContentPane().add(lblNewLabel);
 
 		mazeSize = new JTextField();
 		mazeSize.setBackground(Color.LIGHT_GRAY);
@@ -70,12 +72,6 @@ public class GameChooser extends JFrame {
 		getContentPane().add(mazeSize);
 		mazeSize.setColumns(10);
 
-		JLabel lblNewLabel_1 = new JLabel("N\u00FAmero de Drag\u00F5es");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_1.setForeground(Color.WHITE);
-		lblNewLabel_1.setBounds(40, 75, 149, 16);
-		getContentPane().add(lblNewLabel_1);
-
 		numberOfDragons = new JTextField();
 		numberOfDragons.setBackground(Color.LIGHT_GRAY);
 		numberOfDragons.setText("1");
@@ -83,57 +79,81 @@ public class GameChooser extends JFrame {
 		getContentPane().add(numberOfDragons);
 		numberOfDragons.setColumns(10);
 
-		JLabel lblTipoDeDrages = new JLabel("Tipo de Drag\u00F5es");
-		lblTipoDeDrages.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblTipoDeDrages.setForeground(Color.WHITE);
-		lblTipoDeDrages.setBounds(40, 111, 133, 16);
-		getContentPane().add(lblTipoDeDrages);
-
-		JLabel label = new JLabel("[         ,         ]");
-		label.setFont(new Font("Tahoma", Font.BOLD, 15));
-		label.setForeground(Color.RED);
-		label.setBackground(Color.LIGHT_GRAY);
-		label.setBounds(304, 75, 91, 16);
-		getContentPane().add(label);
-
-		JLabel n_dragons_min = new JLabel("1");
-		n_dragons_min.setFont(new Font("Tahoma", Font.BOLD, 15));
-		n_dragons_min.setForeground(Color.RED);
-		n_dragons_min.setBounds(320, 76, 27, 16);
-		getContentPane().add(n_dragons_min);
-
-		JLabel n_dragons_max = new JLabel(" 4");
-		n_dragons_max.setForeground(Color.RED);
-		n_dragons_max.setFont(new Font("Tahoma", Font.BOLD, 15));
-		n_dragons_max.setBackground(Color.LIGHT_GRAY);
-		n_dragons_max.setBounds(359, 76, 61, 16);
-		getContentPane().add(n_dragons_max);
-
 		JButton buttonNewMaze = new JButton("Gerar novo Labirinto");
 		buttonNewMaze.setForeground(Color.WHITE);
 		buttonNewMaze.setBackground(Color.DARK_GRAY);
-		buttonNewMaze.setBounds(143, 218, 149, 25);
+		buttonNewMaze.setBounds(143, 200, 149, 25);
 		getContentPane().add(buttonNewMaze);
 
-		JButton buttonExit = new JButton("Terminar Programa");	
-		buttonExit.setBackground(Color.DARK_GRAY);
-		buttonExit.setForeground(Color.WHITE);
-		buttonExit.setBounds(143, 269, 149, 25);
-		getContentPane().add(buttonExit);
-		
-		JLabel lblTipoDeJogo = new JLabel("Tipo de Jogo");
-		lblTipoDeJogo.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblTipoDeJogo.setForeground(Color.WHITE);
-		lblTipoDeJogo.setBounds(40, 148, 117, 16);
-		getContentPane().add(lblTipoDeJogo);
-		
+		JButton btnCriarUmLabirinto = new JButton("Criar um Labirinto");
+		btnCriarUmLabirinto.setBackground(Color.DARK_GRAY);
+		btnCriarUmLabirinto.setForeground(Color.WHITE);
+		btnCriarUmLabirinto.setBounds(143, 250, 149, 25);
+		getContentPane().add(btnCriarUmLabirinto);
+
+		JButton buttonBack = new JButton("Voltar ao Menu");	
+		buttonBack.setBackground(Color.DARK_GRAY);
+		buttonBack.setForeground(Color.WHITE);
+		buttonBack.setBounds(143, 300, 149, 25);
+		getContentPane().add(buttonBack);
+
 		String[] gameType = { "Texto", "Gráfico"};
 		JComboBox game_type = new JComboBox(gameType);
 		game_type.setBackground(Color.LIGHT_GRAY);
 		game_type.setFont(new Font("Courier New", Font.PLAIN, 13));
 		game_type.setBounds(185, 145, 194, 22);
 		getContentPane().add(game_type);
-		
+
+		txtDimensoDoLabirinto = new JTextField();
+		txtDimensoDoLabirinto.setEditable(false);
+		txtDimensoDoLabirinto.setFont(new Font("Tahoma", Font.BOLD, 13));
+		txtDimensoDoLabirinto.setForeground(Color.WHITE);
+		txtDimensoDoLabirinto.setBackground(Color.DARK_GRAY);
+		txtDimensoDoLabirinto.setText("Dimens\u00E3o do Labirinto");
+		txtDimensoDoLabirinto.setBounds(40, 40, 149, 22);
+		getContentPane().add(txtDimensoDoLabirinto);
+		txtDimensoDoLabirinto.setColumns(10);
+
+		txtNmeroDeDrages = new JTextField();
+		txtNmeroDeDrages.setEditable(false);
+		txtNmeroDeDrages.setText("N\u00FAmero de Drag\u00F5es");
+		txtNmeroDeDrages.setForeground(Color.WHITE);
+		txtNmeroDeDrages.setFont(new Font("Tahoma", Font.BOLD, 13));
+		txtNmeroDeDrages.setColumns(10);
+		txtNmeroDeDrages.setBackground(Color.DARK_GRAY);
+		txtNmeroDeDrages.setBounds(40, 73, 149, 22);
+		getContentPane().add(txtNmeroDeDrages);
+
+		txtTipoDeDrages = new JTextField();
+		txtTipoDeDrages.setEditable(false);
+		txtTipoDeDrages.setText("Tipo de Drag\u00F5es");
+		txtTipoDeDrages.setForeground(Color.WHITE);
+		txtTipoDeDrages.setFont(new Font("Tahoma", Font.BOLD, 13));
+		txtTipoDeDrages.setColumns(10);
+		txtTipoDeDrages.setBackground(Color.DARK_GRAY);
+		txtTipoDeDrages.setBounds(40, 107, 117, 22);
+		getContentPane().add(txtTipoDeDrages);
+
+		txtTipoDeJogo = new JTextField();
+		txtTipoDeJogo.setEditable(false);
+		txtTipoDeJogo.setText("Tipo de Jogo");
+		txtTipoDeJogo.setForeground(Color.WHITE);
+		txtTipoDeJogo.setFont(new Font("Tahoma", Font.BOLD, 13));
+		txtTipoDeJogo.setColumns(10);
+		txtTipoDeJogo.setBackground(Color.DARK_GRAY);
+		txtTipoDeJogo.setBounds(40, 144, 117, 22);
+		getContentPane().add(txtTipoDeJogo);
+
+		dragon_min_max = new JTextField();
+		dragon_min_max.setEditable(false);
+		dragon_min_max.setText("[    1   ,    4   ]");
+		dragon_min_max.setForeground(Color.WHITE);
+		dragon_min_max.setFont(new Font("Tahoma", Font.BOLD, 13));
+		dragon_min_max.setColumns(10);
+		dragon_min_max.setBackground(Color.DARK_GRAY);
+		dragon_min_max.setBounds(302, 73, 99, 22);
+		getContentPane().add(dragon_min_max);
+
 		JPanel image_background = new Image("resources\\wall_plain.png");
 		image_background.setBounds(0, 0, 444, 361);
 		getContentPane().add(image_background);
@@ -149,9 +169,9 @@ public class GameChooser extends JFrame {
 		});
 
 		// exit
-		buttonExit.addActionListener(new ActionListener() {
+		buttonBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.exit(0);
+				dispose();
 			}
 		});
 
@@ -163,9 +183,7 @@ public class GameChooser extends JFrame {
 				int mz_size = Integer.parseInt(mazeSize.getText());
 				int mz_n_dragons = Integer.parseInt(numberOfDragons.getText());
 				char dragon_t = ' ';
-
-				n_dragons_min.setText("1");
-				n_dragons_max.setText((((mz_size - 2) / 2)) + "");
+				dragon_min_max.setText("[    1   ,    "+((mz_size - 2) / 2)+"   ]");
 
 				Board b = new Board(mz.buildMaze(mz_size, mz_n_dragons));
 				board = b;
@@ -188,11 +206,25 @@ public class GameChooser extends JFrame {
 				}
 
 				board.updateBoard();
-				
-				JFrame game = new JFrame();
-				
-				if(game_type.getSelectedIndex() != 0)
-					game = new GameGraphics(board);
+
+				if(game_type.getSelectedIndex() == 1)
+				{
+					if(game.getClass() != GameGraphics.class || !game.isDisplayable()){
+						game.dispose();
+						game = new GameGraphics(board);
+					}
+					else
+						((GameGraphics) game).setBoard(b);
+				}
+				else if(game_type.getSelectedIndex() == 0)
+				{
+					if(game.getClass() != GameText.class || !game.isDisplayable()){
+						game.dispose();
+						game = new GameText(board);
+					}
+					else
+						((GameText) game).setBoard(b);
+				}
 			}
 		});
 

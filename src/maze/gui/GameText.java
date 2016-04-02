@@ -15,28 +15,37 @@ import javax.swing.KeyStroke;
 
 import maze.logi.Board;
 import java.awt.Color;
+import java.awt.Font;
+
 import javax.swing.JTextField;
 
-public class GameGraphics extends JFrame {
-
-	private JPanel mazeArea = new GameBoard();;
+public class GameText extends JFrame {
+	
+	private JTextArea mazeArea;
 	private JTextField infoLabel = new JTextField();
 	private JButton[] movButtons;
 	private Board board = new Board();
-
+	private JPanel image_background = new JPanel();
+	
 	/**
 	 * Create the frame.
 	 */
-	public GameGraphics(Board b) {
+	public GameText(Board b) {
 		setAlwaysOnTop(true);
 		
 		setTitle("Jogo do Labirinto");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		board = b;
-		setBounds(100, 100, 580, 263);
+		setBounds(100, 100, 450, 263);
 		getContentPane().setLayout(null);
 		setVisible(true);
 		
+		mazeArea = new JTextArea();
+		mazeArea.setFont(new Font("Courier New", Font.PLAIN, 13));
+		mazeArea.setEditable(false);
+		mazeArea.setToolTipText("");
+		mazeArea.setBounds(40, 162, 285, 285);
+		getContentPane().add(mazeArea);
 		
 		infoLabel = new JTextField();
 		infoLabel.setEditable(false);
@@ -83,12 +92,15 @@ public class GameGraphics extends JFrame {
 		// Enable dos botões de jogo
 				setButtons(true, movButtons);
 				
-		mazeArea.setBounds(0, 150, 40*board.getBoard().length, 40*board.getBoard().length);
-		( (GameBoard) mazeArea).setBoard(board);
-		setBounds(500, 300, 120 + 40*board.getBoard().length, 200 + 40*board.getBoard().length);
+		mazeArea.setBounds(50, 150, 8*board.getBoard().length, 15*board.getBoard().length);
+		mazeArea.setText(board.toString());
+		if(9*board.getBoard().length+100 <= getWidth())
+			setBounds(500, 300, 450, 225 + 15*board.getBoard().length);
+		else
+			setBounds(500, 300, 9*board.getBoard().length+50, 225 + 15*board.getBoard().length);
 		getContentPane().add(mazeArea);
 		
-		JPanel image_background = new Image("resources\\wall_plain.png");
+		image_background = new Image("resources\\wall_plain.png");
 		image_background.setBounds(0, 0, getWidth(), getHeight());
 		getContentPane().add(image_background);
 		
@@ -193,10 +205,14 @@ public class GameGraphics extends JFrame {
 	
 	public void setBoard(Board b){
 		board = b;
-		mazeArea.setBounds(0, 100, 40*board.getBoard().length, 40*board.getBoard().length);
-		( (GameBoard) mazeArea).setBoard(board);
-		setBounds(500, 300, 120 + 40*board.getBoard().length, 200 + 40*board.getBoard().length);
-	}
+		mazeArea.setBounds(50, 150, 8*board.getBoard().length, 15*board.getBoard().length);
+		mazeArea.setText(board.toString());
+		if(9*board.getBoard().length+100 <= getWidth())
+			setBounds(500, 300, 450, 225 + 15*board.getBoard().length);
+		else
+			setBounds(500, 300, 9*board.getBoard().length+50, 225 + 15*board.getBoard().length);
+		image_background.setBounds(0, 0, 450, 225 + 15*board.getBoard().length);	
+		}
 
 	public void newTurn(char direction, JTextArea area, JTextField l) {
 		board.moveHero(direction);
@@ -234,7 +250,7 @@ public class GameGraphics extends JFrame {
 			board.moveHero(d);
 			board.moveRandomDragons();
 			board.updateBoard();
-			mazeArea.repaint();
+			mazeArea.setText(board.toString());
 		}
 
 	}

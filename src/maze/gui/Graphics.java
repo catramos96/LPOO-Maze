@@ -158,7 +158,7 @@ public class Graphics{
 		movButtons = new JButton[] { buttonUp, buttonDown, buttonRight, buttonLeft };
 		
 		//area onde faz o display do jogo modo gráfico
-		mazeAreaG = new GamePlay(board);
+		mazeAreaG = new GameBoard(board);
 		mazeAreaG.setBounds(40, 400, 300, 300);
 		frmJogoDoLabirinto.getContentPane().add(mazeAreaG);
 
@@ -242,7 +242,7 @@ public class Graphics{
 				board.updateBoard();
 				mazeAreaG.setBounds(40, 200, 40*mz_size, 40*mz_size);
 				frmJogoDoLabirinto.setBounds(100, 100, 825, 250+40*mz_size);
-				((GamePlay) mazeAreaG).setBoard(board);
+				((GameBoard) mazeAreaG).setBoard(board);
 
 				// Imprime o tabuleiro
 				//mazeArea.setText(board.toString());
