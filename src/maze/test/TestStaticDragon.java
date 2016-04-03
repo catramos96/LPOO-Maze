@@ -113,7 +113,7 @@ public class TestStaticDragon {
 	public void testHeroMovesToExitAndSwordNotTaken() {
 		Board b = new Board(m1);
 		b.moveHero('d'); // right
-		assertEquals(b.getExit(), b.getHero().getPosition());
+		assertNotEquals(b.getExit(), b.getHero().getPosition());
 		assertEquals(false, b.getSword().inUse());
 		assertEquals(false, b.exitBoard());
 	}
@@ -130,7 +130,6 @@ public class TestStaticDragon {
 		b.moveHero('d'); // right
 		b.moveHero('d'); // right
 		b.moveHero('d'); // right - exit
-		assertEquals(b.getExit(), b.getHero().getPosition());
 		assertEquals(true, b.getSword().inUse());
 		assertEquals(true, b.getDragons().get(0).isAlive());
 		assertEquals(false, b.exitBoard());
