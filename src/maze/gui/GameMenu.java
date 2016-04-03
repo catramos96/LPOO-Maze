@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class GameMenu {
 
@@ -65,6 +66,8 @@ public class GameMenu {
 		
 	
 		JButton buttonPlay = new JButton("Jogar");
+		buttonPlay.setHorizontalAlignment(SwingConstants.LEFT);
+		buttonPlay.setFont(new Font("Tahoma", Font.BOLD, 20));
 		buttonPlay.setForeground(Color.WHITE);
 		buttonPlay.setOpaque(false);
 		buttonPlay.setContentAreaFilled(false);
@@ -73,14 +76,18 @@ public class GameMenu {
 		frame.getContentPane().add(buttonPlay);
 
 		JButton buttonHowToPlay = new JButton("Como jogar");
+		buttonHowToPlay.setHorizontalAlignment(SwingConstants.LEFT);
+		buttonHowToPlay.setFont(new Font("Tahoma", Font.BOLD, 20));
 		buttonHowToPlay.setForeground(Color.WHITE);
 		buttonHowToPlay.setOpaque(false);
 		buttonHowToPlay.setContentAreaFilled(false);
 		buttonHowToPlay.setBorderPainted(false);
-		buttonHowToPlay.setBounds(250, 400, 120,40);
+		buttonHowToPlay.setBounds(250, 400, 165,40);
 		frame.getContentPane().add(buttonHowToPlay);
 
 		JButton buttonExit = new JButton("Sair");
+		buttonExit.setHorizontalAlignment(SwingConstants.LEFT);
+		buttonExit.setFont(new Font("Tahoma", Font.BOLD, 20));
 		buttonExit.setForeground(Color.WHITE);
 		buttonExit.setOpaque(false);
 		buttonExit.setContentAreaFilled(false);

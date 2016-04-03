@@ -80,7 +80,7 @@ public class GameText extends JFrame {
 		buttonRight.setBounds(162, 44, 97, 25);
 		getContentPane().add(buttonRight);
 		
-		JButton btnVoltarAoMenu = new JButton("Voltar Atr\u00E1s");
+		JButton btnVoltarAoMenu = new JButton("Voltar Atras");
 		btnVoltarAoMenu.setForeground(Color.WHITE);
 		btnVoltarAoMenu.setBackground(Color.DARK_GRAY);
 		btnVoltarAoMenu.setBounds(295, 44, 127, 25);

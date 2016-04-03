@@ -33,20 +33,20 @@ public class GameMazeCreator extends JFrame {
 	private JPanel image_background;
 	private JTextField textInfo;
 	private JFrame game = new JFrame();
-	 
-	
+
+
 	GameMazeCreator(char gt, char dt) {
 		setTitle("Criar Labirinto");
 		setBounds(100, 100, 850, 200);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 		setVisible(true);		
-		
+
 		comboBox = new JComboBox();
 		comboBox.setBounds(172, 15, 80, 24);
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Parede", "Saida", "Heroi", "Espada", "Dragao"}));
 		getContentPane().add(comboBox);
-		
+
 		JTextField lblObjecto = new JTextField("Objecto");
 		lblObjecto.setBounds(34, 17, 60, 19);
 		lblObjecto.setForeground(Color.WHITE);
@@ -54,7 +54,7 @@ public class GameMazeCreator extends JFrame {
 		lblObjecto.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblObjecto.setEditable(false);
 		getContentPane().add(lblObjecto);
-		
+
 		JTextField lblTextura = new JTextField("Textura");
 		lblTextura.setBounds(34, 54, 60, 20);
 		lblTextura.setForeground(Color.WHITE);
@@ -62,14 +62,14 @@ public class GameMazeCreator extends JFrame {
 		lblTextura.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblObjecto.setEditable(false);
 		getContentPane().add(lblTextura);
-		
+
 		image = new Board( new char [1][1]);
 		image.placeOnBoard(new maze.logi.Point(0,0),'X');
 		texture = new GameBoard(new Board());
 		texture.setBounds(182, 48, 40, 40);
 		texture.setBoard(image);
 		getContentPane().add(texture);
-		
+
 		JTextField lblTamanhoDoTabuleiro = new JTextField("Tamanho do Tabuleiro");
 		lblTamanhoDoTabuleiro.setBounds(318, 12, 150, 20);
 		lblTamanhoDoTabuleiro.setForeground(Color.WHITE);
@@ -77,33 +77,35 @@ public class GameMazeCreator extends JFrame {
 		lblTamanhoDoTabuleiro.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblTamanhoDoTabuleiro.setEditable(false);
 		getContentPane().add(lblTamanhoDoTabuleiro);
-		
+
 		JSpinner maze_dimension = new JSpinner();
 		maze_dimension.setBackground(Color.LIGHT_GRAY);
 		maze_dimension.setBounds(486, 12, 48, 20);
 		getContentPane().add(maze_dimension);
-		
+
 		JButton btnGerarTabuleiro = new JButton("Gerar Tabuleiro");
 		btnGerarTabuleiro.setBounds(318, 52, 185, 25);
+		btnGerarTabuleiro.setForeground(Color.WHITE);
+		btnGerarTabuleiro.setBackground(Color.DARK_GRAY);
 		getContentPane().add(btnGerarTabuleiro);
-		
-		
-		 maze = new GameBoard (new Board());
-		 getContentPane().add(maze);
-		
+
+
+		maze = new GameBoard (new Board());
+		getContentPane().add(maze);
+
 
 		JButton btnValidTab = new JButton("Jogar");
 		btnValidTab.setBounds(600, 13, 185, 25);
+		btnValidTab.setForeground(Color.WHITE);
+		btnValidTab.setBackground(Color.DARK_GRAY);
 		getContentPane().add(btnValidTab);
-		
+
 		JButton btnBack = new JButton("Voltar Atras");
-		btnBack.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
 		btnBack.setBounds(600, 52, 185, 25);
+		btnBack.setForeground(Color.WHITE);
+		btnBack.setBackground(Color.DARK_GRAY);
 		getContentPane().add(btnBack);
-		
+
 		textInfo = new JTextField();
 		textInfo.setText("Selecione o tamanho do Tabuleiro");
 		textInfo.setForeground(Color.RED);
@@ -111,63 +113,68 @@ public class GameMazeCreator extends JFrame {
 		textInfo.setBounds(34, 100, 600, 22);
 		getContentPane().add(textInfo);
 		textInfo.setColumns(10);
-		
+
 		image_background = new Image("resources//backg.png");
 		image_background.setBounds(0, 0, getWidth(), getHeight());
 		getContentPane().add(image_background);
-		
-		
+
+
 		/*
 		 * LISTENERS
 		 */
-		
+
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
 			}
 		});
-		
+
 		btnGerarTabuleiro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				 Integer size = (Integer)maze_dimension.getValue();
-				 
-				 if(size <= 5){
-					 textInfo.setText("O tamanho do labirinto tem que ser maior que 5");
-					 return;
-				 }
-				 char[][] ntab = new char[size][size];
-				 for(int i =0; i < ntab.length; i++)
-					 for(int t = 0; t < ntab[i].length; t++)
-						 	ntab[i][t] = ' ';
-				 board = new Board(ntab);
-				 maze.setBounds(40, 200, 40*ntab.length, 40*ntab.length);
-				 setBounds(100, 100, 825+40*(ntab.length - 5), 250+40*ntab.length);
-				 image_background.setBounds(0, 0, getWidth(), getHeight());
-				 maze.setBoard(board);
-				 textInfo.setText("Escolha um objecto e usa o botao esquerdo do rato para o posicionar e o direito para apagar");
-				
+				Integer size = (Integer)maze_dimension.getValue();
+
+				if(size <= 5){
+					textInfo.setText("O tamanho do labirinto tem que ser maior que 5");
+					return;
+				}
+				char[][] ntab = new char[size][size];
+				for(int i =0; i < ntab.length; i++)
+					for(int t = 0; t < ntab[i].length; t++)
+						ntab[i][t] = ' ';
+				board = new Board(ntab);
+				maze.setBounds(40, 200, 40*ntab.length, 40*ntab.length);
+				setBounds(100, 100, 825+40*(ntab.length - 5), 250+40*ntab.length);
+				image_background.setBounds(0, 0, getWidth(), getHeight());
+				maze.setBoard(board);
+				textInfo.setText("Escolha um objecto e usa o botao esquerdo do rato para o posicionar e o direito para apagar");
+
 			}
 		});
-		
-		
+
+
 		btnValidTab.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				boolean valid = true;
 				if(board == null) return;
-				
+
 				if(test3x3()) 
 				{
 					textInfo.setText("Nao e permitido  quadrados  3x3!");
 					valid = false;
 				}
-				
+
 				if(testcross()) 
 				{
 					textInfo.setText("Nao e permitido quadrados paredes"
-							        + "\n cruzadas com espaços brancos!");
+							+ "\n cruzadas com espacos brancos!");
 					valid = false;
 				}
-				
+
 				if(testborder())
 				{
 					textInfo.setText("Parede exterior apenas contem Paredes e uma saida");
@@ -183,22 +190,22 @@ public class GameMazeCreator extends JFrame {
 					textInfo.setText("Tem espacos nao jogaveis");
 					valid = false;
 				}
-				
+
 				char [][] m = board.getBoard();
 				if(testChar(m,'D') <= 0)
-					{valid = false;
-					textInfo.setText("D ");
-					}
+				{valid = false;
+				textInfo.setText("Falta o Dragao");
+				}
 				if(testChar(m,'H') != 1)
 				{valid = false;
-				textInfo.setText("H ");
+				textInfo.setText("Falta o Heroi");
 				}
-				
+
 				if(testChar(m,'E') != 1)
 				{valid = false;
-				textInfo.setText("E ");
+				textInfo.setText("Falta a Espada");
 				}
-				
+
 				if(valid){
 					textInfo.setText("OK");
 					board.setDragonsBehaviour(dt);
@@ -223,13 +230,13 @@ public class GameMazeCreator extends JFrame {
 							((GameText) game).setBoard(board);
 					}
 				}
-				
+
 			}
 		});
-		
+
 		comboBox.addActionListener (new ActionListener () {
-		    public void actionPerformed(ActionEvent e) {
-		    	switch (comboBox.getSelectedIndex()) {
+			public void actionPerformed(ActionEvent e) {
+				switch (comboBox.getSelectedIndex()) {
 				case 0: { 
 					image = new Board( new char [1][1]);
 					image.cleanPosition(new maze.logi.Point(0,0));
@@ -246,7 +253,7 @@ public class GameMazeCreator extends JFrame {
 					texture.repaint();
 					break;
 				}
-			
+
 				case 2: { 
 					image = new Board( new char [1][1]);
 					image.cleanPosition(new maze.logi.Point(0,0));
@@ -270,80 +277,84 @@ public class GameMazeCreator extends JFrame {
 					texture.repaint();
 					break;
 				}
-				
+
 				default:
 					break;
 				}
-		    }
+			}
 		});
 		maze.addMouseListener(new MouseListener()
+		{
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+				Integer x = e.getX() / 40 ;
+				Integer y = e.getY() / 40 ;
+				switch(e.getButton()) 
 				{
+				case 0:
+					break;
+				case 1:
+					if(board.getBoard()[y][x] != ' ')return;
+					UpdateTab( x,  y);
+					maze.setBoard(board);
+					break;
+				case 2:
+					break;
+				case 3:
+					board.placeOnBoard(new maze.logi.Point(x,y), ' ');
+					maze.setBoard(board);
+					break;
+				default:
+					break;
+				}
 
-					@Override
-					public void mouseClicked(MouseEvent e) {
-						
-						Integer x = e.getX() / 40 ;
-						Integer y = e.getY() / 40 ;
-						switch(e.getButton()) 
-						{
-						case 0:
-							break;
-						case 1:
-							if(board.getBoard()[y][x] != ' ')return;
-							UpdateTab( x,  y);
-							maze.setBoard(board);
-							break;
-						case 2:
-							break;
-						case 3:
-							board.placeOnBoard(new maze.logi.Point(x,y), ' ');
-							maze.setBoard(board);
-							break;
-						default:
-							break;
-						}
-						
-					}
+			}
 
-					@Override
-					public void mousePressed(MouseEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
 
-					@Override
-					public void mouseReleased(MouseEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
+			}
 
-					@Override
-					public void mouseEntered(MouseEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
 
-					@Override
-					public void mouseExited(MouseEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-			
-				});
-		
-		
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+		});
+
+
 	}
 	private void UpdateTab(Integer x, Integer  y)
 	{
 		switch (comboBox.getSelectedIndex()) {
-		
+
 		case 0: { 
 			board.placeOnBoard(new maze.logi.Point(x,y), 'X');
 			break;
 		}
 		case 1: { 
-			board.getExit().setXY(x, y);
-			board.placeOnBoard(new maze.logi.Point(x,y), 'S');
+			if(!board.getExit().equals(new maze.logi.Point(x,y))){
+				if(!board.getExit().equals(new maze.logi.Point(0,0)))
+					board.cleanPosition(board.getExit());
+				board.getExit().setXY(x, y);
+				board.placeOnBoard(new maze.logi.Point(x,y), 'S');
+			}
 			break;
 		}
 		case 2: { 
@@ -361,11 +372,11 @@ public class GameMazeCreator extends JFrame {
 			board.placeOnBoard(new maze.logi.Point(x,y), 'D');
 			break;
 		}
-		
+
 		default:
 			break;
 		}
-		
+
 	}
 
 	private boolean test3x3()
@@ -383,7 +394,7 @@ public class GameMazeCreator extends JFrame {
 			}
 		return false;
 	}
-	
+
 	private boolean testcross()
 	{
 		char[][] badSpaces = {
@@ -395,7 +406,7 @@ public class GameMazeCreator extends JFrame {
 		char[][] badDiagonalUp = {
 				{' ', 'X'},
 				{'X', ' '}};
-		
+
 		char [][] maze = board.getBoard();
 		for (int i = 0; i < maze.length - badSpaces.length; i++)
 			for (int j = 0; j < maze.length - badSpaces.length; j++) {
@@ -407,7 +418,7 @@ public class GameMazeCreator extends JFrame {
 						if (maze[i+y][j+x] != badSpaces[y][x])
 							match = false;
 						if (maze[i+y][j+x] != badDiagonalDown[y][x])
-							 match_Down = false;
+							match_Down = false;
 						if (maze[i+y][j+x] != badDiagonalUp[y][x])
 							match_Up = false;
 					}
@@ -416,7 +427,7 @@ public class GameMazeCreator extends JFrame {
 			}		
 		return false; 	
 	}
-	
+
 	private boolean testborder()
 	{
 		int countExit = 0;
@@ -436,27 +447,27 @@ public class GameMazeCreator extends JFrame {
 	}
 	private boolean testSolution()
 	{	
-		
+
 		char[][] maze = board.getBoard();
 		maze.logi.Point p = findPos(maze,'S');
 		if(p == null)
 			return true;
 		boolean [][] visited = new boolean[maze.length] [maze.length];
-		
+
 		visit(maze, p.getY(), p.getX(), visited);
-		
+
 		for (int i = 0; i < maze.length; i++)
 			for (int j = 0; j < maze.length; j++)
 				if (maze[i][j] != 'X' && ! visited[i][j] )
 					return false;
-		
+
 		return true; 
 	}
 	private boolean testDeadSpaces()
 	{
 		return false;
 	}
-	
+
 	private int testChar(char [][] m, char test)
 	{
 		int count = 0;
@@ -465,9 +476,9 @@ public class GameMazeCreator extends JFrame {
 				if(test == m[x][y])
 					count ++;
 		return count;
-		
+
 	}
-	
+
 	private void visit(char[][] m, int i, int j, boolean [][] visited) {
 		if (i < 0 || i >= m.length || j < 0 || j >= m.length)
 			return;

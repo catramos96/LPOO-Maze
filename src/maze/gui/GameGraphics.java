@@ -72,7 +72,7 @@ public class GameGraphics extends JFrame {
 		buttonRight.setBounds(162, 44, 97, 25);
 		getContentPane().add(buttonRight);
 
-		JButton btnVoltarAoMenu = new JButton("Voltar Atr\u00E1s");
+		JButton btnVoltarAoMenu = new JButton("Voltar Atras");
 		btnVoltarAoMenu.setForeground(Color.WHITE);
 		btnVoltarAoMenu.setBackground(Color.DARK_GRAY);
 		btnVoltarAoMenu.setBounds(295, 44, 127, 25);
@@ -221,7 +221,7 @@ public class GameGraphics extends JFrame {
 		if (!board.getSword().inUse())
 			infoLabel2.setText("Apanha a espada");
 		else if (!board.dragonsAllDead())
-			infoLabel2.setText("Mata os drag�es todos");
+			infoLabel2.setText("Mata os dragoes todos");
 		else if (board.dragonsAllDead())
 			infoLabel2.setText("Vai para a saida");	
 		if (board.exitBoard()) {

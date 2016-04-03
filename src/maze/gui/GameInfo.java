@@ -38,7 +38,7 @@ public class GameInfo extends JFrame {
 	 */
 	public GameInfo() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 581, 386);
+		setBounds(500, 100, 581, 386);
 		setResizable(false);
 		
 		contentPane = new JPanel();
