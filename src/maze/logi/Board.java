@@ -178,7 +178,10 @@ public class Board {
 	/*****************
 	 * MOVEMENTS *
 	 *****************/
-
+/**
+ * Evaluates next hero position. If is a valid move Hero moves to next position 
+ * @param new_pos
+ */
 	public void heroNextPosition(Point new_pos) {
 		Point ini_pos = hero.getPosition();
 		

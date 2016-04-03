@@ -109,7 +109,7 @@ public  class GameBoard extends  JPanel{
 
 				g.drawImage(ground, x, y, x+40, y+40, 0, 0, ground.getWidth(), ground.getHeight(), null);
 
-				if(i == board.getExit().getY() && j == board.getExit().getX()){
+				if(temp[i][j] == 'S'){
 					door_x = x;
 					door_y = y;
 					g.drawImage(wall, x, y, x+40, y+40,0, 0, wall.getWidth(), wall.getHeight(), null);
