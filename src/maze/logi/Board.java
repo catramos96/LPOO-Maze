@@ -179,7 +179,7 @@ public class Board {
 	 * MOVEMENTS *
 	 *****************/
 /**
- * Evaluates next hero position. If is a valid move Hero moves to next position 
+ * Evaluates next hero position. If is a valid move Hero moves to next position otherwise hero stays in same position.
  * @param new_pos
  */
 	public void heroNextPosition(Point new_pos) {
@@ -196,7 +196,15 @@ public class Board {
 		cleanPosition(ini_pos);
 		hero.setPosition(new_pos);
 	}
-
+   
+	/**
+	 * Moves hero in a direction if possible.
+	 * @param direction 
+	 * char a - Left
+	 * char d - Right
+	 * char w - Up
+	 * char s - Down
+	 */
 	public void moveHero(char direction) {
 
 		Point new_pos = new Point();
@@ -229,7 +237,13 @@ public class Board {
 		placeOnBoard(hero.getPosition(), hero.getSymbol());
 		updateBoard(); 
 	}
-
+	
+	/**
+	 * Evaluates next dragon position
+	 * @param new_pos
+	 * @param dragon
+	 * @return
+	 */
 	private boolean dragonNextPosition(Point new_pos, Dragon dragon) {
 		Point ini_pos = dragon.getPosition();
 
@@ -246,6 +260,13 @@ public class Board {
 		return true;
 	}
 
+	/**
+	 * Move dragon in a random direction.
+	 * If in sleep mode, dragon can start sleeping.
+	 * @param d
+	 * @param dragon
+	 * @return
+	 */
 	public boolean moveDragon(int d, Dragon dragon) {
 		/*
 		 * d - 0 down d - 1 up d - 2 left d - 3 right
@@ -279,7 +300,9 @@ public class Board {
 		placeOnBoard(dragon.getPosition(), dragon.getSymbol());
 		return move;
 	}
-
+/**
+ * Move all dragons in the board randomly.
+ */
 	public void moveRandomDragons() {
 		int mov;
 		for (int i = 0; i < dragons.size(); i++) {
@@ -303,7 +326,10 @@ public class Board {
 	/*****************
 	 * BOOLEAN *
 	 *****************/
-
+/**
+ * Evaluates  if  game ended.
+ * @return true if game ended otherwise returns false
+ */
 	public boolean exitBoard() {
 
 		if (heroWins()) {
@@ -313,7 +339,10 @@ public class Board {
 		} else
 			return false;
 	}
-
+/**
+ * Check if  hero wins the game.
+ * @return true if hero win otherwise return false
+ */
 	public boolean heroWins() {
 		if (hero.getPosition().equals(exit) && dragonsAllDead())
 			return true;
@@ -321,6 +350,10 @@ public class Board {
 			return false;
 	}
 
+	/**
+	 * Check if all dragons are dead
+	 * @return true if all dragons dead
+	 */
 	public boolean dragonsAllDead() {
 		for (int i = 0; i < dragons.size(); i++) {
 			if (dragons.get(i).isAlive())
@@ -332,7 +365,9 @@ public class Board {
 	/*****************
 	 * OTHERS *
 	 *****************/
-	
+	/**
+	 *  Update Objects on the board
+	 */
 	public void updateBoard() {
 		heroDragonsCollision();
 		// update exit
@@ -343,6 +378,9 @@ public class Board {
 		for (int i = 0; i < dragons.size(); i++) {
 			placeOnBoard(dragons.get(i).getPosition(), dragons.get(i).getSymbol());
 		}
+		if(hero.isAlive())
+			placeOnBoard(hero.getPosition(),hero.getSymbol());
+		placeOnBoard(exit, 'S');
 	}
 
 	/**
