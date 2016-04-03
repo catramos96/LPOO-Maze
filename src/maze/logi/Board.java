@@ -62,6 +62,10 @@ public class Board {
 	public LinkedList<Dragon> getDragons() {
 		return dragons;
 	}
+	public void addDragon(Point position){
+		Dragon d = new Dragon(position);
+		dragons.add(d);
+	}
 	/**
 	 * Return Sword present in the game
 	 * @return Sword
