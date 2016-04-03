@@ -15,6 +15,8 @@ import javax.swing.KeyStroke;
 
 import maze.logi.Board;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JTextField;
 
 public class GameGraphics extends JFrame {
@@ -244,6 +246,28 @@ public class GameGraphics extends JFrame {
 			board.moveHero(d);
 			board.updateBoard();
 			mazeArea.repaint();
+		}
+		else
+		{
+			  JPanel finish;
+				if(board.heroWins())
+				{	
+			
+					finish = new  Image("resources//WIN.png");
+					finish.setBounds(0, 0, ((Image) finish).getBackGWidth(), ((Image) finish).getBackGHeight());
+					finish.setVisible(true);
+					getContentPane().removeAll();
+					this.repaint();
+					this.add(finish,0);
+					Dimension ImageSize = new Dimension(((Image) finish).getBackGWidth(),((Image) finish).getBackGHeight());
+					this.setSize(ImageSize);
+				
+					finish.repaint();
+					
+					
+				}
+				
+			}
 		}
 
 	}
