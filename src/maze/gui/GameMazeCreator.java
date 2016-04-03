@@ -111,7 +111,7 @@ public class GameMazeCreator extends JFrame {
 		getContentPane().add(textInfo);
 		textInfo.setColumns(10);
 		
-		image_background = new Image("resources\\backg.png");
+		image_background = new Image("resources//backg.png");
 		image_background.setBounds(0, 0, getWidth(), getHeight());
 		getContentPane().add(image_background);
 		
