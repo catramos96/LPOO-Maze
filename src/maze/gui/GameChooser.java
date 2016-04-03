@@ -276,7 +276,13 @@ public class GameChooser extends JFrame {
 				default:
 					break;
 				}
-				creator = new GameMazeCreator(gt,dt);
+				
+				if(game.getClass() != GameMazeCreator.class || !game.isDisplayable()){
+					game.dispose();
+					game = new GameMazeCreator(gt,dt);
+				}
+				else
+					game.requestFocus();
 
 			}});
 

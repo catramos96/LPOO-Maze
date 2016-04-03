@@ -182,8 +182,7 @@ public class Board {
 		if (!betweenBoardLimits(new_pos)) // just in case ...
 			return;
 		//wall or sleeping dragon
-		if (getBoardSymbol(new_pos) == 'X' || (getBoardSymbol(new_pos) == 'd' && !sword.inUse()) ||
-				(getBoardSymbol(new_pos) == 'S' && !dragonsAllDead()))
+		else if (getBoardSymbol(new_pos) == 'X' || (getBoardSymbol(new_pos) == 'd' && !sword.inUse()) || getBoardSymbol(new_pos) == 'S')
 			return;
 		//sword
 		else if (getBoardSymbol(new_pos) == 'E') {
@@ -325,7 +324,9 @@ public class Board {
 	}
 
 	public boolean heroWins() {
-		if (hero.getPosition().equals(exit) && dragons.isEmpty())
+		int dist_x = Math.abs(hero.getPosition().getX() - exit.getX());
+		int dist_y = Math.abs(hero.getPosition().getY() - exit.getY());
+		if ((dist_x == 0 && dist_y == 1 || dist_x == 1 && dist_y == 0) && dragonsAllDead())
 			return true;
 		else
 			return false;

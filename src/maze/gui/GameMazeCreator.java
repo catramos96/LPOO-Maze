@@ -120,6 +120,11 @@ public class GameMazeCreator extends JFrame {
 		 * LISTENERS
 		 */
 		
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+			}
+		});
 		
 		btnGerarTabuleiro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
