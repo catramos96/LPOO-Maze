@@ -100,7 +100,7 @@ public class GameChooser extends JFrame {
 		buttonBack.setForeground(Color.WHITE);
 		getContentPane().add(buttonBack);
 
-		String[] gameType = { "Texto", "Gr�fico"};
+		String[] gameType = { "Texto", "Grafico"};
 		JComboBox game_type = new JComboBox(gameType);
 		game_type.setBounds(234, 145, 217, 22);
 		game_type.setBackground(Color.LIGHT_GRAY);
@@ -122,14 +122,14 @@ public class GameChooser extends JFrame {
 		txtDimensoDoLabirinto.setFont(new Font("Tahoma", Font.BOLD, 13));
 		txtDimensoDoLabirinto.setForeground(Color.WHITE);
 		txtDimensoDoLabirinto.setBackground(Color.DARK_GRAY);
-		txtDimensoDoLabirinto.setText("Dimens\u00E3o do Labirinto");
+		txtDimensoDoLabirinto.setText("Dimensao do Labirinto");
 		getContentPane().add(txtDimensoDoLabirinto);
 		txtDimensoDoLabirinto.setColumns(10);
 
 		txtNmeroDeDrages = new JTextField();
 		txtNmeroDeDrages.setBounds(40, 73, 170, 22);
 		txtNmeroDeDrages.setEditable(false);
-		txtNmeroDeDrages.setText("N\u00FAmero de Drag\u00F5es");
+		txtNmeroDeDrages.setText("Numero de Dragoes");
 		txtNmeroDeDrages.setForeground(Color.WHITE);
 		txtNmeroDeDrages.setFont(new Font("Tahoma", Font.BOLD, 13));
 		txtNmeroDeDrages.setColumns(10);
@@ -139,7 +139,7 @@ public class GameChooser extends JFrame {
 		txtTipoDeDrages = new JTextField();
 		txtTipoDeDrages.setBounds(40, 107, 170, 22);
 		txtTipoDeDrages.setEditable(false);
-		txtTipoDeDrages.setText("Tipo de Drag\u00F5es");
+		txtTipoDeDrages.setText("Tipo de Dragoes");
 		txtTipoDeDrages.setForeground(Color.WHITE);
 		txtTipoDeDrages.setFont(new Font("Tahoma", Font.BOLD, 13));
 		txtTipoDeDrages.setColumns(10);
@@ -200,7 +200,7 @@ public class GameChooser extends JFrame {
 
 				if(mz_n_dragons > ((mz_size-2)/2)){
 					ERROR_MSG.setVisible(true);
-					ERROR_MSG.setText("N�mero de drag�es invalido!");
+					ERROR_MSG.setText("Numero de dragoes invalido!");
 				}
 				
 				if(mz_size < 6 || mz_size >30){

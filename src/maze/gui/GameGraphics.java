@@ -34,7 +34,7 @@ public class GameGraphics extends JFrame {
 		setTitle("Jogo do Labirinto");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		board = b;
-		setBounds(100, 100, 600, 263);
+		setBounds(500, 100, 600, 263);
 		getContentPane().setLayout(null);
 		setVisible(true);
 
@@ -87,12 +87,12 @@ public class GameGraphics extends JFrame {
 		mazeArea.setBounds(50, 150, 40*board.getBoard().length, 40*board.getBoard().length);
 		( (GameBoard) mazeArea).setBoard(board);
 		if(mazeArea.getWidth()+100 <= getWidth())
-			setBounds(500, 300,550, 250 + 40*board.getBoard().length);
+			setBounds(850, 100,550, 250 + 40*board.getBoard().length);
 		else
-			setBounds(500, 300, 100 + 40*board.getBoard().length, 250 + 40*board.getBoard().length);
+			setBounds(850, 100, 100 + 40*board.getBoard().length, 250 + 40*board.getBoard().length);
 		getContentPane().add(mazeArea);
 
-		image_background = new Image("resources\\wall_plain.png");
+		image_background = new Image("resources\\backg.png");
 		image_background.setBounds(0, 0, getWidth(), getHeight());
 		getContentPane().add(image_background);
 
@@ -200,9 +200,9 @@ public class GameGraphics extends JFrame {
 		mazeArea.setBounds(50, 150, 40*board.getBoard().length, 40*board.getBoard().length);
 		( (GameBoard) mazeArea).setBoard(board);
 		if(mazeArea.getWidth()+100 <= getWidth())
-			setBounds(500, 300,550, 250 + 40*board.getBoard().length);
+			setBounds(850, 300,550, 250 + 40*board.getBoard().length);
 		else
-			setBounds(500, 300, 100 + 40*board.getBoard().length, 250 + 40*board.getBoard().length);
+			setBounds(850, 300, 100 + 40*board.getBoard().length, 250 + 40*board.getBoard().length);
 		image_background.setBounds(0, 0, getWidth(), getHeight());
 		//getContentPane().add(image_background);
 	}
