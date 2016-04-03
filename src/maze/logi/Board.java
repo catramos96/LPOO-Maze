@@ -1,5 +1,7 @@
 package maze.logi;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -222,9 +224,10 @@ public class Board {
 		}
 		heroNextPosition(new_pos);
 		placeOnBoard(hero.getPosition(), hero.getSymbol());
+		updateBoard(); 
 	}
 
-	private boolean dragonNextPosition(Point new_pos, Dragon dragon, int indice) {
+	private boolean dragonNextPosition(Point new_pos, Dragon dragon) {
 		Point ini_pos = dragon.getPosition();
 
 		//To view if the previous moved dragons are colliding with de actual one
@@ -240,7 +243,7 @@ public class Board {
 		return true;
 	}
 
-	public boolean moveDragon(int d, Dragon dragon,int indice) {
+	public boolean moveDragon(int d, Dragon dragon) {
 		/*
 		 * d - 0 down d - 1 up d - 2 left d - 3 right
 		 */
@@ -269,7 +272,7 @@ public class Board {
 			dragon.setAwake(false);
 			break;
 		}
-		move = dragonNextPosition(new_pos, dragon, indice);
+		move = dragonNextPosition(new_pos, dragon);
 		placeOnBoard(dragon.getPosition(), dragon.getSymbol());
 		return move;
 	}
@@ -289,7 +292,7 @@ public class Board {
 					mov = rnd.nextInt(5);
 				else
 					mov = rnd.nextInt() % 4;
-				move = moveDragon(mov, dragon, i);
+				move = moveDragon(mov, dragon);
 			} while (!move);
 		}
 	}
