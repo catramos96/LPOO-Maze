@@ -55,17 +55,27 @@ public class Hero extends Point {
 	 *****************/
 	
 	/**
-	 * 
-	 * @param position
+	 * Set new hero position. 
+	 * @param position 
 	 */
 	public void setPosition(Point position) {
 		this.setXY(position.getX(), position.getY());
 	}
 
+	/** Set new hero char representation
+	 * 
+	 * @param new_symbol
+	 */
 	public void setSymbol(char new_symbol) {
 		symbol = new_symbol;
 	}
 
+	/** 
+	 * Set new hero life status.
+	 * Life equals False if is dead.
+	 * Life equals True  if is alive.
+	 * @param live
+	 */
 	public void setAlive(boolean a) {
 		alive = a;
 	}
@@ -74,6 +84,10 @@ public class Hero extends Point {
 	 * BOOLEAN *
 	 *****************/
 	
+	/**
+	 * Return hero life status.
+	 * @return life status
+	 */
 	public boolean isAlive() {
 		return alive;
 	}
@@ -81,7 +95,9 @@ public class Hero extends Point {
 	/*****************
 	 * OTHERS *
 	 *****************/
-
+	/**
+	 * Equips hero with a armour
+	 */
 	public void equipArmor() {
 		setSymbol('A');
 	}

@@ -19,11 +19,18 @@ public class Board {
 	/*****************
 	 * CONSTRUCTOR *
 	 *****************/
+	/**
+	 * Default board construtor.
+	 * Create a empty gameboard.
+	 */
 	public Board() {
 		char[][] b = { {} };
 		board = b;
 	}
-
+	/**
+	 * Create a board with a specific boardgame.
+	 * @param b
+	 */
 	public Board(char[][] b) {
 		setBoard(b);
 	}
@@ -31,32 +38,57 @@ public class Board {
 	/*****************
 	 * GETS *
 	 *****************/
-
+	
+	/**
+	 * Return game board.
+	 * @return char[ ][ ]  game board
+	 */
 	public char[][] getBoard() {
 		return board;
 	}
-
+	/**
+	 *  Return Hero present in the game
+	 * @return
+	 */
 	public Hero getHero() {
 		return hero;
 	}
-
+	/**
+	 * Return all dragons present in game board
+	 * @return LinkedList < Dragon > dragons;
+	 */
 	public LinkedList<Dragon> getDragons() {
 		return dragons;
 	}
-
+	/**
+	 * Return Sword present in the game
+	 * @return Sword
+	 */
 	public Sword getSword() {
 		return sword;
 	}
-
+	/**
+	 * Return exit available in the game
+	 * @return Point exit
+	 */
 	public Point getExit() {
 		return exit;
 	}
-
+	/**
+	 * Returns what is present in some specific position in game board
+	 * @param p Position  on the game board
+	 * @return char 
+	 */
 	public char getBoardSymbol(Point p) {
 		// x representa as col unas da matriz e y as linhas
 		return board[p.getY()][p.getX()];
 	}
-
+	/**
+	 * Search for a specific symbol in the board.
+	 * @param symbol 
+	 * @param ignores    number  of occurrences of symbol that will be ignored
+	 * @return int position of symbol
+	 */
 	public Point getPositionSymbol(char symbol, int ignores) {
 		Point pos = new Point();
 		int ing = 0;
@@ -77,7 +109,11 @@ public class Board {
 	/*****************
 	 * SETS *
 	 *****************/
-
+	/**
+	 * Set a new gameBoard
+	 * Update Hero, Dragon, Sword and exit position.
+	 * @param b new gameboard
+	 */
 	public void setBoard(char[][] b){
 		board = b;
 		Point pos;
@@ -87,7 +123,7 @@ public class Board {
 		if (pos.getX() == 0 && pos.getY() == 0)
 
 		{
-			//LANCAR EXCEÇÃO -------------------------------------------- ???
+			//LANCAR EXCEï¿½ï¿½O -------------------------------------------- ???
 		} 
 		else
 			hero.setPosition(pos);
@@ -117,7 +153,13 @@ public class Board {
 		// exit
 		exit.setXY(getPositionSymbol('S', 0).getX(), getPositionSymbol('S', 0).getY());
 	}
-
+	/**
+	 * Change dragons behaviour.
+	 * Modes:
+	 * 'P' - Paralysed mode, dragons don't move and don't sleep
+	 * 'S' - Dragons move 
+	 * @param dragon_MODE
+	 */
 	public void setDragonsBehaviour(char dragon_MODE) {
 		for (int i = 0; i < dragons.size(); i++) {
 			Dragon dragon = dragons.get(i);
@@ -316,14 +358,26 @@ public class Board {
 		heroDragonsCollision();
 	}
 
+	/**
+	 * Clean a board position
+	 * @param p
+	 */
 	public void cleanPosition(Point p) {
 		placeOnBoard(p, ' ');
 	}
 
+	/**
+	 * Place on game board in a specific point a symbol
+	 * @param position 
+	 * @param symbol
+	 */
 	public void placeOnBoard(Point position, char symbol) {
 		board[position.getY()][position.getX()] = symbol;
 	}
 
+	/**
+	 * Checks if Hero and all Dragons are colliding and treats collision
+	 */
 	public void heroDragonsCollision() {
 		for (int i = 0; i < dragons.size(); i++) {
 			Dragon dragon = dragons.get(i);

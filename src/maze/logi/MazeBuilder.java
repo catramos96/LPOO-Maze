@@ -12,6 +12,12 @@ public class MazeBuilder {
 	private static Random rnd = new Random();
 	private static Point heroi;
 
+	/**
+	 * Generate a new square maze with determinate size.
+	 * @param size
+	 * @return
+	 * @throws IllegalArgumentException
+	 */
 	public char[][] buildMaze(int size) throws IllegalArgumentException {
 		if (size < 5)
 			throw new IllegalArgumentException();
@@ -26,6 +32,13 @@ public class MazeBuilder {
 		return board;
 	}
 
+	/**
+	 * Generate a new square maze with determinate size and a specific number of dragons.
+	 * @param size
+	 * @param numDragons
+	 * @return
+	 * @throws IllegalArgumentException
+	 */
 	public char[][] buildMaze(int size, int numDragons) throws IllegalArgumentException {
 		if (numDragons > (size - 2) / 2 || numDragons == 0)
 			throw new IllegalArgumentException();
