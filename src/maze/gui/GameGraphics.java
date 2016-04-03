@@ -247,28 +247,22 @@ public class GameGraphics extends JFrame {
 			board.updateBoard();
 			mazeArea.repaint();
 		}
-		else
+		if(board.exitBoard())
 		{
-			  JPanel finish;
-				if(board.heroWins())
-				{	
-			
-					finish = new  Image("resources//WIN.png");
-					finish.setBounds(0, 0, ((Image) finish).getBackGWidth(), ((Image) finish).getBackGHeight());
-					finish.setVisible(true);
-					getContentPane().removeAll();
-					this.repaint();
-					this.add(finish,0);
-					Dimension ImageSize = new Dimension(((Image) finish).getBackGWidth(),((Image) finish).getBackGHeight());
-					this.setSize(ImageSize);
+			JPanel finish = new JPanel();
+			if(board.heroWins())
+				finish = new  Image("resources//WIN.png");
+			else if(!board.getHero().isAlive())
+				finish = new  Image("resources//DragonWin.png");
 				
-					finish.repaint();
-					
-					
-				}
-				
-			}
+			finish.setBounds(0, 0, ((Image) finish).getBackGWidth(), ((Image) finish).getBackGHeight());
+			finish.setVisible(true);
+			getContentPane().removeAll();
+			this.add(finish);
+			finish.repaint();
+			setBounds(200,100,finish.getWidth(),finish.getHeight());
 		}
-
 	}
+
 }
+

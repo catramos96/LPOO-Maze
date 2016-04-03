@@ -100,7 +100,7 @@ public class GameText extends JFrame {
 			setBounds(500, 300, 9*board.getBoard().length+50, 225 + 15*board.getBoard().length);
 		getContentPane().add(mazeArea);
 		
-		image_background = new Image("resources\\wall_plain.png");
+		image_background = new Image("resources\\backg.png");
 		image_background.setBounds(0, 0, getWidth(), getHeight());
 		getContentPane().add(image_background);
 		
