@@ -38,7 +38,7 @@ public class GameChooser extends JFrame {
 	private JTextField txtTipoDeJogo;
 	private JTextField dragon_min_max;
 	private JTextField ERROR_MSG;
-	
+
 
 	/**
 	 * Create the application.
@@ -53,12 +53,12 @@ public class GameChooser extends JFrame {
 
 	private void initialize() {
 		setResizable(false);
-		
+
 		setTitle("Jogo do Labirinto");
 		setBounds(600, 100, 500, 400);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setVisible(true);
-		
+
 		String[] dragonState = { "Estatico", "Aleatorio", "Aleatorio e Sonolento" };
 		getContentPane().setLayout(null);
 
@@ -202,7 +202,7 @@ public class GameChooser extends JFrame {
 					ERROR_MSG.setVisible(true);
 					ERROR_MSG.setText("Numero de dragoes invalido!");
 				}
-				
+
 				if(mz_size < 6 || mz_size >30){
 					mz_size = 0;
 					ERROR_MSG.setVisible(true);
@@ -251,11 +251,33 @@ public class GameChooser extends JFrame {
 				}
 			}
 		});
-		
+
 		btnCriarUmLabirinto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			creator = new GameMazeCreator();
+				char gt = ' ', dt = ' ';
+				if(game_type.getSelectedIndex()==0)
+					gt = 'T';
+				else
+					gt = 'G';
 				
+				switch (dragonType.getSelectedIndex()) {
+				case 0: { // est�tico
+					board.setDragonsBehaviour('P');
+					break;
+				}
+				case 1: { // Aleat�rio
+					board.setDragonsBehaviour('R');
+					break;
+				}
+				case 2: { // Aleatorio e sonolento
+					board.setDragonsBehaviour('S');
+					break;
+				}
+				default:
+					break;
+				}
+				creator = new GameMazeCreator(gt,dt);
+
 			}});
 
 	}
