@@ -124,13 +124,11 @@ public  class GameBoard extends  JPanel{
 
 				else if(temp[i][j] == 'D' || temp[i][j] == 'd' || temp[i][j] == 'F'){
 					g.drawImage(dragon.get(0),x, y, x+40, y+40,0, 0, dragon.get(0).getWidth(), dragon.get(0).getHeight(), null);
-					//door_open = false;
 				}
 				else if(temp[i][j] == 'H' || temp[i][j] == 'A')
 					g.drawImage(hero.get(0),x+10, y+5, x+30, y+35,0, 0, hero.get(0).getWidth(), hero.get(0).getHeight(), null);
 				else if(temp[i][j] == 'E'){
 					g.drawImage(sword, x, y, x+40, y+40,0, 0, sword.getWidth(), sword.getHeight(), null);
-					//door_open = false;
 				}
 
 				j++;

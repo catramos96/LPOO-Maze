@@ -246,9 +246,9 @@ public class GameText extends JFrame {
 	}
 	public void gameTurn(char d){
 		if(!board.exitBoard())
-		{
-			board.moveHero(d);
+		{	
 			board.moveRandomDragons();
+			board.moveHero(d);
 			board.updateBoard();
 			mazeArea.setText(board.toString());
 		}

@@ -49,11 +49,11 @@ public class TestRandomDragon {
 	@Test
 	public void testDragonCollisionSword() {
 		Board b = new Board(m1);
-		assertTrue(b.moveDragon(2,b.getDragons().get(0))); // left
+		assertTrue(b.moveDragon(2,b.getDragons().get(0),0)); // left
 		b.updateBoard();
 		assertEquals('D', b.getDragons().get(0).getSymbol());
 		assertEquals(new Point(2, 3), b.getDragons().get(0).getPosition());
-		b.moveDragon(2,b.getDragons().get(0));
+		b.moveDragon(2,b.getDragons().get(0),0);
 		b.updateBoard();
 		assertEquals(new Point(1, 3), b.getDragons().get(0).getPosition());
 		assertEquals('F', b.getDragons().get(0).getSymbol());
@@ -64,7 +64,7 @@ public class TestRandomDragon {
 	public void testDragonMoveKillsHero() {
 		Board b = new Board(m1);
 		assertTrue(b.getHero().isAlive());
-		b.moveDragon(1,b.getDragons().get(0));
+		b.moveDragon(1,b.getDragons().get(0),0);
 		b.updateBoard();
 		b.heroDragonsCollision();
 		assertFalse(b.getHero().isAlive());
@@ -76,13 +76,13 @@ public class TestRandomDragon {
 	@Test
 	public void testDragonMovesAgainstWall() {
 		Board b = new Board(m1);
-		assertFalse(b.moveDragon(0,b.getDragons().get(0)));
+		assertFalse(b.moveDragon(0,b.getDragons().get(0),0));
 	}
 
 	@Test
 	public void testCellFreeAfterMove() {
 		Board b = new Board(m1);
-		b.moveDragon(2,b.getDragons().get(0));
+		b.moveDragon(2,b.getDragons().get(0),0);
 		assertEquals(' ', b.getBoardSymbol(new Point(3, 3)));
 		b.moveHero('a');
 		assertEquals(' ', b.getBoardSymbol(new Point(3, 1)));
@@ -92,7 +92,7 @@ public class TestRandomDragon {
 	{
 		Board b = new Board(m1);
 		b.getDragons().get(0).setSleepMode(true);
-		b.moveDragon(4,b.getDragons().get(0));
+		b.moveDragon(4,b.getDragons().get(0),0);
 		assertEquals('d',b.getDragons().get(0).getSymbol());
 	}
 	@Test
@@ -104,7 +104,7 @@ public class TestRandomDragon {
 		assertEquals('d',b.getDragons().get(0).getSymbol());
 		b.getDragons().get(0).setAwake(true);
 		assertEquals('D',b.getDragons().get(0).getSymbol());
-		assertTrue(b.moveDragon(1,b.getDragons().get(0))); //up
+		assertTrue(b.moveDragon(1,b.getDragons().get(0),0)); //up
 	}
 
 	@Test

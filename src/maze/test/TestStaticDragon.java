@@ -28,7 +28,7 @@ public class TestStaticDragon {
 		int n = 0;
 		while (n != 20 || b.getDragons().get(0).getPosition() == new Point(3, 3)) {
 			n++;
-			b.moveDragon(0,b.getDragons().get(0)); // up
+			b.moveDragon(0,b.getDragons().get(0),0); // up
 		}
 		assertFalse(b.getDragons().get(0).getPosition() == new Point(3, 3));
 		assertFalse(b.getDragons().get(0).getSleepMode());

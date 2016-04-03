@@ -12,8 +12,8 @@ public class Maze {
 	/**************************************** FUNCTIONS */
 
 	public static void newTurn(char direction) {
-		board.moveHero(direction);
 		board.moveRandomDragons();
+		board.moveHero(direction);
 		board.updateBoard();
 	}
 

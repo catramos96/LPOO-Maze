@@ -179,10 +179,9 @@ public class Board {
 
 	public void heroNextPosition(Point new_pos) {
 		Point ini_pos = hero.getPosition();
-		if (!betweenBoardLimits(new_pos)) // just in case ...
-			return;
+		
 		//wall or sleeping dragon
-		else if (getBoardSymbol(new_pos) == 'X' || (getBoardSymbol(new_pos) == 'd' && !sword.inUse()) || (getBoardSymbol(new_pos) == 'S' && !dragonsAllDead()))
+		if (getBoardSymbol(new_pos) == 'X' || (getBoardSymbol(new_pos) == 'd' && !sword.inUse()) || (getBoardSymbol(new_pos) == 'S' && !dragonsAllDead()))
 			return;
 		//sword
 		else if (getBoardSymbol(new_pos) == 'E') {
@@ -191,7 +190,6 @@ public class Board {
 		}
 		cleanPosition(ini_pos);
 		hero.setPosition(new_pos);
-		heroDragonsCollision();
 	}
 
 	public void moveHero(char direction) {
@@ -226,28 +224,23 @@ public class Board {
 		placeOnBoard(hero.getPosition(), hero.getSymbol());
 	}
 
-	private boolean dragonNextPosition(Point new_pos, Dragon dragon) {
+	private boolean dragonNextPosition(Point new_pos, Dragon dragon, int indice) {
 		Point ini_pos = dragon.getPosition();
-		if (!betweenBoardLimits(new_pos)) // just in case
-			return false;
 
-		// if it collides with a wall, exit, other dragon in sleep or awake mode
-		// returns false;
-		if (getBoardSymbol(new_pos) == 'X' || getBoardSymbol(new_pos) == 'S' || getBoardSymbol(new_pos) == 'D'
-				|| getBoardSymbol(new_pos) == 'd')
+		//To view if the previous moved dragons are colliding with de actual one
+		
+		if (getBoardSymbol(new_pos) == 'X' || getBoardSymbol(new_pos) == 'S' || getBoardSymbol(new_pos) == 'D' || getBoardSymbol(new_pos) =='d')
 			return false;
-
 		else if (getBoardSymbol(new_pos) == 'E')
 			dragon.setSymbol('F');
 		else
 			dragon.setSymbol('D'); // just in case ...
 		cleanPosition(ini_pos);
 		dragon.setPosition(new_pos);
-		heroDragonsCollision();
 		return true;
 	}
 
-	public boolean moveDragon(int d, Dragon dragon) {
+	public boolean moveDragon(int d, Dragon dragon,int indice) {
 		/*
 		 * d - 0 down d - 1 up d - 2 left d - 3 right
 		 */
@@ -260,32 +253,32 @@ public class Board {
 		switch (d) {
 		case 0:// down
 			new_pos.setXY(dragon.getX(), dragon.getY() + 1);
-			move = dragonNextPosition(new_pos, dragon);
+			
 			break;
 		case 1:// up
 			new_pos.setXY(dragon.getX(), dragon.getY() - 1);
-			move = dragonNextPosition(new_pos, dragon);
 			break;
 		case 2:// left
 			new_pos.setXY(dragon.getX() - 1, dragon.getY());
-			move = dragonNextPosition(new_pos, dragon);
 			break;
 		case 3:// right
 			new_pos.setXY(dragon.getX() + 1, dragon.getY());
-			move = dragonNextPosition(new_pos, dragon);
 			break;
 		case 4:
 			move = true;// Sleep
 			dragon.setAwake(false);
 			break;
 		}
-		if(move)
-			placeOnBoard(dragon.getPosition(), dragon.getSymbol());
+		move = dragonNextPosition(new_pos, dragon, indice);
+		placeOnBoard(dragon.getPosition(), dragon.getSymbol());
 		return move;
 	}
 
 	public void moveRandomDragons() {
 		int mov;
+		for (int i = 0; i < dragons.size(); i++) {
+			cleanPosition(dragons.get(i).getPosition());
+		}
 		for (int i = 0; i < dragons.size(); i++) {
 			Dragon dragon = dragons.get(i);
 			if (dragon.getParalysedMode())
@@ -296,7 +289,7 @@ public class Board {
 					mov = rnd.nextInt(5);
 				else
 					mov = rnd.nextInt() % 4;
-				move = moveDragon(mov, dragon);
+				move = moveDragon(mov, dragon, i);
 			} while (!move);
 		}
 	}
@@ -313,14 +306,6 @@ public class Board {
 			return true;
 		} else
 			return false;
-	}
-
-	// for tests
-	public boolean betweenBoardLimits(Point p) {
-		if (p.getX() >= board.length || p.getY() >= board.length || p.getX() < 0 || p.getY() <0)
-			return false;
-		else
-			return true;
 	}
 
 	public boolean heroWins() {
@@ -341,9 +326,8 @@ public class Board {
 	/*****************
 	 * OTHERS *
 	 *****************/
-
+	
 	public void updateBoard() {
-		//if there wasn't a hero or dragon movements
 		heroDragonsCollision();
 		// update exit
 		placeOnBoard(exit, 'S');
@@ -353,8 +337,6 @@ public class Board {
 		for (int i = 0; i < dragons.size(); i++) {
 			placeOnBoard(dragons.get(i).getPosition(), dragons.get(i).getSymbol());
 		}
-		placeOnBoard(hero.getPosition(),hero.getSymbol());
-		heroDragonsCollision();
 	}
 
 	/**
@@ -382,7 +364,7 @@ public class Board {
 			Dragon dragon = dragons.get(i);
 			int dist_x = Math.abs(hero.getPosition().getX() - dragon.getPosition().getX());
 			int dist_y = Math.abs(hero.getPosition().getY() - dragon.getPosition().getY());
-			if (dist_x == 0 && dist_y == 1 || dist_x == 1 && dist_y == 0) {
+			if (dist_x == 0 && dist_y <= 1 || dist_x <= 1 && dist_y == 0) {
 				if (hero.getSymbol() == 'H' && (dragon.getSymbol() == 'D')){
 					hero.setAlive(false);
 					cleanPosition(hero.getPosition());
