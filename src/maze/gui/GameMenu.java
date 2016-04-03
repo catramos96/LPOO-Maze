@@ -104,12 +104,20 @@ public class GameMenu {
 					option.dispose();
 					option = new GameChooser();
 				}
+				else
+					option.requestFocus();
 			}
 		});
 
 
 		buttonHowToPlay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(option.getClass() != GameInfo.class || !option.isDisplayable()){
+					option.dispose();
+					option = new GameInfo();
+				}
+				else
+					option.requestFocus();
 			}
 		});
 

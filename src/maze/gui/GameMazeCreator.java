@@ -217,6 +217,7 @@ public class GameMazeCreator extends JFrame {
 					image.cleanPosition(new maze.logi.Point(0,0));
 					image.placeOnBoard(new maze.logi.Point(0,0),'S');
 					texture.setBoard(image);
+					texture.repaint();
 					break;
 				}
 			
