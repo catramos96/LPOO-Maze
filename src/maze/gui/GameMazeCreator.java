@@ -24,7 +24,7 @@ import javax.swing.JButton;
 
 public class GameMazeCreator extends JFrame {
 
-	private Board tab;
+	private Board board;
 	private GameBoard maze;
 	private Integer Selector = 0;
 	private GameBoard texture;
@@ -32,6 +32,7 @@ public class GameMazeCreator extends JFrame {
 	private JComboBox comboBox;
 	private JPanel image_background;
 	private JTextField textInfo;
+	private JFrame game = new JFrame();
 	 
 	
 	GameMazeCreator(char gt, char dt) {
@@ -138,11 +139,11 @@ public class GameMazeCreator extends JFrame {
 				 for(int i =0; i < ntab.length; i++)
 					 for(int t = 0; t < ntab[i].length; t++)
 						 	ntab[i][t] = ' ';
-				 tab = new Board(ntab);
+				 board = new Board(ntab);
 				 maze.setBounds(40, 200, 40*ntab.length, 40*ntab.length);
 				 setBounds(100, 100, 825+40*(ntab.length - 5), 250+40*ntab.length);
 				 image_background.setBounds(0, 0, getWidth(), getHeight());
-				 maze.setBoard(tab);
+				 maze.setBoard(board);
 				 textInfo.setText("Escolha um objecto e usa o botao esquerdo do rato para o posicionar e o direito para apagar");
 				
 			}
@@ -152,7 +153,7 @@ public class GameMazeCreator extends JFrame {
 		btnValidTab.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				boolean valid = true;
-				if(tab == null) return;
+				if(board == null) return;
 				
 				if(test3x3()) 
 				{
@@ -183,7 +184,7 @@ public class GameMazeCreator extends JFrame {
 					valid = false;
 				}
 				
-				char [][] m = tab.getBoard();
+				char [][] m = board.getBoard();
 				if(testChar(m,'D') <= 0)
 					{valid = false;
 					textInfo.setText("D ");
@@ -198,10 +199,30 @@ public class GameMazeCreator extends JFrame {
 				textInfo.setText("E ");
 				}
 				
-				if(valid)			
+				if(valid){
 					textInfo.setText("OK");
-				
-					
+					board.setDragonsBehaviour(dt);
+					board.updateBoard();
+
+					if(gt == 'G')
+					{
+						if(game.getClass() != GameGraphics.class || !game.isDisplayable()){
+							game.dispose();
+							game = new GameGraphics(board);
+						}
+						else
+							((GameGraphics) game).setBoard(board);
+					}
+					else if(gt == 'T')
+					{
+						if(game.getClass() != GameText.class || !game.isDisplayable()){
+							game.dispose();
+							game = new GameText(board);
+						}
+						else
+							((GameText) game).setBoard(board);
+					}
+				}
 				
 			}
 		});
@@ -268,15 +289,15 @@ public class GameMazeCreator extends JFrame {
 						case 0:
 							break;
 						case 1:
-							if(tab.getBoard()[y][x] != ' ')return;
+							if(board.getBoard()[y][x] != ' ')return;
 							UpdateTab( x,  y);
-							maze.setBoard(tab);
+							maze.setBoard(board);
 							break;
 						case 2:
 							break;
 						case 3:
-							tab.placeOnBoard(new maze.logi.Point(x,y), ' ');
-							maze.setBoard(tab);
+							board.placeOnBoard(new maze.logi.Point(x,y), ' ');
+							maze.setBoard(board);
 							break;
 						default:
 							break;
@@ -317,23 +338,27 @@ public class GameMazeCreator extends JFrame {
 		switch (comboBox.getSelectedIndex()) {
 		
 		case 0: { 
-			tab.placeOnBoard(new maze.logi.Point(x,y), 'X');
+			board.placeOnBoard(new maze.logi.Point(x,y), 'X');
 			break;
 		}
 		case 1: { 
-			tab.placeOnBoard(new maze.logi.Point(x,y), 'S');
+			board.getExit().setXY(x, y);
+			board.placeOnBoard(new maze.logi.Point(x,y), 'S');
 			break;
 		}
 		case 2: { 
-			tab.placeOnBoard(new maze.logi.Point(x,y), 'H');
+			board.getHero().setXY(x, y);
+			board.placeOnBoard(new maze.logi.Point(x,y), 'H');
 			break;
 		}
 		case 3: { 
-			tab.placeOnBoard(new maze.logi.Point(x,y), 'E');
+			board.getSword().setXY(x, y);
+			board.placeOnBoard(new maze.logi.Point(x,y), 'E');
 			break;
 		}
 		case 4: { 
-			tab.placeOnBoard(new maze.logi.Point(x,y), 'D');
+			board.addDragon(new maze.logi.Point(x,y));
+			board.placeOnBoard(new maze.logi.Point(x,y), 'D');
 			break;
 		}
 		
@@ -346,12 +371,12 @@ public class GameMazeCreator extends JFrame {
 	private boolean test3x3()
 	{
 		char[][] t3x3 = { { 'X', 'X', 'X', }, { 'X', 'X', 'X', }, { 'X', 'X', 'X', }, };
-		for (int i = 0; i < tab.getBoard().length - t3x3.length; i++)
-			for (int j = 0; j < tab.getBoard().length - t3x3.length; j++) {
+		for (int i = 0; i < board.getBoard().length - t3x3.length; i++)
+			for (int j = 0; j < board.getBoard().length - t3x3.length; j++) {
 				boolean match = true;
 				for (int y = 0; y < t3x3.length; y++)
 					for (int x = 0; x < t3x3.length; x++)
-						if (tab.getBoard()[i + y][j + x] != t3x3[y][x])
+						if (board.getBoard()[i + y][j + x] != t3x3[y][x])
 							match = false;
 				if (match)
 					return true;
@@ -371,7 +396,7 @@ public class GameMazeCreator extends JFrame {
 				{' ', 'X'},
 				{'X', ' '}};
 		
-		char [][] maze = tab.getBoard();
+		char [][] maze = board.getBoard();
 		for (int i = 0; i < maze.length - badSpaces.length; i++)
 			for (int j = 0; j < maze.length - badSpaces.length; j++) {
 				boolean match = true;
@@ -395,8 +420,8 @@ public class GameMazeCreator extends JFrame {
 	private boolean testborder()
 	{
 		int countExit = 0;
-		int n = tab.getBoard().length;
-		char [][] m = tab.getBoard();
+		int n = board.getBoard().length;
+		char [][] m = board.getBoard();
 		for (int i = 0; i < n; i++)
 			for (int j = 0; j < n; j++)
 				if (i == 0 || j == 0 || i == n - 1 || j == n - 1)
@@ -412,7 +437,7 @@ public class GameMazeCreator extends JFrame {
 	private boolean testSolution()
 	{	
 		
-		char[][] maze = tab.getBoard();
+		char[][] maze = board.getBoard();
 		maze.logi.Point p = findPos(maze,'S');
 		if(p == null)
 			return true;
