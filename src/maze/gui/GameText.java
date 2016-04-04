@@ -87,7 +87,7 @@ public class GameText extends JFrame {
 		getContentPane().add(btnVoltarAoMenu);
 		
 
-		JButton[] movButtons = new JButton[] { buttonUp, buttonDown, buttonRight, buttonLeft };
+		 movButtons = new JButton[] { buttonUp, buttonDown, buttonRight, buttonLeft };
 
 		// Enable dos bot�es de jogo
 				setButtons(true, movButtons);
@@ -223,9 +223,9 @@ public class GameText extends JFrame {
 			infoLabel2.setText("Vai para a saida");	
 		if (board.exitBoard()) {
 			if (board.heroWins())
-				infoLabel2.setText("Ganhas-te !");
+				infoLabel2.setText("Ganhaste !");
 			else
-				infoLabel2.setText("Perdes-te !");
+				infoLabel2.setText("Perdeste !");
 		}
 	}
 
@@ -241,8 +241,10 @@ public class GameText extends JFrame {
 			board.moveHero(d);
 			board.updateBoard();
 			mazeArea.setText(board.toString());
+			boolean teste = board.exitBoard();
 			if(board.exitBoard())
 				setButtons(false, movButtons);
+				
 		}
 
 	}

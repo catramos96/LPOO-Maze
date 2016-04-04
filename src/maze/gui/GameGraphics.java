@@ -25,7 +25,7 @@ public class GameGraphics extends JFrame {
 
 	private JPanel mazeArea = new GameBoard();;
 	private JTextField infoLabel = new JTextField();
-	private JButton[] movButtons;
+	private  JButton[] movButtons;
 	private JPanel image_background;
 	private Board board = new Board();
 	
@@ -84,7 +84,7 @@ public class GameGraphics extends JFrame {
 		getContentPane().add(btnVoltarAoMenu);
 
 
-		JButton[] movButtons = new JButton[] { buttonUp, buttonDown, buttonRight, buttonLeft };
+		 movButtons = new JButton[] { buttonUp, buttonDown, buttonRight, buttonLeft };
 
 		// Enable dos bot�es de jogo
 		setButtons(true, movButtons);
@@ -223,7 +223,12 @@ public class GameGraphics extends JFrame {
 			if (board.heroWins())
 				infoLabel2.setText("Ganhas-te !");
 			else
+			{
 				infoLabel2.setText("Perdes-te !");
+				
+			}
+			
+			
 		}
 	}
 
@@ -242,6 +247,7 @@ public class GameGraphics extends JFrame {
 		}
 		if(board.exitBoard())
 		{
+			
 			JPanel finish = new JPanel();
 			if(board.heroWins())
 			{
@@ -254,6 +260,7 @@ public class GameGraphics extends JFrame {
 				finish = new  Image("resources//DragonWin.png");
 				((Image) finish).addImage("resources//you_lose.png", 0, 100, 400, 100);
 				((Image) finish).addImage("resources//Clica.png",500, 400, 400, 80);
+			
 			}
 			
 			finish.setBounds(0, 0, ((Image) finish).getBackGWidth(), ((Image) finish).getBackGHeight());
