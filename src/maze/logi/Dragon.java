@@ -16,7 +16,7 @@ public class Dragon extends Point {
 	 * CONSTRUCTOR *
 	 *****************/
 	/**
-	 * Default Dragon constructor. Creates a dragon at position x = 1 & y = 1  and awake
+	 * Default Dragon constructor. Creates a dragon at position (1,1)  and awake
 	 */
 	public Dragon() {
 		this.setXY(1, 1);
@@ -26,7 +26,7 @@ public class Dragon extends Point {
 
 	/**
 	 * Creates a Dragon at a determinate point
-	 * @param p
+	 * @param p Point
 	 */
 	public Dragon(Point p) {
 		this.setPosition(p);
@@ -38,7 +38,7 @@ public class Dragon extends Point {
 
 	/**
 	 * Returns dragon position
-	 * @return
+	 * @return Point
 	 */
 	public Point getPosition() {
 		return (Point) this;
@@ -46,14 +46,14 @@ public class Dragon extends Point {
 
 	/**
 	 * Returns dragons symbol
-	 * @return
+	 * @return symbol char
 	 */
 	public char getSymbol() {
 		return symbol;
 	}
 	/**
 	 * Return true if dragon is in sleepy mode
-	 * @return
+	 * @return boolean
 	 */
 	public boolean getSleepMode() {
 		return sleep_mode;
@@ -73,7 +73,7 @@ public class Dragon extends Point {
 
 	/**
 	 * Set new dragon position
-	 * @param p
+	 * @param p Point
 	 */
 	public void setPosition(Point p) {
 		this.setXY(p.getX(), p.getY());
@@ -81,7 +81,7 @@ public class Dragon extends Point {
 
 	/**
 	 * Set new dragon symbol
-	 * @param s
+	 * @param s char
 	 */
 	public void setSymbol(char s) {
 		symbol = s;
@@ -89,7 +89,7 @@ public class Dragon extends Point {
 
 	/**
 	 * Set Dragon life state
-	 * @param l
+	 * @param l boolean
 	 */
 	public void setAlive(boolean l) {
 		alive = l;
@@ -97,7 +97,7 @@ public class Dragon extends Point {
 
 	/**
 	 * Enable/Disable Sleep Mode
-	 * @param sleep
+	 * @param sleep boolean
 	 */
 	public void setSleepMode(boolean sleep) {
 		sleep_mode = sleep;
@@ -105,7 +105,7 @@ public class Dragon extends Point {
 
 	/**
 	 * Enable/Disable Paralyzed Mode
-	 * @param paralysed
+	 * @param paralysed boolean
 	 */
 	public void setParalysedMode(boolean paralysed) {
 		paralysed_mode = paralysed;
@@ -113,7 +113,7 @@ public class Dragon extends Point {
 	
 	/**
 	 * Set dragon state awake or sleepy
-	 * @param b
+	 * @param b boolean
 	 */
 	public void setAwake(boolean b){
 		awake = b;
@@ -129,7 +129,7 @@ public class Dragon extends Point {
 
 	/**
 	 * Return life state
-	 * @return
+	 * @return boolean
 	 */
 	public boolean isAlive() {
 		return alive;
@@ -138,7 +138,7 @@ public class Dragon extends Point {
 	/**
 	 * Return true if dragon is awake 
 	 * Return false if dragon is sleepy
-	 * @return
+	 * @return boolean
 	 */
 	public boolean isAwake() {
 		return awake;

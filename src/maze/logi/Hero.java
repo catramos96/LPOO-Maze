@@ -22,8 +22,8 @@ public class Hero extends Point {
 	}
 /**
  * Constructor of class Hero receives a object of type Point and initialize
- * Hero with that Point
- * @param position
+ * Hero with that Point 
+ * @param position Point
  */
 	public Hero(Point position) {
 		this.setPosition(position);
@@ -56,7 +56,7 @@ public class Hero extends Point {
 	
 	/**
 	 * Set new hero position. 
-	 * @param position 
+	 * @param position  Point
 	 */
 	public void setPosition(Point position) {
 		this.setXY(position.getX(), position.getY());
@@ -64,7 +64,7 @@ public class Hero extends Point {
 
 	/** Set new hero char representation
 	 * 
-	 * @param new_symbol
+	 * @param new_symbol char
 	 */
 	public void setSymbol(char new_symbol) {
 		symbol = new_symbol;
@@ -74,7 +74,7 @@ public class Hero extends Point {
 	 * Set new hero life status.
 	 * Life equals False if is dead.
 	 * Life equals True  if is alive.
-	 * @param live
+	 * @param a  boolean
 	 */
 	public void setAlive(boolean a) {
 		alive = a;
@@ -96,7 +96,7 @@ public class Hero extends Point {
 	 * OTHERS *
 	 *****************/
 	/**
-	 * Equips hero with a armour
+	 * Equips hero with a armor
 	 */
 	public void equipArmor() {
 		setSymbol('A');

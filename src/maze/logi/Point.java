@@ -78,7 +78,7 @@ public class Point {
 
 	/**
 	 * Set a new value of Y
-	 * @param new_y
+	 * @param new_y int
 	 */
 	public void setY(int new_y) {
 		y = new_y;

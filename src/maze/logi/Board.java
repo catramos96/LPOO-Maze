@@ -31,7 +31,7 @@ public class Board {
 	}
 	/**
 	 * Create a board with a specific boardgame.
-	 * @param b
+	 * @param b char [][]
 	 */
 	public Board(char[][] b) {
 		setBoard(b);
@@ -386,7 +386,7 @@ public class Board {
 
 	/**
 	 * Clean a board position
-	 * @param p
+	 * @param p Point
 	 */
 	public void cleanPosition(Point p) {
 		placeOnBoard(p, ' ');
@@ -394,8 +394,8 @@ public class Board {
 
 	/**
 	 * Place on game board in a specific point a symbol
-	 * @param position 
-	 * @param symbol
+	 * @param position Point
+	 * @param symbol char
 	 */
 	public void placeOnBoard(Point position, char symbol) {
 		board[position.getY()][position.getX()] = symbol;
