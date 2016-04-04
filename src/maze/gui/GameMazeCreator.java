@@ -22,7 +22,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-public class GameMazeCreator extends JFrame {
+public class GameMazeCreator extends JFrame{
 
 	private Board board;
 	private GameBoard maze;

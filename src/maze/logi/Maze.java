@@ -21,6 +21,9 @@ public class Maze {
 		MazeBuilder mz = new MazeBuilder();
 		int maze_size = ConsoleClient.mazeSizeBuilder();
 		int n_dragons;
+		
+		//To make our program more resistant the number of dragons can only be n_dragons > (maze_size - 2) / 2;
+		
 		do {
 			n_dragons = ConsoleClient.getNumberOfDragons();
 		} while (n_dragons > (maze_size - 2) / 2);

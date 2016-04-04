@@ -2,6 +2,7 @@ package maze.logi;
 
 import static org.junit.Assert.assertEquals;
 
+import java.security.InvalidParameterException;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -40,7 +41,7 @@ public class Board {
 	/*****************
 	 * GETS *
 	 *****************/
-	
+
 	/**
 	 * Return game board.
 	 * @return char[ ][ ]  game board
@@ -123,16 +124,16 @@ public class Board {
 	public void setBoard(char[][] b){
 		board = b;
 		Point pos;
+
+		//  For every element of the board checks its position
+
 		// hero
 		pos = getPositionSymbol('H', 0);
-
-		if (pos.getX() == 0 && pos.getY() == 0)
-
-		{
-			//LANCAR EXCE��O -------------------------------------------- ???
+		if (pos.getX() == 0 && pos.getY() == 0){
 		} 
 		else
 			hero.setPosition(pos);
+
 		// dragon
 		boolean allDragonsPicked = false;
 		int picks = 0;
@@ -146,13 +147,11 @@ public class Board {
 			}
 		} while (!allDragonsPicked);
 		if (picks == 0) {
-			// ERRO
-
 		}
+
 		// sword
 		pos = getPositionSymbol('E', 0);
 		if (pos.getX() == 0 && pos.getY() == 0) {
-			// FALTA lancar exception
 		} else
 			sword.setPosition(pos);
 
@@ -160,8 +159,8 @@ public class Board {
 		exit.setXY(getPositionSymbol('S', 0).getX(), getPositionSymbol('S', 0).getY());
 	}
 	/**
-	 * Change dragons behaviour.
-	 * @param dragon_MODE 'P' - Paralysed mode, dragons don't move and don't sleep 'S' - Dragons move
+	 * Change the dragons behavior.
+	 * @param dragon_MODE 'P' - Paralyzed mode, dragons don't move and don't sleep 'S' - Dragons move
 	 */
 	public void setDragonsBehaviour(char dragon_MODE) {
 		for (int i = 0; i < dragons.size(); i++) {
@@ -179,17 +178,17 @@ public class Board {
 	/*****************
 	 * MOVEMENTS *
 	 *****************/
-/**
- * Evaluates next hero position. If is a valid move Hero moves to next position otherwise hero stays in same position.
- * @param new_pos new hero position
- */
+	/**
+	 * Evaluates next hero position. If is a valid move Hero moves to next position otherwise hero stays in same position.
+	 * @param new_pos new hero position
+	 */
 	public void heroNextPosition(Point new_pos) {
 		Point ini_pos = hero.getPosition();
-		
-		//wall or sleeping dragon
+
+		//NextPosition = Wall, sleeping dragon or exit(and dragons are alive)
 		if (getBoardSymbol(new_pos) == 'X' || (getBoardSymbol(new_pos) == 'd' && !sword.inUse()) || (getBoardSymbol(new_pos) == 'S' && !dragonsAllDead()))
 			return;
-		//sword
+		//NextPosition = sword
 		else if (getBoardSymbol(new_pos) == 'E') {
 			hero.equipArmor();
 			sword.setUse(true);
@@ -197,7 +196,7 @@ public class Board {
 		cleanPosition(ini_pos);
 		hero.setPosition(new_pos);
 	}
-   
+
 	/**
 	 * Moves hero in a direction if possible.
 	 * @param direction 
@@ -238,7 +237,7 @@ public class Board {
 		placeOnBoard(hero.getPosition(), hero.getSymbol());
 		updateBoard(); 
 	}
-	
+
 	/**
 	 * Evaluates next dragon position
 	 * @param new_pos
@@ -248,14 +247,18 @@ public class Board {
 	private boolean dragonNextPosition(Point new_pos, Dragon dragon) {
 		Point ini_pos = dragon.getPosition();
 
-		//To view if the previous moved dragons are colliding with de actual one
-		
+		//To view if the previous moved dragons are colliding with the actual one
+
+		//NextPosition = Wall, exit or dragon
 		if (getBoardSymbol(new_pos) == 'X' || getBoardSymbol(new_pos) == 'S' || getBoardSymbol(new_pos) == 'D' || getBoardSymbol(new_pos) =='d')
 			return false;
+
+		//NextPosition = sword
 		else if (getBoardSymbol(new_pos) == 'E')
 			dragon.setSymbol('F');
+		//Just in case the last position was the sword
 		else
-			dragon.setSymbol('D'); // just in case ...
+			dragon.setSymbol('D');
 		cleanPosition(ini_pos);
 		dragon.setPosition(new_pos);
 		return true;
@@ -278,40 +281,41 @@ public class Board {
 		Point new_pos = new Point();
 		boolean move = false;
 
+		//Random Move
 		switch (d) {
 		case 0:// down
 			new_pos.setXY(dragon.getX(), dragon.getY() + 1);
-			move = dragonNextPosition(new_pos, dragon);
 			break;
 		case 1:// up
 			new_pos.setXY(dragon.getX(), dragon.getY() - 1);
-			move = dragonNextPosition(new_pos, dragon);
 			break;
 		case 2:// left
 			new_pos.setXY(dragon.getX() - 1, dragon.getY());
-			move = dragonNextPosition(new_pos, dragon);
 			break;
 		case 3:// right
 			new_pos.setXY(dragon.getX() + 1, dragon.getY());
-			move = dragonNextPosition(new_pos, dragon);
 			break;
 		case 4:
 			move = true;// Sleep
 			dragon.setAwake(false);
 			break;
 		}
-		
+
+		move = dragonNextPosition(new_pos, dragon);
 		placeOnBoard(dragon.getPosition(), dragon.getSymbol());
 		return move;
 	}
-/**
- * Move all dragons in the board randomly.
- */
+	/**
+	 * Move all dragons in the board randomly.
+	 */
 	public void moveRandomDragons() {
 		int mov;
+
+		//Cleans all dragons on board to check if the new position is a dragon recently moved
 		for (int i = 0; i < dragons.size(); i++) {
 			cleanPosition(dragons.get(i).getPosition());
 		}
+		//for each dragon tries to accomplish a move until succeeded
 		for (int i = 0; i < dragons.size(); i++) {
 			Dragon dragon = dragons.get(i);
 			if (dragon.getParalysedMode())
@@ -330,10 +334,10 @@ public class Board {
 	/*****************
 	 * BOOLEAN *
 	 *****************/
-/**
- * Evaluates  if  game ended.
- * @return true if game ended otherwise returns false
- */
+	/**
+	 * Evaluates  if  game ended.
+	 * @return true if game ended otherwise returns false
+	 */
 	public boolean exitBoard() {
 
 		if (heroWins()) {
@@ -343,10 +347,10 @@ public class Board {
 		} else
 			return false;
 	}
-/**
- * Check if  hero wins the game.
- * @return true if hero win otherwise return false
- */
+	/**
+	 * Check if  hero wins the game.
+	 * @return true if hero win otherwise return false
+	 */
 	public boolean heroWins() {
 		if (hero.getPosition().equals(exit) && dragonsAllDead())
 			return true;
@@ -373,17 +377,19 @@ public class Board {
 	 *  Update Objects on the board
 	 */
 	public void updateBoard() {
+		//check collision
 		heroDragonsCollision();
-		// update exit
-		placeOnBoard(exit, 'S');
 		// update sword
 		if (!sword.inUse())
 			placeOnBoard(sword.getPosition(), sword.getSymbol());
+		//update dragons (if a dragon is on the same position has the sword it stays visible)
 		for (int i = 0; i < dragons.size(); i++) {
 			placeOnBoard(dragons.get(i).getPosition(), dragons.get(i).getSymbol());
 		}
+		//hero
 		if(hero.isAlive())
 			placeOnBoard(hero.getPosition(),hero.getSymbol());
+		// update exit
 		placeOnBoard(exit, 'S');
 	}
 
@@ -412,11 +418,15 @@ public class Board {
 			Dragon dragon = dragons.get(i);
 			int dist_x = Math.abs(hero.getPosition().getX() - dragon.getPosition().getX());
 			int dist_y = Math.abs(hero.getPosition().getY() - dragon.getPosition().getY());
+			
+			//If the dragon and hero in horizontal or vertical adjacent positions
 			if (dist_x == 0 && dist_y <= 1 || dist_x <= 1 && dist_y == 0) {
+				//Hero disarmed
 				if (hero.getSymbol() == 'H' && (dragon.getSymbol() == 'D')){
 					hero.setAlive(false);
 					cleanPosition(hero.getPosition());
 				}
+				//Hero Equipped
 				if (hero.getSymbol() == 'A') {
 					cleanPosition(dragon.getPosition());
 					dragon.setAlive(false);
