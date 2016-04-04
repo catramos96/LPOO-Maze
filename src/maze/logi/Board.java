@@ -50,14 +50,14 @@ public class Board {
 	}
 	/**
 	 *  Return Hero present in the game
-	 * @return
+	 * @return hero Object type hero
 	 */
 	public Hero getHero() {
 		return hero;
 	}
 	/**
 	 * Return all dragons present in game board
-	 * @return LinkedList < Dragon > dragons;
+	 * @return LinkedList  dragons;
 	 */
 	public LinkedList<Dragon> getDragons() {
 		return dragons;
@@ -68,14 +68,14 @@ public class Board {
 	}
 	/**
 	 * Return Sword present in the game
-	 * @return Sword
+	 * @return Sword Object type sword
 	 */
 	public Sword getSword() {
 		return sword;
 	}
 	/**
 	 * Return exit available in the game
-	 * @return Point exit
+	 * @return Point exit of board
 	 */
 	public Point getExit() {
 		return exit;
@@ -83,7 +83,7 @@ public class Board {
 	/**
 	 * Returns what is present in some specific position in game board
 	 * @param p Position  on the game board
-	 * @return char 
+	 * @return char board position
 	 */
 	public char getBoardSymbol(Point p) {
 		// x representa as col unas da matriz e y as linhas
@@ -91,7 +91,7 @@ public class Board {
 	}
 	/**
 	 * Search for a specific symbol in the board.
-	 * @param symbol 
+	 * @param symbol 	 symbol placed on board
 	 * @param ignores    number  of occurrences of symbol that will be ignored
 	 * @return int position of symbol
 	 */
@@ -161,10 +161,7 @@ public class Board {
 	}
 	/**
 	 * Change dragons behaviour.
-	 * Modes:
-	 * 'P' - Paralysed mode, dragons don't move and don't sleep
-	 * 'S' - Dragons move 
-	 * @param dragon_MODE
+	 * @param dragon_MODE 'P' - Paralysed mode, dragons don't move and don't sleep 'S' - Dragons move
 	 */
 	public void setDragonsBehaviour(char dragon_MODE) {
 		for (int i = 0; i < dragons.size(); i++) {
@@ -184,7 +181,7 @@ public class Board {
 	 *****************/
 /**
  * Evaluates next hero position. If is a valid move Hero moves to next position otherwise hero stays in same position.
- * @param new_pos
+ * @param new_pos new hero position
  */
 	public void heroNextPosition(Point new_pos) {
 		Point ini_pos = hero.getPosition();
@@ -246,7 +243,7 @@ public class Board {
 	 * Evaluates next dragon position
 	 * @param new_pos
 	 * @param dragon
-	 * @return
+	 * @return boolean
 	 */
 	private boolean dragonNextPosition(Point new_pos, Dragon dragon) {
 		Point ini_pos = dragon.getPosition();
@@ -267,9 +264,9 @@ public class Board {
 	/**
 	 * Move dragon in a random direction.
 	 * If in sleep mode, dragon can start sleeping.
-	 * @param d
-	 * @param dragon
-	 * @return
+	 * @param d int type
+	 * @param dragon   Object type dragon
+	 * @return boolean
 	 */
 	public boolean moveDragon(int d, Dragon dragon) {
 		/*

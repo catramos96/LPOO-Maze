@@ -191,9 +191,16 @@ public class GameChooser extends JFrame {
 		buttonNewMaze.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MazeBuilder mz = new MazeBuilder();
-
-				int mz_size = Integer.parseInt(mazeSize.getText());
-				int mz_n_dragons = Integer.parseInt(numberOfDragons.getText());
+				int mz_size = 0;
+				int mz_n_dragons = 0;
+try{
+				 mz_size = Integer.parseInt(mazeSize.getText());
+				 mz_n_dragons = Integer.parseInt(numberOfDragons.getText());
+}
+catch(NumberFormatException e)
+{
+	return;
+}
 				char dragon_t = ' ';
 				if(mz_size >= 6)
 					dragon_min_max.setText("[    1   ,    "+((mz_size - 2) / 2)+"   ]");

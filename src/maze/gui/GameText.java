@@ -89,7 +89,7 @@ public class GameText extends JFrame {
 
 		JButton[] movButtons = new JButton[] { buttonUp, buttonDown, buttonRight, buttonLeft };
 
-		// Enable dos botões de jogo
+		// Enable dos botï¿½es de jogo
 				setButtons(true, movButtons);
 				
 		mazeArea.setBounds(50, 150, 8*board.getBoard().length, 15*board.getBoard().length);
@@ -100,7 +100,7 @@ public class GameText extends JFrame {
 			setBounds(500, 300, 9*board.getBoard().length+50, 225 + 15*board.getBoard().length);
 		getContentPane().add(mazeArea);
 		
-		image_background = new Image("resources\\backg.png");
+		image_background = new Image("resources//backg.png");
 		image_background.setBounds(0, 0, getWidth(), getHeight());
 		getContentPane().add(image_background);
 		
@@ -228,7 +228,7 @@ public class GameText extends JFrame {
 		if (!board.getSword().inUse())
 			infoLabel2.setText("Apanha a espada");
 		else if (!board.dragonsAllDead())
-			infoLabel2.setText("Mata os dragões todos");
+			infoLabel2.setText("Mata os dragï¿½es todos");
 		else if (board.dragonsAllDead())
 			infoLabel2.setText("Vai para a saida");	
 		if (board.exitBoard()) {

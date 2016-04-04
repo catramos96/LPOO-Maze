@@ -72,7 +72,7 @@ public class GameMenu {
 		buttonPlay.setOpaque(false);
 		buttonPlay.setContentAreaFilled(false);
 		buttonPlay.setBorderPainted(false);
-		buttonPlay.setBounds(250, 350,90,40);
+		buttonPlay.setBounds(250, 350,120,40);
 		frame.getContentPane().add(buttonPlay);
 
 		JButton buttonHowToPlay = new JButton("Como jogar");

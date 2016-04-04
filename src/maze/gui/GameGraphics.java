@@ -2,6 +2,8 @@ package maze.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -26,6 +28,7 @@ public class GameGraphics extends JFrame {
 	private JButton[] movButtons;
 	private JPanel image_background;
 	private Board board = new Board();
+	
 
 	/**
 	 * Create the frame.
@@ -251,16 +254,58 @@ public class GameGraphics extends JFrame {
 		{
 			JPanel finish = new JPanel();
 			if(board.heroWins())
+			{
 				finish = new  Image("resources//WIN.png");
+				((Image) finish).addImage("resources//you_win.png", 100, 100, 400, 100);
+				((Image) finish).addImage("resources//Clica.png",800, 700, 400, 80);
+			}
 			else if(!board.getHero().isAlive())
+			{
 				finish = new  Image("resources//DragonWin.png");
-				
+				((Image) finish).addImage("resources//you_lose.png", 0, 100, 400, 100);
+				((Image) finish).addImage("resources//Clica.png",500, 400, 400, 80);
+			}
+			
 			finish.setBounds(0, 0, ((Image) finish).getBackGWidth(), ((Image) finish).getBackGHeight());
 			finish.setVisible(true);
 			getContentPane().removeAll();
 			this.add(finish);
 			finish.repaint();
-			setBounds(200,100,finish.getWidth(),finish.getHeight());
+			setBounds(0,0,finish.getWidth(),finish.getHeight());
+			
+			finish.addMouseListener(new MouseListener(){
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					dispose();
+					
+				}
+
+				@Override
+				public void mousePressed(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mouseExited(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+			});
 		}
 	}
 
