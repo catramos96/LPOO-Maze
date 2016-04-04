@@ -1,5 +1,8 @@
 package maze.logi;
 
+/**
+ * Class that defines coordinates (X,Y).
+ */
 public class Point {
 
 	/**************************************** ATTRIBUTES */

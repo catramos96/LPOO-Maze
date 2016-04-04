@@ -1,5 +1,10 @@
 package maze.logi;
 
+/**
+ * Class that represents an element of the game.
+ * The hero can be alive(true) or dead(false).
+ * His default symbol is 'H'.
+ */
 public class Hero extends Point {
 	
 	/**************************************** ATTRIBUTES */

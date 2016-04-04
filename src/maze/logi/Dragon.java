@@ -1,5 +1,10 @@
 package maze.logi;
 
+/**
+ * Class that represents the element of the game Dragon.
+ * A Dragon can be alive/dead, awake/sleep and paralyzed.
+ * His default symbol is 'D'.
+ */
 public class Dragon extends Point {
 
 	/**************************************** ATTRIBUTES */

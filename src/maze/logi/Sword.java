@@ -1,5 +1,10 @@
 package maze.logi;
 
+/**
+ * Class that represents the element of the game Sword.
+ * A sword can be in use (state = true) or not.
+ * His default symbol is 'E'.
+ */
 public class Sword extends Point {
 
 	/**************************************** ATTRIBUTES */

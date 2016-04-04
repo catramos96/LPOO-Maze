@@ -5,7 +5,11 @@ import static org.junit.Assert.assertEquals;
 import java.security.InvalidParameterException;
 import java.util.LinkedList;
 import java.util.Random;
-
+/**
+ * Class that represents the game's board.
+ * It is composed by a two-dimensional matrix of chars and its elements: dragons, sword, hero and exit.
+ * The position of the elements with the method getPosition() corresponds to the char[y][x] position.
+ */
 public class Board {
 
 	/**************************************** ATTRIBUTES */

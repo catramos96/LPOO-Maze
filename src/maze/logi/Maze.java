@@ -2,6 +2,9 @@ package maze.logi;
 
 import maze.client.Interface;
 
+/**
+ * Class that runs the console mode game.
+ */
 public class Maze {
 
 	/**************************************** ATTRIBUTES */

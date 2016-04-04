@@ -4,6 +4,11 @@ import java.util.LinkedList;
 
 import java.util.Random;
 
+/**
+ * Class that generates a random Board with a specific size and/or number of dragons.
+ * The generated board will have a random hero, sword and exit.
+ * 
+ */
 public class MazeBuilder {
 
 	private static char board[][];
