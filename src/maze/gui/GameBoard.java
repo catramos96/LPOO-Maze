@@ -23,6 +23,7 @@ public  class GameBoard extends  JPanel{
 	private BufferedImage wall;
 	private BufferedImage ground;
 	private BufferedImage sword;
+	private BufferedImage sleep;
 	private Timer myTimer;
 	private int count = 0;
 	
@@ -37,6 +38,7 @@ public  class GameBoard extends  JPanel{
 			wall = ImageIO.read(new File("resources//wall.png"));
 			ground = ImageIO.read(new File("resources//ground.png"));
 			sword = ImageIO.read(new File("resources//Sword.png"));
+			sleep = ImageIO.read(new File("resources//sleep.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -55,10 +57,11 @@ public  class GameBoard extends  JPanel{
 			wall = ImageIO.read(new File("resources//wall.png"));
 			ground = ImageIO.read(new File("resources//ground.png"));
 			sword = ImageIO.read(new File("resources//Sword.png"));
+			sleep = ImageIO.read(new File("resources//sleep.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		myTimer = new Timer(3000, (arg) -> {imageAnimationStep();} );
+		myTimer = new Timer(700, (arg) -> {imageAnimationStep();} );
 		myTimer.start();
 		//   requestFocusInWindow();// to receive keyboard events  
 	}
@@ -124,8 +127,14 @@ public  class GameBoard extends  JPanel{
 				else if(temp[i][j] == 'X')
 					g.drawImage(wall, x, y, x+40, y+40,0, 0, wall.getWidth(), wall.getHeight(), null);
 
-				else if(temp[i][j] == 'D' || temp[i][j] == 'd' || temp[i][j] == 'F'){
+				else if(temp[i][j] == 'D'  || temp[i][j] == 'F'){
 					g.drawImage(dragon.get(count),x, y, x+40, y+40,0, 0, dragon.get(0).getWidth(), dragon.get(0).getHeight(), null);
+				}
+				else if( temp[i][j] == 'd')
+				{
+					g.drawImage(dragon.get(count),x, y, x+40, y+40,0, 0, dragon.get(0).getWidth(), dragon.get(0).getHeight(), null);
+					g.drawImage(sleep,x+10, y-10 , x+30, y+20,0, 0, sleep.getWidth(), sleep.getHeight(), null);
+
 				}
 				else if((temp[i][j] == 'H' || temp[i][j] == 'A' )&& !board.heroWins())
 					g.drawImage(hero.get(count),x+10, y+5, x+30, y+35,0, 0, hero.get(0).getWidth(), hero.get(0).getHeight(), null);

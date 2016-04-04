@@ -281,23 +281,26 @@ public class Board {
 		switch (d) {
 		case 0:// down
 			new_pos.setXY(dragon.getX(), dragon.getY() + 1);
-			
+			move = dragonNextPosition(new_pos, dragon);
 			break;
 		case 1:// up
 			new_pos.setXY(dragon.getX(), dragon.getY() - 1);
+			move = dragonNextPosition(new_pos, dragon);
 			break;
 		case 2:// left
 			new_pos.setXY(dragon.getX() - 1, dragon.getY());
+			move = dragonNextPosition(new_pos, dragon);
 			break;
 		case 3:// right
 			new_pos.setXY(dragon.getX() + 1, dragon.getY());
+			move = dragonNextPosition(new_pos, dragon);
 			break;
 		case 4:
 			move = true;// Sleep
 			dragon.setAwake(false);
 			break;
 		}
-		move = dragonNextPosition(new_pos, dragon);
+		
 		placeOnBoard(dragon.getPosition(), dragon.getSymbol());
 		return move;
 	}
