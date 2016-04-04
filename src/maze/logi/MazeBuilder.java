@@ -14,9 +14,9 @@ public class MazeBuilder {
 
 	/**
 	 * Generate a new square maze with determinate size.
-	 * @param size
-	 * @return
-	 * @throws IllegalArgumentException
+	 * @param size size of board
+	 * @return char [][] board
+	 * @throws IllegalArgumentException if size not greater or equal to 5
 	 */
 	public char[][] buildMaze(int size) throws IllegalArgumentException {
 		if (size < 5)
@@ -25,7 +25,7 @@ public class MazeBuilder {
 			generateBoard(size);
 			carvePath();
 			placeHero(size);
-			placeDragon(size, 2);
+			placeDragon(size, 1);
 			placeSword(size);
 		} while (test3x3());
 
@@ -34,10 +34,10 @@ public class MazeBuilder {
 
 	/**
 	 * Generate a new square maze with determinate size and a specific number of dragons.
-	 * @param size
-	 * @param numDragons
-	 * @return
-	 * @throws IllegalArgumentException
+	 * @param size size of maze
+	 * @param numDragons number of dragons placed on board
+	 * @return  char [] [] board
+	 * @throws IllegalArgumentException if number of dragons = 0 or numDragon higher than (size - 2) / 2
 	 */
 	public char[][] buildMaze(int size, int numDragons) throws IllegalArgumentException {
 		if (numDragons > (size - 2) / 2 || numDragons == 0)
@@ -49,7 +49,7 @@ public class MazeBuilder {
 			carvePath();
 			placeHero(size);
 			for (int i = 0; i < numDragons; i++)
-				placeDragon(size, 2);
+				placeDragon(size, 1);
 			placeSword(size);
 		} while (test3x3());
 		return board;

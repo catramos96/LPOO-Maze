@@ -60,8 +60,8 @@ public class Dragon extends Point {
 	}
 	
 	/**
-	 * Return true if dragon is in paralysed mode
-	 * @return
+	 * Return true if dragon is in paralyzed mode
+	 * @return  boolean
 	 */
 	public boolean getParalysedMode() {
 		return paralysed_mode;
