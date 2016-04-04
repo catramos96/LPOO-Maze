@@ -10,13 +10,18 @@ public class Maze {
 	private static Board board = new Board();
 
 	/**************************************** FUNCTIONS */
-
+/**
+ * New Turn on board, move placed object and test collision
+ * @param direction - new move direction
+ */
 	public static void newTurn(char direction) {
 		board.moveRandomDragons();
 		board.moveHero(direction);
 		board.updateBoard();
 	}
-
+/**
+ * Initialize Maze constructor
+ */
 	public static void initializeMaze() {
 		MazeBuilder mz = new MazeBuilder();
 		int maze_size = ConsoleClient.mazeSizeBuilder();
@@ -42,7 +47,9 @@ public class Maze {
 			ConsoleClient.displayBoard(board.getBoard());
 		} while (!board.exitBoard());
 	}
-
+/**
+ * Check if the game ended
+ */
 	public static void endGame() {
 		if (board.heroWins())
 			ConsoleClient.msgHeroWins();
