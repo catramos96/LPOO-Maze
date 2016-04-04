@@ -212,16 +212,6 @@ public class GameGraphics extends JFrame {
 		//getContentPane().add(image_background);
 	}
 
-	public void newTurn(char direction, JTextArea area, JTextField l) {
-		board.moveHero(direction);
-		board.moveRandomDragons();
-		board.updateBoard();
-		updateInfo(l);
-		area.setText(board.toString());
-		if(board.exitBoard())
-			setButtons(false, movButtons);
-	}
-
 	public void updateInfo(JTextField infoLabel2){
 		if (!board.getSword().inUse())
 			infoLabel2.setText("Apanha a espada");

@@ -42,7 +42,7 @@ public class MazeBuilder {
 	public char[][] buildMaze(int size, int numDragons) throws IllegalArgumentException {
 		if (numDragons > (size - 2) / 2 || numDragons == 0)
 			throw new IllegalArgumentException();
-		if (size <= 5)
+		if (size < 5)
 			throw new IllegalArgumentException();
 		do {
 			generateBoard(size);

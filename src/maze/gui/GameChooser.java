@@ -202,7 +202,7 @@ catch(NumberFormatException e)
 	return;
 }
 				char dragon_t = ' ';
-				if(mz_size >= 6)
+				if(mz_size >= 5)
 					dragon_min_max.setText("[    1   ,    "+((mz_size - 2) / 2)+"   ]");
 
 				if(mz_n_dragons > ((mz_size-2)/2)){
@@ -210,7 +210,7 @@ catch(NumberFormatException e)
 					ERROR_MSG.setText("Numero de dragoes invalido!");
 				}
 
-				if(mz_size < 6 || mz_size >30){
+				if(mz_size < 5 || mz_size >30){
 					mz_size = 0;
 					ERROR_MSG.setVisible(true);
 					ERROR_MSG.setText("Tamanho do tabuleiro invalido! [5 , 30]");

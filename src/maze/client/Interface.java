@@ -64,7 +64,7 @@ public class Interface {
 			System.out.println("Choose the maze size: ");
 			if(s.hasNextLine())
 				size = s.nextInt();
-		}while(size <= 5);
+		}while(size < 5);
 		return size;
 	}
 

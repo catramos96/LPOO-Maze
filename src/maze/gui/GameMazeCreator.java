@@ -138,8 +138,8 @@ public class GameMazeCreator extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				Integer size = (Integer)maze_dimension.getValue();
 
-				if(size <= 5){
-					textInfo.setText("O tamanho do labirinto tem que ser maior que 5");
+				if(size < 5){
+					textInfo.setText("O tamanho do labirinto tem que ser no minimo 5");
 					return;
 				}
 				char[][] ntab = new char[size][size];

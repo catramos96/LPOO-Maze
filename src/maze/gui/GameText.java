@@ -214,21 +214,11 @@ public class GameText extends JFrame {
 		image_background.setBounds(0, 0, 450, 225 + 15*board.getBoard().length);	
 		}
 
-	public void newTurn(char direction, JTextArea area, JTextField l) {
-		board.moveHero(direction);
-		board.moveRandomDragons();
-		board.updateBoard();
-		updateInfo(l);
-		area.setText(board.toString());
-		if(board.exitBoard())
-			setButtons(false, movButtons);
-	}
-
 	public void updateInfo(JTextField infoLabel2){
 		if (!board.getSword().inUse())
 			infoLabel2.setText("Apanha a espada");
 		else if (!board.dragonsAllDead())
-			infoLabel2.setText("Mata os drag�es todos");
+			infoLabel2.setText("Mata os dragoes todos");
 		else if (board.dragonsAllDead())
 			infoLabel2.setText("Vai para a saida");	
 		if (board.exitBoard()) {
@@ -251,6 +241,8 @@ public class GameText extends JFrame {
 			board.moveHero(d);
 			board.updateBoard();
 			mazeArea.setText(board.toString());
+			if(board.exitBoard())
+				setButtons(false, movButtons);
 		}
 
 	}
