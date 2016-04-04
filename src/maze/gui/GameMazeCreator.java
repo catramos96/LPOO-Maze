@@ -185,11 +185,11 @@ public class GameMazeCreator extends JFrame {
 					textInfo.setText("Nao tem solucao!");
 					valid = false;
 				}
-				if(testDeadSpaces())
+			/*	if(testDeadSpaces())
 				{
 					textInfo.setText("Tem espacos nao jogaveis");
 					valid = false;
-				}
+				}*/
 
 				char [][] m = board.getBoard();
 				if(testChar(m,'D') <= 0)
@@ -438,7 +438,7 @@ public class GameMazeCreator extends JFrame {
 				if (i == 0 || j == 0 || i == n - 1 || j == n - 1)
 					if (m[i][j] == 'S')
 						if ((i == 0 || i == n-1) && (j == 0 || j == n-1))
-							return false;
+							return true;
 						else
 							countExit++;
 					else if (m[i][j] != 'X')
@@ -454,20 +454,15 @@ public class GameMazeCreator extends JFrame {
 			return true;
 		boolean [][] visited = new boolean[maze.length] [maze.length];
 
-		visit(maze, p.getY(), p.getX(), visited);
+		visit(maze, p.getX(), p.getY(), visited);
 
 		for (int i = 0; i < maze.length; i++)
 			for (int j = 0; j < maze.length; j++)
 				if (maze[i][j] != 'X' && ! visited[i][j] )
-					return false;
+					return true;
 
-		return true; 
+		return false; 
 	}
-	private boolean testDeadSpaces()
-	{
-		return false;
-	}
-
 	private int testChar(char [][] m, char test)
 	{
 		int count = 0;
