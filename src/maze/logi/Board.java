@@ -42,6 +42,17 @@ public class Board {
 		setBoard(b);
 	}
 
+	public Board(Board a)
+	{
+		char [][] temp = new char[a.board.length][a.board.length];
+		for (int i = 0; i < a.board.length; i++) {
+		for (int j = 0; j < a.board[i].length; j++) {
+		   temp[i][j] = a.board[i][j];
+		}
+		
+		}
+		setBoard(temp);
+	}
 	/*****************
 	 * GETS *
 	 *****************/

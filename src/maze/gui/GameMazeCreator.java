@@ -215,19 +215,19 @@ public class GameMazeCreator extends JFrame{
 					{
 						if(game.getClass() != GameGraphics.class || !game.isDisplayable()){
 							game.dispose();
-							game = new GameGraphics(board);
+							game = new GameGraphics(new Board(board));
 						}
 						else
-							((GameGraphics) game).setBoard(board);
+							((GameGraphics) game).setBoard(new Board(board));
 					}
 					else if(gt == 'T')
 					{
 						if(game.getClass() != GameText.class || !game.isDisplayable()){
 							game.dispose();
-							game = new GameText(board);
+							game = new GameText(new Board(board));
 						}
 						else
-							((GameText) game).setBoard(board);
+							((GameText) game).setBoard(new Board(board));
 					}
 				}
 
